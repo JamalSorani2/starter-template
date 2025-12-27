@@ -1,0 +1,12 @@
+# flutter pub run flutter_native_splash:create --path flutter_native_splash.yaml
+
+flutter_native_splash:
+  color: "#FFFFFF" # White background
+  image: assets/images/blank_bg.png
+  android_12:
+    icon_background_color: "#FFFFFF" # Optional: ensure it matches the background
+    icon_background_color_dark: "#FFFFFF" # Optional: ensure it matches the background
+    image: assets/images/blank_bg.png # 👈 This removes the icon on Android 12 splash
+    branding: null
+  android: true
+  ios: true

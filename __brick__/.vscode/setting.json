@@ -1,0 +1,34 @@
+{
+    "achilleshr.runonsave": {
+        "commands": [
+            {
+                "match": ".*en\\.json$",
+                "isAsync": true,
+                "cmd": "dart run __brick__/generate_localization_keys.dart"
+            }
+        ]
+    },
+    "dart.enableSdkFormatter": true,
+    "dart.analysisExcludedFolders": [
+        "build",
+        ".dart_tool"
+    ],
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "**/build": true
+    },
+    "files.autoSave": "onFocusChange",
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.scrollback": 10000,
+    "flutter.showStructuredErrors": true,
+    "flutter.hotReloadOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always",
+        "source.organizeImports": "always"
+    },
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "dart.fixOnSave": true
+}

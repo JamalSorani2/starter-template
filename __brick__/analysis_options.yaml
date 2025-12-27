@@ -1,0 +1,42 @@
+# Enable the Dart analyzer
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  errors:
+    # Treat warnings as errors for stricter code quality
+    missing_required_param: error
+    always_specify_types: warning
+
+# Include the recommended Flutter and Dart lints
+# include: package:flutter_lints/flutter.yaml
+
+
+# Customize rules
+linter:
+  rules:
+    # Naming conventions
+    constant_identifier_names: true
+    non_constant_identifier_names: false
+    avoid_print: true
+
+    # Code style
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_final_fields: true
+    prefer_final_in_for_each: true
+    prefer_final_locals: true
+    unnecessary_this: true
+    avoid_unnecessary_containers: true
+
+    # Best practices
+    avoid_redundant_argument_values: true
+    use_key_in_widget_constructors: true
+    always_declare_return_types: true
+    always_put_control_body_on_new_line: true
+    annotate_overrides: true
+
+    # Flutter specific
+    prefer_typing_uninitialized_variables: true
+    require_trailing_commas: true
+    curly_braces_in_flow_control_structures: true

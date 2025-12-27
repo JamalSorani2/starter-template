@@ -1,0 +1,113 @@
+name: app_name #TODO
+description: {{description}}
+version: 0.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0"
+dependencies:
+
+  #a
+
+  #b
+  bot_toast: ^4.1.3
+
+  #c
+  cached_network_image: ^3.4.1
+  collection: ^1.19.1
+  cupertino_icons: ^1.0.8
+
+  #d
+  dartz: ^0.10.1
+  device_preview_plus: ^2.5.6
+  dio: ^5.9.0
+  dio_refresh_bot: ^2.2.1
+  draggable_float_widget: ^0.1.0
+
+  #e
+  easy_localization: ^3.0.8
+  equatable: ^2.0.7
+
+  #f
+  file_picker: ^10.3.8
+  firebase_core: ^4.3.0
+  firebase_crashlytics: ^5.0.6
+  flutter_bloc: ^9.1.1
+  flutter_screenutil: ^5.9.3
+  flutter_secure_storage: ^10.0.0
+  flutter_svg: ^2.2.3
+  flutter_timezone: ^5.0.1
+  flutter_alice:
+    git:
+      url: https://github.com/JamalSorani/flutter-alice.git
+
+  #g
+  font_awesome_flutter: ^10.12.0
+  get_it: ^9.2.0
+  go_router: ^17.0.1
+  google_fonts: ^6.3.3
+  gradient_borders: ^1.0.2
+
+  #h
+  http: ^1.6.0
+
+  #i
+  image_picker: ^1.2.1
+  intl: ^0.20.2
+
+  #j
+  jwt_decoder: ^2.0.1
+
+  #k
+  #l
+  #m
+  #n
+  #o
+
+  #p
+  permission_handler: ^12.0.1
+  pinput: ^6.0.1
+  provider: ^6.1.5+1
+
+  #q
+
+  #r
+  reactive_date_time_picker: ^5.0.1
+  reactive_forms: ^18.2.2
+
+  #s
+  shared_preferences: ^2.5.4
+  share_plus: ^10.0.1
+  phone_form_field: ^10.0.16
+  flutter_animate: ^4.5.2
+  flutter_spinkit: ^5.2.2
+  device_info_plus: ^12.3.0
+  internet_connection_checker: ^3.0.1
+  connectivity_plus: ^6.1.5
+  dotted_border: ^3.1.0
+  url_launcher: ^6.3.2
+  
+
+  #t
+  #u
+  #v
+  #w
+  #x
+  #y
+  #z
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  build_runner: ^2.10.4
+  flutter_gen_runner: ^5.12.0
+  flutter_native_splash: ^2.4.7
+  flutter_launcher_icons: ^0.14.4
+  xml: ^6.6.1
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/l10n/ar.json
+    - assets/l10n/en.json

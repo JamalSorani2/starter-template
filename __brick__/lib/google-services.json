@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "182466214215",
+    "project_id": "najem-c22a2",
+    "storage_bucket": "najem-c22a2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182466214215:android:78772171f4df9ea7487462",
+        "android_client_info": {
+          "package_name": "com.najm.najm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCR9Y92vNxzJ0TA87oy4nvSS5uOejSyAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
