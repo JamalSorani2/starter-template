@@ -8,16 +8,6 @@ vars:
     description: App name
     default: my_app
 
-  app_display_name:
-    type: string
-    description: App display name shown to users
-    default: My App
-
-  org_name:
-    type: string
-    description: Organization/package name
-    default: com.example
-
   description:
     type: string
     description: App description
