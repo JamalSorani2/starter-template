@@ -2,9 +2,9 @@
 
 import 'dart:convert';
 
-import 'package:app_name/app/auth/data/models/login_auth_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import '../../../../app/auth/data/models/login_auth_model.dart';
 import '../../../constant/keys.dart';
 import '../../../injection/injection.dart';
 import '../../../network/models/auth_token_dio.dart';

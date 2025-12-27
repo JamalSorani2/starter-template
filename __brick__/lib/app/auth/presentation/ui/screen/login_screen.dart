@@ -1,4 +1,4 @@
-import 'package:app_name/app/auth/domain/entities/login_auth_param.dart';
+import '/app/auth/domain/entities/login_auth_param.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../common/imports/imports.dart';

@@ -1,4 +1,4 @@
-import 'package:app_name/common/imports/imports.dart';
+import '/common/imports/imports.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 
 class PhoneNumberField extends StatelessWidget {

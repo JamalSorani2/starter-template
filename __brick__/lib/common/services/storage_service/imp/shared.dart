@@ -1,6 +1,6 @@
-import 'package:app_name/app/auth/data/models/login_auth_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../app/auth/data/models/login_auth_model.dart';
 import '../storage_service.dart';
 
 class StorageServiceSharedImp<T extends SharedStorage>

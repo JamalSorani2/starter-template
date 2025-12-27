@@ -2,9 +2,9 @@
 
 import 'dart:async';
 
-import 'package:app_name/common/presentaion/state/provider/infinity_scroll_provider.dart';
-import 'package:app_name/common/presentaion/ui/widget/internet_banner.dart';
-import 'package:app_name/common/services/storage_service/internet_status_service.dart';
+import '/common/presentaion/state/provider/infinity_scroll_provider.dart';
+import '/common/presentaion/ui/widget/internet_banner.dart';
+import '/common/services/storage_service/internet_status_service.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import '../common/imports/imports.dart';
 import '../common/presentaion/state/bloc/app_manager_bloc.dart';

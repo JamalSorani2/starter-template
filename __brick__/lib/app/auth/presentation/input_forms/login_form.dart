@@ -1,4 +1,4 @@
-import 'package:app_name/common/extensions/form_group_extension.dart';
+import '/common/extensions/form_group_extension.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../common/constant/input_keys.dart';

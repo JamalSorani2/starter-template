@@ -1,4 +1,4 @@
-import 'package:app_name/common/imports/imports.dart';
+import '/common/imports/imports.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 import '../../../app/auth/data/models/login_auth_model.dart';
