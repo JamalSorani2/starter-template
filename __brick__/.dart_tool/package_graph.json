@@ -66,6 +66,14 @@
       ]
     },
     {
+      "name": "circle_flags",
+      "version": "5.0.1",
+      "dependencies": [
+        "flutter",
+        "flutter_svg"
+      ]
+    },
+    {
       "name": "xml",
       "version": "6.6.1",
       "dependencies": [
@@ -1013,6 +1021,11 @@
       "dependencies": []
     },
     {
+      "name": "clock",
+      "version": "1.1.2",
+      "dependencies": []
+    },
+    {
       "name": "win32",
       "version": "5.15.0",
       "dependencies": [
@@ -1036,11 +1049,6 @@
     {
       "name": "ffi",
       "version": "2.1.4",
-      "dependencies": []
-    },
-    {
-      "name": "clock",
-      "version": "1.1.2",
       "dependencies": []
     },
     {
@@ -1199,14 +1207,6 @@
       "version": "9.0.17",
       "dependencies": [
         "meta"
-      ]
-    },
-    {
-      "name": "circle_flags",
-      "version": "5.0.1",
-      "dependencies": [
-        "flutter",
-        "flutter_svg"
       ]
     },
     {
