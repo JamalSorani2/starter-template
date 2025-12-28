@@ -15,7 +15,7 @@ class CustomNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
-      filterQuality: FilterQuality.high,
+      filterQuality: FilterQuality.medium,
       placeholder: (context, url) => Padding(
         padding: REdgeInsets.all(8.0),
         child: const LoadingProgress(),
