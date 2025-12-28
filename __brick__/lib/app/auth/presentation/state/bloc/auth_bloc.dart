@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../common/presentaion/ui/widget/state/result_builder/result.dart';
+import '../../../../../common/presentation/ui/widget/state/result_builder/result.dart';
 import '../../../domain/repository/auth_repository.dart';
 import '../../../data/models/login_auth_model.dart';
 import '../../../data/models/sign_up_auth_model.dart';

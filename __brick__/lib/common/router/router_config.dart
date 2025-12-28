@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import '../imports/imports.dart';
-import '../presentaion/state/bloc/app_manager_bloc.dart';
+import '../presentation/state/bloc/app_manager_bloc.dart';
 
 class RefreshStream extends ChangeNotifier {
   RefreshStream(Stream<dynamic> stream) {
@@ -65,7 +65,7 @@ class BRouterConfig {
 
         return null;
       },
-      routes: AppRoutes.routes,
+      routes: AppRoutes.routes(),
     );
   }
 }

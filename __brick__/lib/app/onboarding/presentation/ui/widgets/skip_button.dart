@@ -13,7 +13,7 @@ class SkipButton extends StatelessWidget {
             await getIt<SharedPreferences>()
                 .setBool(KOnboardingCompleted, true);
 
-            context.go(RoutesNames.login);
+            context.goNamed(RoutesNames.login);
           },
           child: Text(
             AppString.skip,

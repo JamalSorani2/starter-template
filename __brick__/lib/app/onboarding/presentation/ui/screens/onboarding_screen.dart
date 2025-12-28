@@ -99,7 +99,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                               } else {
                                 await getIt<SharedPreferences>()
                                     .setBool(KOnboardingCompleted, true);
-                                context.go(RoutesNames.login);
+                                context.goNamed(RoutesNames.login);
                               }
                             },
                           ),

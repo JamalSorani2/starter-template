@@ -4,7 +4,7 @@ import 'package:app_name/common/services/package_info_plus_service.dart';
 
 import '../../app/url.dart';
 import '../imports/imports.dart';
-import '../presentaion/state/bloc/app_manager_bloc.dart';
+import '../presentation/state/bloc/app_manager_bloc.dart';
 
 class CheckVersionService {
   static Future<void> checkForUpdates() async {

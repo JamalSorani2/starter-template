@@ -3,7 +3,7 @@ import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import '../common/imports/imports.dart';
-import '../common/presentaion/state/observer/app_bloc_observer.dart';
+import '../common/presentation/state/observer/app_bloc_observer.dart';
 
 Future<void> bootstrap(Widget mainApp) async {
   try {

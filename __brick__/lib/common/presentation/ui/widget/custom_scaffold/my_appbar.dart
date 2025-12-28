@@ -8,7 +8,7 @@ class MyAppBar extends StatelessWidget {
     this.titleWidget,
   });
   final String title;
-  final Widget? actions;
+  final List<Widget>? actions;
   final Widget? titleWidget;
 
   @override
@@ -39,7 +39,15 @@ class MyAppBar extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
               ),
-              actions ?? const SizedBox.shrink(),
+              if (actions != null)
+                Row(
+                  children: [
+                    for (int index = 0; index < actions!.length; index++) ...[
+                      actions![index],
+                      if (index != actions!.length - 1) 8.horizontalSpace,
+                    ],
+                  ],
+                ),
             ],
           ),
         ],

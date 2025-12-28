@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state.loginAuthState.isLoaded()) {
-                context.go(RoutesNames.root);
+                context.goNamed(RoutesNames.root);
               }
             },
             builder: (context, state) {
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              context.go(RoutesNames.signup);
+                              context.goNamed(RoutesNames.signup);
                             },
                             child: const Text('إنشاء حساب'),
                           ),

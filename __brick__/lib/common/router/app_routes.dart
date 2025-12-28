@@ -1,38 +1,44 @@
 import '../../app/auth/presentation/ui/screen/login_screen.dart';
 import '../../app/auth/presentation/ui/screen/signup_screen.dart';
-import '../../app/onBaording/presentation/ui/screens/onboarding_screen.dart';
+import '../../app/onboarding/presentation/ui/screens/onboarding_screen.dart';
 import '../../app/root/presentation/ui/screen/root_screen.dart';
 import '../imports/imports.dart';
-import '../presentaion/ui/screen/splash_screen.dart';
-import '../presentaion/ui/screen/update_available.dart';
+import '../presentation/ui/screen/splash_screen.dart';
+import '../presentation/ui/screen/update_available.dart';
 
 class AppRoutes {
-  static final routes = [
-    GoRoute(
-      path: RoutesNames.splash,
-      builder: (context, state) => const SplashScreen(),
-    ),
-    GoRoute(
-      path: RoutesNames.updateAvailable,
-      builder: (context, state) => const UpdateAvailable(),
-    ),
-    GoRoute(
-      path: RoutesNames.onBoarding,
-      builder: (context, state) => const OnBoardingScreen(),
-    ),
-    GoRoute(
-      path: RoutesNames.login,
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: RoutesNames.signup,
-      builder: (context, state) => const SignUpScreen(),
-    ),
-    GoRoute(
-      path: RoutesNames.root,
-      builder: (context, state) => const RootScreen(),
-    ),
-  ];
+  static List<GoRoute> routes() => [
+        GoRoute(
+          path: "/${RoutesNames.splash}",
+          name: RoutesNames.splash,
+          builder: (context, state) => const SplashScreen(),
+        ),
+        GoRoute(
+          path: "/${RoutesNames.updateAvailable}",
+          name: RoutesNames.updateAvailable,
+          builder: (context, state) => const UpdateAvailable(),
+        ),
+        GoRoute(
+          path: "/${RoutesNames.onBoarding}",
+          name: RoutesNames.onBoarding,
+          builder: (context, state) => const OnBoardingScreen(),
+        ),
+        GoRoute(
+          path: "/${RoutesNames.login}",
+          name: RoutesNames.login,
+          builder: (context, state) => const LoginScreen(),
+        ),
+        GoRoute(
+          path: "/${RoutesNames.signup}",
+          name: RoutesNames.signup,
+          builder: (context, state) => const SignUpScreen(),
+        ),
+        GoRoute(
+          path: "/${RoutesNames.root}",
+          name: RoutesNames.root,
+          builder: (context, state) => const RootScreen(),
+        ),
+      ];
 
   // static void _addRouteAfter(GoRoute newRoute, String previousPath) {
   //   //TODO
@@ -51,6 +57,7 @@ class AppRoutes {
 
   /// Adds routes after all routes matching a pattern
   static void addRouteAfterPattern(GoRoute newRoute, String pattern) {
+    final routes = AppRoutes.routes();
     final matchingRoutes = getRoutesByPattern(pattern);
 
     if (matchingRoutes.isEmpty) {
@@ -74,7 +81,7 @@ class AppRoutes {
 
   /// Gets all routes that match a specific pattern
   static List<GoRoute> getRoutesByPattern(String pattern) {
-    return routes.where((route) {
+    return routes().where((route) {
       return route.path.endsWith(pattern);
     }).toList();
   }

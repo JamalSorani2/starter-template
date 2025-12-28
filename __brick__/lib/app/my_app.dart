@@ -2,20 +2,20 @@
 
 import 'dart:async';
 
-import '../common/services/check_verion_service.dart';
-import '/common/presentaion/state/provider/infinity_scroll_provider.dart';
-import '/common/presentaion/ui/widget/internet_banner.dart';
+import '../common/services/check_version_service.dart';
+import '../common/presentation/state/provider/infinity_scroll_provider.dart';
+import '../common/presentation/ui/widget/internet_banner.dart';
 import '/common/services/storage_service/internet_status_service.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import '../common/imports/imports.dart';
-import '../common/presentaion/state/bloc/app_manager_bloc.dart';
-import '../common/presentaion/state/provider/theme_provider.dart';
+import '../common/presentation/state/bloc/app_manager_bloc.dart';
+import '../common/presentation/state/provider/theme_provider.dart';
 import '../common/router/router_config.dart';
 import '../common/services/language_service.dart';
 import '../common/services/system_ui_service.dart';
 import 'auth/domain/repository/auth_repository.dart';
 import 'auth/presentation/state/provider/counter_provider.dart';
-import 'onBaording/presentation/state/page_index_provider.dart';
+import 'onboarding/presentation/state/page_index_provider.dart';
 import 'root/presentation/state/provider/nav_bar_provider.dart';
 
 late GlobalKey<NavigatorState> navigatorKey;
@@ -52,7 +52,6 @@ class _MyAppState extends State<MyApp> {
     router = BRouterConfig(appManagerBloc: _bloc);
     navigatorKey = router.router.routerDelegate.navigatorKey;
     WidgetsFlutterBinding.ensureInitialized();
-    InternetStatusService.initialize();
   }
 
   @override
@@ -100,13 +99,15 @@ class _MyAppState extends State<MyApp> {
                     SystemUiService.setForTheme(Theme.of(context));
                     LanguageService.init(context);
                     child = BotToastInit()(context, child);
+                    child = InternetBanner(child: child);
                     // flutter build apk --release --dart-define=ENABLE_REQUEST_INSPECT=true
                     child = RequestInspect(
                       enabled: enableRequestInspect,
                       child: child,
                     );
-                    child = DevicePreview.appBuilder(context, child);
-                    child = InternetBanner(child: child);
+                    if (kDebugMode) {
+                      child = DevicePreview.appBuilder(context, child);
+                    }
                     return child;
                   },
                 );
@@ -119,6 +120,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   FutureOr<void> _doBeforeOpen() async {
+    InternetStatusService.initialize();
     final Completer<void> completer = Completer();
     try {
       await CheckVersionService.checkForUpdates();
