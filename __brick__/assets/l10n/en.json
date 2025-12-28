@@ -45,5 +45,12 @@
     "userName": "User Name",
     "userNameMinLength": "User Name must be at least 3 characters",
     "open": "Open",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "updateAvailable": "Update Available",
+    "whatIsNew": "What Is New:",
+    "aNewVersionOfTheAppIsAvailable": "A new version of the app is available.",
+    "youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements": "You can update now to enjoy the latest features and improvements.",
+    "updateAppRequired": "Update App Required!",
+    "later": "Later",
+    "update": "Update"
 }

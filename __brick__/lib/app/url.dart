@@ -1,5 +1,7 @@
 class AppUrl {
   static const String baseUrlDevelopment = "https://petstore.swagger.io/v2/";
+  static const String appVersion = "appVersionUrl";
+  static const String googlePlay = "googlePlayUrl";
   //! Auth =======================================================================
   static const String loginAuth = 'Auth/Login';
   static const String signUpAuth = 'Auth/SignUp';

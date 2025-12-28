@@ -4,7 +4,26 @@
             {
                 "match": ".*en\\.json$",
                 "isAsync": true,
-                "cmd": "dart run __brick__/generate_localization_keys.dart"
+                "cmd": "dart run generate_localization_keys.dart"
+            },
+            {
+                "match": "pubspec.yaml$",
+                "isAsync": true,
+                "cmd": "dart run sort_pubspec.dart"
+            }
+        ]
+    },
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": ".*en\\.json$",
+                "isAsync": true,
+                "cmd": "dart run generate_localization_keys.dart"
+            },
+            {
+                "match": "pubspec.yaml$",
+                "isAsync": true,
+                "cmd": "dart run sort_pubspec.dart"
             }
         ]
     },

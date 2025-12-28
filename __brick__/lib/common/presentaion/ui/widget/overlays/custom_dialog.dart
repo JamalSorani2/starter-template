@@ -7,14 +7,22 @@ class CustomDialog extends StatelessWidget {
     required this.headerTitle,
     required this.body,
     this.primaryText,
+    this.cancelText,
     this.onPrimaryTap,
+    this.subTitleWidget,
+    this.withCloseButton = true,
+    this.isPrimaryLoading = false,
   });
 
   final Widget? headerIcon;
   final String headerTitle;
   final Widget body;
   final String? primaryText;
+  final String? cancelText;
   final VoidCallback? onPrimaryTap;
+  final Widget? subTitleWidget;
+  final bool withCloseButton;
+  final bool isPrimaryLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +46,17 @@ class CustomDialog extends StatelessWidget {
                   (AppDesign.horizontalPadding / 2).horizontalSpace,
                 ],
                 Expanded(
-                  child: Text(
-                    headerTitle,
-                    style: context.s22w400,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          headerTitle,
+                          style: context.s22w400,
+                        ),
+                      ),
+                      if (subTitleWidget != null) subTitleWidget!,
+                    ],
                   ),
                 ),
               ],
@@ -51,14 +67,17 @@ class CustomDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(AppString.close),
-                ),
-                (AppDesign.horizontalPadding / 2).horizontalSpace,
+                if (withCloseButton) ...[
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(cancelText ?? AppString.close),
+                  ),
+                  (AppDesign.horizontalPadding / 2).horizontalSpace,
+                ],
                 if (onPrimaryTap != null)
                   CustomButton.primary(
                     onPressed: onPrimaryTap,
+                    isLoading: isPrimaryLoading,
                     text: primaryText ?? AppString.save,
                   ),
               ],

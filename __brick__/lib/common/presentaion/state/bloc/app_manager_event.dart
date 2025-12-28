@@ -10,26 +10,29 @@ class AppManageStatusChanged extends AppManagerEvent {
   final String? message;
   final Status status;
 
-  const AppManageStatusChanged({
-    this.message,
-    required this.status,
-  });
+  const AppManageStatusChanged({this.message, required this.status});
 }
 
 class AppManagerLoggedOut extends AppManagerEvent {
   final String? message;
 
-  const AppManagerLoggedOut({
-    this.message,
-  });
+  const AppManagerLoggedOut({this.message});
 }
 
 class AppMangerExpiredApp extends AppManagerEvent {
-  final bool isSupported;
+  final bool updateRequired;
+  final bool canUpdateLater;
+  final String? enWhatIsNew;
+  final String? arWhatIsNew;
+  final String newVersion;
 
-  AppMangerExpiredApp({required this.isSupported});
+  AppMangerExpiredApp({
+    required this.updateRequired,
+    required this.canUpdateLater,
+    required this.enWhatIsNew,
+    required this.arWhatIsNew,
+    required this.newVersion,
+  });
 }
 
 class AppMangerUnExpiredApp extends AppManagerEvent {}
-
-class GetCities extends AppManagerEvent{}

@@ -167,4 +167,25 @@ class AppString {
 
   /// Dismiss
   static String get dismiss => _localization.tr('dismiss');
+
+  /// Update Available
+  static String get updateAvailable => _localization.tr('updateAvailable');
+
+  /// What Is New:
+  static String get whatIsNew => _localization.tr('whatIsNew');
+
+  /// A new version of the app is available.
+  static String get aNewVersionOfTheAppIsAvailable => _localization.tr('aNewVersionOfTheAppIsAvailable');
+
+  /// You can update now to enjoy the latest features and improvements.
+  static String get youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements => _localization.tr('youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements');
+
+  /// Update App Required!
+  static String get updateAppRequired => _localization.tr('updateAppRequired');
+
+  /// Later
+  static String get later => _localization.tr('later');
+
+  /// Update
+  static String get update => _localization.tr('update');
 }

@@ -35,7 +35,8 @@ class BRouterConfig {
         printG("route: ${state.uri.toString()}");
         printC(appManagerBloc.state.status);
 
-        final bool isUpdateAvailable = appManagerBloc.state.expired == true;
+        final bool isUpdateAvailable =
+            appManagerBloc.state.updateRequired == true;
         final bool isInUpdate = state.uri.toString() == '/update-available';
 
         if (isInUpdate && isUpdateAvailable) {

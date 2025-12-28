@@ -45,5 +45,12 @@
     "userName": "",
     "userNameMinLength": "",
     "open": "",
-    "dismiss": ""
+    "dismiss": "",
+    "updateAvailable": "",
+    "whatIsNew": "",
+    "aNewVersionOfTheAppIsAvailable": "",
+    "youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements": "",
+    "updateAppRequired": "",
+    "later": "",
+    "update": ""
 }

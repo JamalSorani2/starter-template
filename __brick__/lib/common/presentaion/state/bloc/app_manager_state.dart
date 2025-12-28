@@ -1,58 +1,41 @@
 part of 'app_manager_bloc.dart';
 
-class AppManagerState extends Equatable {
-  const AppManagerState(
-      {required this.status,
-      this.message,
-      this.expired = false,
-      this.checkedUpdate = false,
-      this.choosePassed = false,
-      this.isGuest = false,
-      this.isSupported = false,
-      // this.expiredToken = false
-      });
+class AppManagerState {
+  const AppManagerState({
+    required this.status,
+    this.message,
+    this.updateRequired = false,
+    this.canUpdateLater = false,
+    this.arWhatIsNew,
+    this.enWhatIsNew,
+    this.newVersion = '',
+  });
 
   final Status status;
   final String? message;
-  final bool expired;
-  final bool checkedUpdate;
-  final bool choosePassed;
-  final bool isSupported;
-  final bool isGuest;
-  // final bool expiredToken;
+  final bool updateRequired;
+  final bool canUpdateLater;
+  final String? enWhatIsNew;
+  final String? arWhatIsNew;
+  final String newVersion;
 
-  @override
-  List<Object?> get props => [
-        status,
-        message,
-        expired,
-        checkedUpdate,
-        choosePassed,
-        isGuest,
-        isSupported,
-      ];
-
-  AppManagerState copyWith(
-      {Status? status,
-      String? message,
-      bool? checkedUpdate,
-      bool? expired,
-      bool? isGuest,
-      bool? choosePassed,
-      bool? isSupported,}) {
+  AppManagerState copyWith({
+    Status? status,
+    String? message,
+    bool? updateRequired,
+    bool? canUpdateLater,
+    String? enWhatIsNew,
+    String? arWhatIsNew,
+    String? newVersion,
+  }) {
     return AppManagerState(
-      expired: expired ?? this.expired,
-      isGuest: isGuest ?? this.isGuest,
-      choosePassed: choosePassed ?? this.choosePassed,
-      checkedUpdate: checkedUpdate ?? this.checkedUpdate,
       status: status ?? this.status,
       message: message ?? this.message,
-      isSupported: isSupported ?? this.isSupported,
+      updateRequired: updateRequired ?? this.updateRequired,
+      canUpdateLater: canUpdateLater ?? this.canUpdateLater,
+      enWhatIsNew: enWhatIsNew ?? this.enWhatIsNew,
+      arWhatIsNew: arWhatIsNew ?? this.arWhatIsNew,
+      newVersion: newVersion ?? this.newVersion,
     );
-  }
-
-  @override
-  String toString() {
-    return "${status.name}+ $choosePassed   ${message ?? ""}";
   }
 }

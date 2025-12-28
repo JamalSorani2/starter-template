@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import '../common/services/check_verion_service.dart';
 import '/common/presentaion/state/provider/infinity_scroll_provider.dart';
 import '/common/presentaion/ui/widget/internet_banner.dart';
 import '/common/services/storage_service/internet_status_service.dart';
@@ -120,19 +121,7 @@ class _MyAppState extends State<MyApp> {
   FutureOr<void> _doBeforeOpen() async {
     final Completer<void> completer = Completer();
     try {
-      // CheckVersion checkVersion = CheckVersion();//TODO
-      // await checkVersion.initCheckVersion();
-      // checkVersion.onChanged.stream.listen((status) {
-      //   var updateAvailable = VersionStatus.updateAvailable == status;
-      //   var unSupported = VersionStatus.unSupported == status;
-      //   if (kReleaseMode) {
-      //     if (updateAvailable || unSupported) {
-      //       _bloc.add(AppMangerExpiredApp(isSupported: updateAvailable));
-      //     } else {
-      //       _bloc.add(AppMangerUnExpiredApp());
-      //     }
-      //   }
-      // });
+      await CheckVersionService.checkForUpdates();
       if (!completer.isCompleted) {
         completer.complete();
       }
