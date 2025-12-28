@@ -1,4 +1,4 @@
-import 'package:app_name/common/services/notification_service.dart';
+import '/common/services/notification_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
