@@ -2,10 +2,8 @@
 
 import 'dart:async';
 
-import '../common/services/check_version_service.dart';
 import '../common/presentation/state/provider/infinity_scroll_provider.dart';
 import '../common/presentation/ui/widget/internet_banner.dart';
-import '/common/services/storage_service/internet_status_service.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import '../common/imports/imports.dart';
 import '../common/presentation/state/bloc/app_manager_bloc.dart';
@@ -119,17 +117,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  FutureOr<void> _doBeforeOpen() async {
-    InternetStatusService.initialize();
-    final Completer<void> completer = Completer();
-    try {
-      await CheckVersionService.checkForUpdates();
-      if (!completer.isCompleted) {
-        completer.complete();
-      }
-    } catch (e) {
-      completer.complete();
-    }
-    return completer.future;
-  }
+  FutureOr<void> _doBeforeOpen() async {}
 }

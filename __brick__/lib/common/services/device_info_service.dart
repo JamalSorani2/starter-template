@@ -4,11 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 class DeviceInfoService {
-  DeviceInfoService._();
-
   static final DeviceInfoPlugin _plugin = DeviceInfoPlugin();
 
-  static Future<AppDeviceInfo> getInfo() async {
+  Future<AppDeviceInfo> getInfo() async {
     final locale = WidgetsBinding.instance.platformDispatcher.locale.toString();
     final timeZone = DateTime.now().timeZoneName;
 

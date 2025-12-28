@@ -11,14 +11,14 @@ class NotificationService {
   // INITIALIZATION
   // ─────────────────────────────────────────────────────────────
 
-  static Future<void> initialize() async {
+  Future<void> initialize() async {
     await _initAwesomeNotifications();
     await Firebase.initializeApp();
     await _initFirebaseMessaging();
     _initAwesomeListeners();
   }
 
-  static Future<void> _initAwesomeNotifications() async {
+  Future<void> _initAwesomeNotifications() async {
     await AwesomeNotifications().initialize(
       null,
       [
@@ -40,7 +40,7 @@ class NotificationService {
     await AwesomeNotifications().requestPermissionToSendNotifications();
   }
 
-  static Future<void> _initFirebaseMessaging() async {
+  Future<void> _initFirebaseMessaging() async {
     final fcm = FirebaseMessaging.instance;
 
     await fcm.requestPermission();
@@ -74,7 +74,7 @@ class NotificationService {
   // TOPICS
   // ─────────────────────────────────────────────────────────────
 
-  static Future<void> subscribeInitialTopics(String? userId) async {
+  Future<void> subscribeInitialTopics(String? userId) async {
     await FirebaseMessaging.instance.subscribeToTopic('general');
     log('Subscribed to topic: general');
 
@@ -84,7 +84,7 @@ class NotificationService {
     }
   }
 
-  static Future<void> _unsubscribeFromTopic(String topic) async {
+  Future<void> _unsubscribeFromTopic(String topic) async {
     await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
     log('Unsubscribed from topic: $topic');
   }
@@ -93,7 +93,7 @@ class NotificationService {
   // LOGOUT (PUBLIC API)
   // ─────────────────────────────────────────────────────────────
 
-  static Future<void> logout({String? userId}) async {
+  Future<void> logout({String? userId}) async {
     // Topics
     await _unsubscribeFromTopic('general');
 
@@ -109,7 +109,7 @@ class NotificationService {
   // AWESOME LISTENERS
   // ─────────────────────────────────────────────────────────────
 
-  static void _initAwesomeListeners() {
+  void _initAwesomeListeners() {
     AwesomeNotifications().setListeners(
       onActionReceivedMethod: _onActionReceived,
       onNotificationCreatedMethod: _onNotificationCreated,
@@ -118,24 +118,24 @@ class NotificationService {
     );
   }
 
-  static Future<void> _onActionReceived(ReceivedAction action) async {
+  Future<void> _onActionReceived(ReceivedAction action) async {
     log('Notification action: ${action.buttonKeyPressed}');
     _handleDeepLink(action.payload);
   }
 
-  static Future<void> _onNotificationCreated(
+  Future<void> _onNotificationCreated(
     ReceivedNotification notification,
   ) async {
     log('Notification created');
   }
 
-  static Future<void> _onNotificationDisplayed(
+  Future<void> _onNotificationDisplayed(
     ReceivedNotification notification,
   ) async {
     log('Notification displayed');
   }
 
-  static Future<void> _onDismissed(ReceivedAction action) async {
+  Future<void> _onDismissed(ReceivedAction action) async {
     log('Notification dismissed');
   }
 
@@ -143,7 +143,7 @@ class NotificationService {
   // FIREBASE HANDLING
   // ─────────────────────────────────────────────────────────────
 
-  static void _handleForegroundMessage(RemoteMessage message) {
+  void _handleForegroundMessage(RemoteMessage message) {
     showLocal(
       title: message.notification?.title ?? '',
       body: message.notification?.body ?? '',
@@ -153,7 +153,7 @@ class NotificationService {
     );
   }
 
-  static void _handleFirebaseMessage(RemoteMessage message) {
+  void _handleFirebaseMessage(RemoteMessage message) {
     _handleDeepLink(message.data);
   }
 
@@ -161,7 +161,7 @@ class NotificationService {
   // LOCAL NOTIFICATIONS
   // ─────────────────────────────────────────────────────────────
 
-  static Future<void> showLocal({
+  Future<void> showLocal({
     required String title,
     required String body,
     Map<String, String>? payload,
@@ -185,7 +185,7 @@ class NotificationService {
   // DEEP LINK
   // ─────────────────────────────────────────────────────────────
 
-  static void _handleDeepLink(Map<String, dynamic>? payload) {
+  void _handleDeepLink(Map<String, dynamic>? payload) {
     if (payload == null || payload.isEmpty) {
       return;
     }
@@ -206,15 +206,15 @@ class NotificationService {
   // TOKEN CACHE
   // ─────────────────────────────────────────────────────────────
 
-  static Future<void> _cacheToken(String token) async {
+  Future<void> _cacheToken(String token) async {
     await getIt<SharedPreferences>().setString(KFcmTokenKey, token);
   }
 
-  static Future<String?> getCachedToken() async {
+  Future<String?> getCachedToken() async {
     return getIt<SharedPreferences>().getString(KFcmTokenKey);
   }
 
-  static Future<void> _clearToken() async {
+  Future<void> _clearToken() async {
     await getIt<SharedPreferences>().remove(KFcmTokenKey);
     await FirebaseMessaging.instance.deleteToken();
     log('FCM Token cleared');
@@ -224,11 +224,11 @@ class NotificationService {
   // UTILITIES
   // ─────────────────────────────────────────────────────────────
 
-  static Future<void> cancelAll() async {
+  Future<void> cancelAll() async {
     await AwesomeNotifications().cancelAll();
   }
 
-  static Future<bool> hasPermission() async {
+  Future<bool> hasPermission() async {
     return AwesomeNotifications().isNotificationAllowed();
   }
 }

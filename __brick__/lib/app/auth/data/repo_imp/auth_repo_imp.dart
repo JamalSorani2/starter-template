@@ -277,7 +277,7 @@ class AuthRepoImp implements AuthRepository {
         await getIt<SharedPreferences>().getString(KUserLanguage);
     final user = await getIt<StorageService<SecureStorage>>().getUser();
     final userId = user?.userId;
-    await NotificationService.logout(userId: userId);
+    await getIt<NotificationService>().logout(userId: userId);
     await getIt<StorageService<SecureStorage>>().removeUser();
     await getIt<ReactiveTokenStorage>().delete();
     await getIt<FlutterSecureStorage>().deleteAll();

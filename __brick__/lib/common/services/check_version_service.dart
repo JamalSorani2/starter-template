@@ -7,7 +7,7 @@ import '../imports/imports.dart';
 import '../presentation/state/bloc/app_manager_bloc.dart';
 
 class CheckVersionService {
-  static Future<void> checkForUpdates() async {
+  Future<void> checkForUpdates() async {
     if (kReleaseMode) {
       try {
         final response = await getIt<Dio>().post(
@@ -15,8 +15,7 @@ class CheckVersionService {
           options: Options(headers: {}),
         );
         final model = _AppUpdateModel.fromJson(response.data);
-        final packageInfo = PackageInfoService();
-        await packageInfo.init();
+        final packageInfo = getIt<PackageInfoService>();
 
         final String currentVersion = packageInfo.version;
         final String currentBuildNumber = packageInfo.buildNumber;

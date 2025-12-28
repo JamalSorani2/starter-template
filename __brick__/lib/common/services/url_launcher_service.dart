@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncherService {
-  const UrlLauncherService._();
-
   /// Launch a normal URL (http/https)
-  static Future<void> launchUrlString(String url) async {
+  Future<void> launchUrlString(String url) async {
     final uri = Uri.tryParse(url);
     if (uri == null) {
       debugPrint('Invalid URL: $url');
@@ -17,7 +15,7 @@ class UrlLauncherService {
   }
 
   /// Open email client
-  static Future<void> launchEmail(
+  Future<void> launchEmail(
     String email, {
     String? subject,
     String? body,
@@ -36,7 +34,7 @@ class UrlLauncherService {
   }
 
   /// Open phone dialer
-  static Future<void> launchPhone(String phone) async {
+  Future<void> launchPhone(String phone) async {
     final uri = Uri(scheme: 'tel', path: phone);
     if (!await launchUrl(uri)) {
       debugPrint('Could not launch phone: $phone');
@@ -44,7 +42,7 @@ class UrlLauncherService {
   }
 
   /// Open SMS app
-  static Future<void> launchSms(String phone, {String? body}) async {
+  Future<void> launchSms(String phone, {String? body}) async {
     final uri = Uri(
       scheme: 'sms',
       path: phone,
@@ -56,7 +54,7 @@ class UrlLauncherService {
   }
 
   /// Open map with coordinates or address
-  static Future<void> launchMap(String query) async {
+  Future<void> launchMap(String query) async {
     final uri = Uri(
       scheme: 'https',
       host: 'www.google.com',

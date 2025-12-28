@@ -19,7 +19,6 @@ class LanguageService {
     final locale = Locale(languageCode);
     await _context.setLocale(locale);
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(KUserLanguage, languageCode);
+    await getIt<SharedPreferences>().setString(KUserLanguage, languageCode);
   }
 }
