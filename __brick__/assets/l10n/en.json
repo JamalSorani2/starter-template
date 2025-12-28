@@ -43,5 +43,7 @@
     "backToLoginButton": "Back to Login",
     "forgotPasswordTitle": "Forgot Password?",
     "userName": "User Name",
-    "userNameMinLength": "User Name must be at least 3 characters"
+    "userNameMinLength": "User Name must be at least 3 characters",
+    "open": "Open",
+    "dismiss": "Dismiss"
 }

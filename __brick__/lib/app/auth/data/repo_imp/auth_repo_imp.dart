@@ -1,3 +1,4 @@
+import 'package:app_name/common/services/notification_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -274,6 +275,9 @@ class AuthRepoImp implements AuthRepository {
   void logout() async {
     final String? language =
         await getIt<SharedPreferences>().getString(KUserLanguage);
+    final user = await getIt<StorageService<SecureStorage>>().getUser();
+    final userId = user?.userId;
+    await NotificationService.logout(userId: userId);
     await getIt<StorageService<SecureStorage>>().removeUser();
     await getIt<ReactiveTokenStorage>().delete();
     await getIt<FlutterSecureStorage>().deleteAll();

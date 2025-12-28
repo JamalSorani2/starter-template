@@ -1,4 +1,4 @@
-name: {{app_name}} 
+name: app_name 
 description: {{description}}
 version: 0.0.0+1
 publish_to: none
@@ -88,6 +88,8 @@ dependencies:
   connectivity_plus: ^6.1.5
   dotted_border: ^3.1.0
   url_launcher: ^6.3.2
+  awesome_notifications: ^0.10.1
+  firebase_messaging: ^16.1.0
   
 
   #t

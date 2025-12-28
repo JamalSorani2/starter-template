@@ -43,5 +43,7 @@
     "backToLoginButton": "",
     "forgotPasswordTitle": "",
     "userName": "",
-    "userNameMinLength": ""
+    "userNameMinLength": "",
+    "open": "",
+    "dismiss": ""
 }

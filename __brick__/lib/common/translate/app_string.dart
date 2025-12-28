@@ -161,4 +161,10 @@ class AppString {
 
   /// User Name must be at least 3 characters
   static String get userNameMinLength => _localization.tr('userNameMinLength');
+
+  /// Open
+  static String get open => _localization.tr('open');
+
+  /// Dismiss
+  static String get dismiss => _localization.tr('dismiss');
 }

@@ -1,3 +1,4 @@
+import 'package:app_name/common/services/notification_service.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
@@ -28,7 +29,7 @@ Future<void> bootstrap(Widget mainApp) async {
 }
 
 Future<void> _initUnUregentServices() async {
-  // await PushNotification.init();//TODO
+  await NotificationService.initialize();
   if (kReleaseMode) {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
     PlatformDispatcher.instance.onError = (error, stack) {
