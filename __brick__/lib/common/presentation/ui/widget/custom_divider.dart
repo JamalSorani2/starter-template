@@ -1,7 +1,7 @@
 import '../../../imports/imports.dart';
 
-class GSDivider extends StatelessWidget {
-  const GSDivider({
+class CustomDivider extends StatelessWidget {
+  const CustomDivider({
     super.key,
     this.margin,
     this.color,

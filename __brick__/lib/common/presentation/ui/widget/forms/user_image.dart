@@ -1,7 +1,7 @@
 import '../../../../imports/imports.dart';
 
-class EditableCircleAvatar extends StatefulWidget {
-  const EditableCircleAvatar({
+class UserImage extends StatefulWidget {
+  const UserImage({
     super.key,
     this.radius,
     this.initialImage,
@@ -13,10 +13,10 @@ class EditableCircleAvatar extends StatefulWidget {
   final void Function(File? file) onFileChanged;
 
   @override
-  State<EditableCircleAvatar> createState() => _EditableCircleAvatarState();
+  State<UserImage> createState() => _UserImageState();
 }
 
-class _EditableCircleAvatarState extends State<EditableCircleAvatar> {
+class _UserImageState extends State<UserImage> {
   File? _image;
 
   Future<void> _pickImage() async {

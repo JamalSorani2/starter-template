@@ -28,3 +28,13 @@ class TitleWidget extends StatelessWidget {
     );
   }
 }
+
+Widget? FieldIcon(IconData? iconData) {
+  if (iconData == null) {
+    return null;
+  }
+  return Icon(
+    iconData,
+    color: AppColors.grey.withValues(alpha: 0.5),
+  );
+}

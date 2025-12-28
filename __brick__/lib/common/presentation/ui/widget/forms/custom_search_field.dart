@@ -12,7 +12,7 @@ class CustomSearchField extends StatelessWidget {
 
   final String controller;
   final String? hintText;
-  final void Function(FormControl<dynamic>) onSubmitted;
+  final void Function(FormControl<dynamic> control) onSubmitted;
   final bool readOnly;
   final bool autoFocus;
 
@@ -24,7 +24,8 @@ class CustomSearchField extends StatelessWidget {
       readOnly: readOnly,
       autoFocus: autoFocus,
       textInputAction: TextInputAction.search,
-      prefixIcon: const Icon(Icons.search),
+      prefixIcon: Icons.search,
+      title: AppString.search,
       onSubmitted: onSubmitted,
     );
   }

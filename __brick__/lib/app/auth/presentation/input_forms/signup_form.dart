@@ -1,10 +1,11 @@
 import 'package:reactive_forms/reactive_forms.dart';
+
 import '../../../../common/constant/input_keys.dart';
 
 class SignUpForm {
   static FormGroup formGroup = FormGroup(
     {
-      InputKeys.fullName:
+      InputKeys.username:
           FormControl<String>(validators: [Validators.required]),
       InputKeys.lastName:
           FormControl<String>(validators: [Validators.required]),

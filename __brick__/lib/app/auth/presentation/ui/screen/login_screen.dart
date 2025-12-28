@@ -1,6 +1,6 @@
-import '/app/auth/domain/entities/login_auth_param.dart';
 import 'package:flutter/cupertino.dart';
 
+import '/app/auth/domain/entities/login_auth_param.dart';
 import '../../../../../common/imports/imports.dart';
 import '../../input_forms/login_form.dart';
 import '../../state/bloc/auth_bloc.dart';
@@ -49,8 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomReactiveField(
                       title: 'كلمة المرور',
                       isPassword: true,
-                      asset: const Icon(CupertinoIcons.eye_slash),
-                      suffixPassIcon: const Icon(CupertinoIcons.eye),
+                      asset: CupertinoIcons.eye_slash,
+                      suffixPassIcon: CupertinoIcons.eye,
                       controller: InputKeys.password,
                     ),
                     SizedBox(

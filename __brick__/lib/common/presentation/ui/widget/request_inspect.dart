@@ -1,7 +1,7 @@
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:flutter_alice/alice.dart';
 
-import '../../../../app/my_app.dart';
+import '../../../../app/app.dart';
 import '../../../imports/imports.dart';
 
 class RequestInspect extends StatefulWidget {

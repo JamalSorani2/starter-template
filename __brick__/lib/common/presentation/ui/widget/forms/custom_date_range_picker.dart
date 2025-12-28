@@ -57,24 +57,19 @@ class _CustomReactiveDateRangePickerState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (widget.title.isNotEmpty)
-            Padding(
-              padding: REdgeInsets.symmetric(horizontal: 4.r),
-              child: Text(
-                widget.title,
-                style: context.s16w500,
-              ),
-            ),
-          8.verticalSpace,
+          TitleWidget(title: widget.title),
           ReactiveFormField<DateTimeRange, DateTimeRange>(
             formControlName: widget.controller,
             builder: (field) {
-              return InkWell(
+              return GestureDetector(
                 onTap: _selectDateRange,
                 child: Container(
                   height: AppDesign.inputHeight,
                   width: context.screenWidth,
-                  padding: AppDesign.inputContentPadding,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppDesign.inputContentPadding.left / 2,
+                    vertical: AppDesign.inputContentPadding.vertical / 2,
+                  ),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color:
@@ -84,6 +79,8 @@ class _CustomReactiveDateRangePickerState
                   ),
                   child: Row(
                     children: [
+                      FieldIcon(Icons.date_range_outlined)!,
+                      AppDesign.inputContentPadding.left.horizontalSpace,
                       if (selectedDateRange != null)
                         Expanded(
                           child: Row(
@@ -95,7 +92,7 @@ class _CustomReactiveDateRangePickerState
                                 ),
                               ),
                               const Spacer(),
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     selectedDateRange = null;
@@ -108,7 +105,7 @@ class _CustomReactiveDateRangePickerState
                                 child: Icon(
                                   Icons.close,
                                   size: AppDesign.icon,
-                                  color: AppColors.textPrimary,
+                                  color: AppColors.primary,
                                 ),
                               ),
                               4.horizontalSpace,
@@ -119,15 +116,9 @@ class _CustomReactiveDateRangePickerState
                         Expanded(
                           child: Text(
                             widget.hintText,
-                            style: context.s12w400.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
+                            style: context.hintText,
                           ),
                         ),
-                      Icon(
-                        Icons.date_range_outlined,
-                        color: AppColors.textPrimary,
-                      ),
                     ],
                   ),
                 ),

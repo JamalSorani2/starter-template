@@ -7,7 +7,6 @@ import '../common/presentation/ui/widget/internet_banner.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import '../common/imports/imports.dart';
 import '../common/presentation/state/bloc/app_manager_bloc.dart';
-import '../common/presentation/state/provider/theme_provider.dart';
 import '../common/router/router_config.dart';
 import '../common/services/language_service.dart';
 import '../common/services/system_ui_service.dart';

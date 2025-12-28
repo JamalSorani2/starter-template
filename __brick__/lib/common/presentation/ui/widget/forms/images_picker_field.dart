@@ -99,65 +99,70 @@ class _ImagePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: readOnly
-          ? null
-          : () async {
-              if (image != null || !enableMultiImagesPicker) {
-                final file = await pickSingleFile(context);
-                if (file != null) {
-                  onEditImage(file);
+    return CustomCard(
+      child: InkWell(
+        onTap: readOnly
+            ? null
+            : () async {
+                if (image != null || !enableMultiImagesPicker) {
+                  final file = await pickSingleFile(context);
+                  if (file != null) {
+                    onEditImage(file);
+                  }
+                } else {
+                  final files = await _pickMultiFiles(context);
+                  for (final f in files) {
+                    onPickImage(f);
+                  }
                 }
-              } else {
-                final files = await _pickMultiFiles(context);
-                for (final f in files) {
-                  onPickImage(f);
-                }
-              }
-            },
-      child: Stack(
-        alignment: Alignment.topLeft,
-        children: [
-          if (image != null)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.r),
-              child: isNetwork
-                  ? CustomNetworkImage(
-                      imageUrl: image.toString(),
-                    )
-                  : Image.file(image, fit: BoxFit.cover),
-            )
-          else if (readOnly)
-            Center(child: Text(AppString.noImage, style: context.s12w500))
-          else
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: context.screenWidth),
-                Icon(
-                  Icons.upload,
-                  color: AppColors.primary,
-                ),
-                16.verticalSpace,
-                Text(AppString.uploadImageHere, style: context.s12w500),
-                8.verticalSpace,
-                Text(
-                  'JPEG, PNG, PDF · Max 5MB',
-                  style: context.s11w500.copyWith(
-                    color: AppColors.textSecondary,
+              },
+        child: Stack(
+          alignment: Alignment.topLeft,
+          children: [
+            if (image != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.r),
+                child: isNetwork
+                    ? CustomNetworkImage(
+                        imageUrl: image.toString(),
+                      )
+                    : Image.file(image, fit: BoxFit.cover),
+              )
+            else if (readOnly)
+              Center(child: Text(AppString.noImage, style: context.s12w500))
+            else
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: context.screenWidth),
+                  CircleAvatar(
+                    backgroundColor: AppColors.primary.withValues(alpha: 0.2),
+                    child: Icon(
+                      Icons.upload,
+                      color: AppColors.primary,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          if (image != null && !readOnly)
-            Padding(
-              padding: REdgeInsets.all(16),
-              child: DeleteButton(
-                onTap: onDeleteImage,
-                isLoading: false,
+                  16.verticalSpace,
+                  Text(AppString.uploadImageHere, style: context.s12w500),
+                  8.verticalSpace,
+                  Text(
+                    'JPEG, PNG, PDF · Max 5MB',
+                    style: context.s11w500.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
               ),
-            ),
-        ],
+            if (image != null && !readOnly)
+              Padding(
+                padding: REdgeInsets.all(16),
+                child: DeleteButton(
+                  onTap: onDeleteImage,
+                  isLoading: false,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

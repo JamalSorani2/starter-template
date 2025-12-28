@@ -1,5 +1,12 @@
 import '../../../../imports/imports.dart';
 
+class DropDownModel {
+  final String id;
+  final String name;
+
+  DropDownModel({required this.id, required this.name});
+}
+
 class CustomReactiveDropdown<T> extends StatelessWidget {
   const CustomReactiveDropdown({
     super.key,
@@ -14,8 +21,8 @@ class CustomReactiveDropdown<T> extends StatelessWidget {
   final String controller;
   final String? title;
   final String? hintText;
-  final List<DropdownMenuItem<T>> items;
-  final Widget? prefixIcon;
+  final List<DropDownModel> items;
+  final IconData? prefixIcon;
   final void Function(FormControl<T>)? onChanged;
 
   @override
@@ -24,13 +31,28 @@ class CustomReactiveDropdown<T> extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (title != null) TitleWidget(title: title!),
-        ReactiveDropdownField<T>(
-          formControlName: controller,
-          items: items,
-          onChanged: onChanged,
-          decoration: InputDecoration(
-            hintText: hintText,
-            prefixIcon: prefixIcon,
+        SafeArea(
+          top: false,
+          bottom: false,
+          child: ReactiveDropdownField<T>(
+            formControlName: controller,
+            dropdownColor: AppColors.border,
+            items: items
+                .map(
+                  (item) => DropdownMenuItem(
+                    value: item.id as T,
+                    child: Text(
+                      item.name,
+                      style: context.s12w400,
+                    ),
+                  ),
+                )
+                .toList(),
+            hint: Text(hintText ?? '', style: context.hintText),
+            onChanged: onChanged,
+            decoration: InputDecoration(
+              prefixIcon: FieldIcon(prefixIcon),
+            ),
           ),
         ),
       ],

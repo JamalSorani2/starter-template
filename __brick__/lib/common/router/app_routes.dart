@@ -1,5 +1,6 @@
 import '../../app/auth/presentation/ui/screen/login_screen.dart';
 import '../../app/auth/presentation/ui/screen/signup_screen.dart';
+import '../../app/dashboard/presentation/ui/screen/dashboard_screen.dart';
 import '../../app/onboarding/presentation/ui/screens/onboarding_screen.dart';
 import '../../app/root/presentation/ui/screen/root_screen.dart';
 import '../imports/imports.dart';
@@ -37,6 +38,11 @@ class AppRoutes {
           path: "/${RoutesNames.root}",
           name: RoutesNames.root,
           builder: (context, state) => const RootScreen(),
+        ),
+        GoRoute(
+          path: "/${RoutesNames.dashboard}",
+          name: RoutesNames.dashboard,
+          builder: (context, state) => const DashboardScreen(),
         ),
       ];
 

@@ -118,6 +118,7 @@ class CustomButton extends StatelessWidget {
       isDisabled: isDisabled,
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.primary,
+        backgroundColor: Colors.transparent,
         side: BorderSide(color: AppColors.primary),
         minimumSize: Size.fromHeight(AppDesign.buttonHeight),
         shape: RoundedRectangleBorder(borderRadius: AppDesign.radius),
@@ -145,6 +146,7 @@ class CustomButton extends StatelessWidget {
       isDisabled: isDisabled,
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primary,
+        backgroundColor: Colors.transparent,
         minimumSize: Size.fromHeight(AppDesign.buttonHeight),
       ),
       key: key,
@@ -157,8 +159,7 @@ class CustomButton extends StatelessWidget {
         ? const SizedBox(
             height: 20,
             width: 20,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
+            child: LoadingProgress(
               color: Colors.white,
             ),
           )

@@ -173,6 +173,16 @@ abstract final class AppTheme {
         ),
         iconTheme: IconThemeData(color: AppColors.textPrimary),
       ),
+      drawerTheme: DrawerThemeData(
+        backgroundColor: AppColors.surface,
+        elevation: 1,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(16.r),
+          ),
+        ),
+      ),
     );
   }
 }

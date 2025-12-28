@@ -16,9 +16,9 @@ class CustomReactiveField extends StatefulWidget {
   final TextInputAction textInputAction;
 
   // Prefix and suffix widgets
-  final Widget? prefixIcon;
-  final Widget? asset;
-  final Widget? suffixPassIcon;
+  final IconData? prefixIcon;
+  final IconData? asset;
+  final IconData? suffixPassIcon;
 
   // Actions
   final void Function(FormControl controller)? onTap;
@@ -99,7 +99,7 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintTextDirection: widget.hintText.textDirection,
-            prefixIcon: widget.prefixIcon,
+            prefixIcon: FieldIcon(widget.prefixIcon),
             suffixIcon: widget.isPassword
                 ? GestureDetector(
                     onTap: _togglePasswordVisibility,
@@ -108,9 +108,10 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
                       children: [
                         AnimatedCrossFade(
                           alignment: Alignment.centerRight,
-                          firstChild: widget.asset ?? const SizedBox(),
-                          secondChild:
-                              widget.suffixPassIcon ?? const SizedBox(),
+                          firstChild:
+                              FieldIcon(widget.asset) ?? const SizedBox(),
+                          secondChild: FieldIcon(widget.suffixPassIcon) ??
+                              const SizedBox(),
                           crossFadeState: _hidden
                               ? CrossFadeState.showSecond
                               : CrossFadeState.showFirst,
@@ -119,7 +120,7 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
                       ],
                     ),
                   )
-                : widget.asset ?? widget.suffixPassIcon,
+                : FieldIcon(widget.asset) ?? FieldIcon(widget.suffixPassIcon),
           ),
           cursorColor: AppColors.primary,
           obscureText: _hidden,

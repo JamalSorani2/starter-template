@@ -1,4 +1,4 @@
-import '../../../../../app/my_app.dart';
+import '../../../../../app/app.dart';
 import '../../../../imports/imports.dart';
 
 void showGlobalSnackbar({

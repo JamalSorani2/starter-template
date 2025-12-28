@@ -49,11 +49,9 @@ class CustomDialog extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(
-                          headerTitle,
-                          style: context.s22w400,
-                        ),
+                      Text(
+                        headerTitle,
+                        style: context.s22w400,
                       ),
                       if (subTitleWidget != null) subTitleWidget!,
                     ],
@@ -68,17 +66,21 @@ class CustomDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 if (withCloseButton) ...[
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text(cancelText ?? AppString.close),
+                  Expanded(
+                    child: CustomButton.outlined(
+                      onPressed: () => Navigator.of(context).pop(),
+                      text: cancelText ?? AppString.close,
+                    ),
                   ),
                   (AppDesign.horizontalPadding / 2).horizontalSpace,
                 ],
                 if (onPrimaryTap != null)
-                  CustomButton.primary(
-                    onPressed: onPrimaryTap,
-                    isLoading: isPrimaryLoading,
-                    text: primaryText ?? AppString.save,
+                  Expanded(
+                    child: CustomButton.primary(
+                      onPressed: onPrimaryTap,
+                      isLoading: isPrimaryLoading,
+                      text: primaryText ?? AppString.save,
+                    ),
                   ),
               ],
             ),

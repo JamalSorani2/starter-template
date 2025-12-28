@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio_refresh_bot/dio_refresh_bot.dart';
+
 import '../imports/imports.dart';
 import '../presentation/state/bloc/app_manager_bloc.dart';
 
@@ -27,7 +28,7 @@ class BRouterConfig {
 
   BRouterConfig({required this.appManagerBloc}) {
     router = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/${RoutesNames.splash}',
       refreshListenable: RefreshStream(appManagerBloc.stream),
       navigatorKey: GlobalKey<NavigatorState>(),
       observers: [BotToastNavigatorObserver()],
@@ -46,6 +47,10 @@ class BRouterConfig {
         final bool onBoaringSeen =
             getIt<SharedPreferences>().getBool(KOnboardingCompleted) ?? false;
         final String currentRoute = state.uri.toString();
+
+        if (!currentRoute.contains(RoutesNames.dashboard)) {
+          return "/${RoutesNames.dashboard}";
+        }
 
         if (isUpdateAvailable) {
           return '/update-available';

@@ -1,15 +1,16 @@
 import '../../../../imports/imports.dart';
 
-class BackButton extends StatelessWidget {
-  const BackButton({super.key});
+class CustomBackButton extends StatelessWidget {
+  const CustomBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(
-        context.isLTR
-            ? FontAwesomeIcons.arrowLeft
-            : FontAwesomeIcons.arrowRight,
+      icon: Directionality(
+        textDirection: context.isLTR ? TextDirection.ltr : TextDirection.rtl,
+        child: const Icon(
+          FontAwesomeIcons.arrowLeft,
+        ),
       ),
       onPressed: () {
         GoRouter.of(context).pop();
