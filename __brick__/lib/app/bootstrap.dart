@@ -19,6 +19,7 @@ Future<void> bootstrap(Widget mainApp) async {
     }
     runApp(
       DevicePreview(
+        enabled: false,
         builder: (context) => mainApp,
       ),
     );

@@ -125,8 +125,7 @@ abstract final class AppTheme {
     final colorScheme = isLight ? ColorScheme.light : ColorScheme.dark;
     return ThemeData(
       useMaterial3: true,
-      colorSchemeSeed: AppColors.primary,
-      brightness: isLight ? Brightness.dark : Brightness.light,
+      brightness: isLight ? Brightness.light : Brightness.dark,
       scaffoldBackgroundColor: AppColors.surface,
       primaryColor: AppColors.primary,
       textSelectionTheme: TextSelectionThemeData(
@@ -158,7 +157,7 @@ abstract final class AppTheme {
       textButtonTheme: AppStyles.textButtonStyle,
       iconButtonTheme: AppStyles.iconButtonStyle,
       chipTheme: AppStyles.chipTheme,
-      inputDecorationTheme: AppStyles.inputDecorationThemeLight,
+      inputDecorationTheme: AppStyles.inputDecorationThemeLight(isEnglish),
       dialogTheme: AppStyles.dialogTheme,
       cardTheme: AppStyles.cardTheme,
       iconTheme: AppStyles.iconTheme,

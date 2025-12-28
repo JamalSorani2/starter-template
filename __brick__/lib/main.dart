@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  bootstrap(
+  await bootstrap(
     EasyLocalization(
       supportedLocales: AppLocale.supportedLocales,
       path: AppLocale.path,

@@ -5,6 +5,6 @@ import 'src/general_injection.dart';
 final GetIt getIt = GetIt.instance;
 
 Future<void> initInjection() async {
-  await authInjection();
   await generalInjection();
+  await authInjection();
 }

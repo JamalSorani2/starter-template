@@ -9,7 +9,10 @@ class SkipButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         InkWell(
-          onTap: () {
+          onTap: () async {
+            await getIt<SharedPreferences>()
+                .setBool(KOnboardingCompleted, true);
+
             context.go(RoutesNames.login);
           },
           child: Text(

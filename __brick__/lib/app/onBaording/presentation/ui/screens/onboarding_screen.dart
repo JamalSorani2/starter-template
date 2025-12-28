@@ -89,7 +89,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                             pageIndex: value.pageIndex,
                           ),
                           NextButton(
-                            onTap: () {
+                            onTap: () async {
                               if (value.pageIndex != 2) {
                                 pageController.animateToPage(
                                   value.pageIndex + 1,
@@ -97,6 +97,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                   curve: Curves.easeInOut,
                                 );
                               } else {
+                                await getIt<SharedPreferences>()
+                                    .setBool(KOnboardingCompleted, true);
                                 context.go(RoutesNames.login);
                               }
                             },

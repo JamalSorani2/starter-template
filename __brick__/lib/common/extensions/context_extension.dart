@@ -26,4 +26,8 @@ extension Context on BuildContext {
       FocusScope.of(this).unfocus();
     }
   }
+
+  double get paddingTop => MediaQuery.of(this).padding.top;
+
+  double get paddingBottom => MediaQuery.of(this).padding.bottom;
 }

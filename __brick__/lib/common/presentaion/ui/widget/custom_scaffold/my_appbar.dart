@@ -16,7 +16,8 @@ class MyAppBar extends StatelessWidget {
     final isRoot = context.route.endsWith(RoutesNames.root);
     return Container(
       width: context.screenWidth,
-      height: AppDesign.appBarHeight,
+      padding: EdgeInsets.only(top: context.paddingTop),
+      height: AppDesign.appBarHeight + context.paddingTop,
       decoration: BoxDecoration(
         color: AppColors.card,
         borderRadius: BorderRadius.only(
@@ -25,19 +26,22 @@ class MyAppBar extends StatelessWidget {
         ),
         boxShadow: AppShadows.card,
       ),
-      child: Row(
+      child: Column(
         children: [
-          isRoot ? const DrawerButton() : const BackButton(),
-          12.horizontalSpace,
-          Expanded(
-            child: titleWidget ??
-                Text(
-                  title,
-                  style: context.s22w400,
-                  overflow: TextOverflow.ellipsis,
-                ),
+          Row(
+            children: [
+              isRoot ? const DrawerButton() : const BackButton(),
+              Expanded(
+                child: titleWidget ??
+                    Text(
+                      title,
+                      style: context.s22w400,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+              ),
+              actions ?? const SizedBox.shrink(),
+            ],
           ),
-          actions ?? const SizedBox.shrink(),
         ],
       ),
     );

@@ -38,24 +38,24 @@ class PageContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomSvgPicture(
-            height: 346.h,
-            width: 314.w,
-            image: page.pic,
-          ).animate().shimmer(
-                duration: const Duration(milliseconds: 1500),
-                color: Colors.white.withValues(alpha: 0.3),
-              ),
-          32.verticalSpace,
-          Text(
-            page.title,
-            style: context.s32w400.copyWith(
-              color: AppColors.grey.withValues(alpha: 0.8),
-            ),
-          ).animate().shimmer(
-                duration: const Duration(milliseconds: 1500),
-                color: Colors.white.withValues(alpha: 0.3),
-              ),
+          // CustomSvgPicture(
+          //   height: 346.h,
+          //   width: 314.w,
+          //   image: page.pic,
+          // ).animate().shimmer(
+          //       duration: const Duration(milliseconds: 1500),
+          //       color: Colors.white.withValues(alpha: 0.3),
+          //     ),
+          // 32.verticalSpace,
+          // Text(
+          //   page.title,
+          //   style: context.s32w400.copyWith(
+          //     color: AppColors.grey.withValues(alpha: 0.8),
+          //   ),
+          // ).animate().shimmer(
+          //       duration: const Duration(milliseconds: 1500),
+          //       color: Colors.white.withValues(alpha: 0.3),
+          //     ),
           24.verticalSpace,
           Text(
             page.description1,
