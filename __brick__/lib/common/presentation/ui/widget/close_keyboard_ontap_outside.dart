@@ -6,8 +6,10 @@ class CloseKeyboardOntapOutside extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.unFocus(),
-      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      behavior: HitTestBehavior.translucent,
       child: child,
     );
   }

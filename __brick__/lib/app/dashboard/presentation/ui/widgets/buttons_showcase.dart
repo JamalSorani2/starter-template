@@ -27,6 +27,7 @@ class _ButtonsShowcaseState extends State<ButtonsShowcase> {
         CustomCard(
           header: Text('Primary Buttons', style: tt.titleLarge),
           child: Wrap(
+            alignment: WrapAlignment.center,
             spacing: 12.w,
             runSpacing: 12.h,
             children: [
@@ -53,17 +54,17 @@ class _ButtonsShowcaseState extends State<ButtonsShowcase> {
               ),
               CustomButton.outlined(
                 text: 'Outlined',
+                isDisabled: _disabled,
                 onPressed: _disabled
                     ? null
                     : () => BotToast.showText(text: 'Outlined pressed'),
                 isLoading: _loading,
               ),
-              CustomButton.primaryText(
-                text: 'Text Button',
+              TextButton(
+                child: const Text('Text Button'),
                 onPressed: _disabled
                     ? null
                     : () => BotToast.showText(text: 'Text pressed'),
-                isLoading: _loading,
               ),
             ],
           ),

@@ -16,19 +16,24 @@ class StateShowcase extends StatelessWidget {
         // Loading
         CustomCard(
           header: Text('LoadingProgress', style: tt.titleLarge),
-          child: Wrap(
+          child: Column(
             spacing: 16.w,
-            runSpacing: 35.h,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: const [
-              LoadingProgress(),
-              LoadingProgress(type: LoadingType.doubleBounce),
-              LoadingProgress(type: LoadingType.rotatingCircle),
-              LoadingProgress(type: LoadingType.wave),
-              LoadingProgress(type: LoadingType.chasingDots),
-              LoadingProgress(type: LoadingType.threeBounce),
-              LoadingProgress(type: LoadingType.foldingCube),
-              LoadingProgress(type: LoadingType.pulsingGrid),
+            children: [
+              const Row(),
+              ...LoadingType.values
+                  .map(
+                    (type) => Column(
+                      children: [
+                        SizedBox(
+                          width: 80.r,
+                          height: 80.r,
+                          child: LoadingProgress(type: type),
+                        ),
+                        Text(type.name),
+                      ],
+                    ),
+                  )
+                  .toList(),
             ],
           ),
         ),
@@ -38,8 +43,8 @@ class StateShowcase extends StatelessWidget {
         CustomCard(
           header: Text('NoDataWidget', style: tt.titleLarge),
           child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(),
               NoDataWidget(),
               SizedBox(height: 16),
               NoDataWidget(isSearch: true),

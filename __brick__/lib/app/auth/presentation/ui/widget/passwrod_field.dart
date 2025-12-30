@@ -1,3 +1,4 @@
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../common/imports/imports.dart';
@@ -21,6 +22,7 @@ class PasswordField extends StatelessWidget {
       asset: CupertinoIcons.eye_slash,
       suffixPassIcon: CupertinoIcons.eye,
       hintText: hintText,
+      title: AppString.password,
     );
   }
 }

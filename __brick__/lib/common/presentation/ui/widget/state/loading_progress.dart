@@ -3,13 +3,40 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../../imports/imports.dart';
 
 enum LoadingType {
-  fadingCircle,
+  // Basic
+  rotatingPlain,
   doubleBounce,
-  rotatingCircle,
   wave,
+  wanderingCubes,
+  fadingFour,
+  fadingCube,
+
+  pulse,
   chasingDots,
   threeBounce,
+  circle,
+  cubeGrid,
+  fadingCircle,
+
+  rotatingCircle,
   foldingCube,
+  pumpingHeart,
+  hourGlass,
+  pouringHourGlass,
+  pouringHourGlassRefined,
+
+  fadingGrid,
+  ring,
+  ripple,
+  spinningCircle,
+  spinningLines,
+  squareCircle,
+
+  dualRing,
+  pianoWave,
+  dancingSquare,
+  threeInOut,
+  waveSpinner,
   pulsingGrid,
 }
 
@@ -27,55 +54,105 @@ class LoadingProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final animation = _getAnimation(type);
     return Center(
-      child: animation,
+      child: _getAnimation(type),
     );
   }
 
-  /// Factory method to return the right SpinKit animation
   Widget _getAnimation(LoadingType type) {
+    final c = color ?? AppColors.primary;
+    final s = size ?? 50.0.r;
+
     switch (type) {
-      case LoadingType.fadingCircle:
-        return SpinKitFadingCircle(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
+      case LoadingType.rotatingPlain:
+        return SpinKitRotatingPlain(color: c, size: s);
+
       case LoadingType.doubleBounce:
-        return SpinKitDoubleBounce(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
-      case LoadingType.rotatingCircle:
-        return SpinKitRotatingCircle(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
+        return SpinKitDoubleBounce(color: c, size: s);
+
       case LoadingType.wave:
-        return SpinKitWave(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
+        return SpinKitWave(color: c, size: s);
+
+      case LoadingType.wanderingCubes:
+        return SpinKitWanderingCubes(color: c, size: s);
+
+      case LoadingType.fadingFour:
+        return SpinKitFadingFour(color: c, size: s);
+
+      case LoadingType.fadingCube:
+        return SpinKitFadingCube(color: c, size: s);
+
+      case LoadingType.pulse:
+        return SpinKitPulse(color: c, size: s);
+
       case LoadingType.chasingDots:
-        return SpinKitChasingDots(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
+        return SpinKitChasingDots(color: c, size: s);
+
       case LoadingType.threeBounce:
-        return SpinKitThreeBounce(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
+        return SpinKitThreeBounce(color: c, size: s);
+
+      case LoadingType.circle:
+        return SpinKitCircle(color: c, size: s);
+
+      case LoadingType.cubeGrid:
+        return SpinKitCubeGrid(color: c, size: s);
+
+      case LoadingType.fadingCircle:
+        return SpinKitFadingCircle(color: c, size: s);
+
+      case LoadingType.rotatingCircle:
+        return SpinKitRotatingCircle(color: c, size: s);
+
       case LoadingType.foldingCube:
-        return SpinKitFoldingCube(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
+        return SpinKitFoldingCube(color: c, size: s);
+
+      case LoadingType.pumpingHeart:
+        return SpinKitPumpingHeart(color: c, size: s);
+
+      case LoadingType.hourGlass:
+        return SpinKitHourGlass(color: c, size: s);
+
+      case LoadingType.pouringHourGlass:
+        return SpinKitPouringHourGlass(color: c, size: s);
+
+      case LoadingType.pouringHourGlassRefined:
+        return SpinKitPouringHourGlassRefined(color: c, size: s);
+
+      case LoadingType.fadingGrid:
+        return SpinKitFadingGrid(color: c, size: s);
+
+      case LoadingType.ring:
+        return SpinKitRing(color: c, size: s);
+
+      case LoadingType.ripple:
+        return SpinKitRipple(color: c, size: s);
+
+      case LoadingType.spinningCircle:
+        return SpinKitSpinningCircle(color: c, size: s);
+
+      case LoadingType.spinningLines:
+        return SpinKitSpinningLines(color: c, size: s);
+
+      case LoadingType.squareCircle:
+        return SpinKitSquareCircle(color: c, size: s);
+
+      case LoadingType.dualRing:
+        return SpinKitDualRing(color: c, size: s);
+
+      case LoadingType.pianoWave:
+        return SpinKitPianoWave(color: c, size: s);
+
+      case LoadingType.dancingSquare:
+        return SpinKitDancingSquare(color: c, size: s);
+
+      case LoadingType.threeInOut:
+        return SpinKitThreeInOut(color: c, size: s);
+
+      case LoadingType.waveSpinner:
+        return SpinKitWaveSpinner(color: c, size: s);
+
       case LoadingType.pulsingGrid:
-        return SpinKitPulsingGrid(
-          color: color ?? AppColors.primary,
-          size: size ?? 50.0.r,
-        );
+        return SpinKitPulsingGrid(color: c, size: s);
     }
   }
 }

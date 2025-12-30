@@ -30,7 +30,7 @@ abstract final class AppStyles {
 
   static final TextButtonThemeData textButtonStyle = TextButtonThemeData(
     style: TextButton.styleFrom(
-      padding: EdgeInsets.zero,
+      padding: REdgeInsets.all(4),
       shape: RoundedRectangleBorder(
         borderRadius: AppDesign.radius,
       ),
@@ -128,10 +128,6 @@ abstract final class AppStyles {
   );
 
   //! Icons & Checkbox ===============================================================================
-  static final IconThemeData iconTheme = IconThemeData(
-    size: AppDesign.icon,
-    color: AppColors.textPrimary,
-  );
   static final CheckboxThemeData checkBoxTheme = CheckboxThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(4.r),

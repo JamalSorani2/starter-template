@@ -188,4 +188,7 @@ class AppString {
 
   /// Update
   static String get update => _localization.tr('update');
+
+  /// Password
+  static String get password => _localization.tr('password');
 }

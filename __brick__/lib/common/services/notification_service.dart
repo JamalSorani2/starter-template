@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../imports/imports.dart';
@@ -13,8 +12,8 @@ class NotificationService {
 
   Future<void> initialize() async {
     await _initAwesomeNotifications();
-    // await Firebase.initializeApp(); //TODO
-    // await _initFirebaseMessaging(); //TODO
+    // await Firebase.initializeApp();
+    // await _initFirebaseMessaging();
     _initAwesomeListeners();
   }
 

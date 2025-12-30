@@ -1,8 +1,4 @@
 import '/common/imports/imports.dart';
-import '/common/presentation/ui/widget/overlays/leave_dialog.dart';
-
-import '../../../../../common/presentation/ui/widget/overlays/snack_bar.dart';
-import '../../../../../common/presentation/ui/widget/overlays/toast.dart';
 
 class OverlaysShowcase extends StatelessWidget {
   const OverlaysShowcase({super.key});
@@ -107,27 +103,29 @@ class OverlaysShowcase extends StatelessWidget {
           child: Wrap(
             spacing: 12.w,
             runSpacing: 12.h,
+            alignment: WrapAlignment.spaceBetween,
             children: [
-              CustomButton.primaryText(
-                text: 'Primary',
+              const Row(),
+              TextButton(
+                child: const Text('Primary'),
                 onPressed: () => showGlobalSnackbar(message: 'Primary message'),
               ),
-              CustomButton.primaryText(
-                text: 'Success',
+              TextButton(
+                child: const Text('Success'),
                 onPressed: () => showGlobalSnackbar(
                   message: 'Saved successfully',
                   isSuccess: true,
                 ),
               ),
-              CustomButton.primaryText(
-                text: 'Warning',
+              TextButton(
+                child: const Text('Warning'),
                 onPressed: () => showGlobalSnackbar(
                   message: 'Please verify your input',
                   isWarning: true,
                 ),
               ),
-              CustomButton.primaryText(
-                text: 'Error',
+              TextButton(
+                child: const Text('Error'),
                 onPressed: () => showGlobalSnackbar(
                   message: 'Something went wrong',
                   isError: true,

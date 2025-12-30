@@ -11,6 +11,9 @@ Future<void> bootstrap(Widget mainApp) async {
     await initInjection();
     await getIt<ReactiveTokenStorage>().loadToken();
     initializeDateFormatting();
+  } catch (e, s) {
+    printR(e);
+    printR(s);
   } finally {
     if (kDebugMode) {
       Bloc.observer = AppBlocObserver();
@@ -31,7 +34,12 @@ Future<void> bootstrap(Widget mainApp) async {
 }
 
 Future<void> _initUnUregentServices() async {
-  await servicesInjection();
+  try {
+    await servicesInjection();
+  } catch (e, s) {
+    printR(e);
+    printR(s);
+  }
   if (kReleaseMode) {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
     PlatformDispatcher.instance.onError = (error, stack) {

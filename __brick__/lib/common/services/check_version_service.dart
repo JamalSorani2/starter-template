@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:app_name/common/services/package_info_plus_service.dart';
+import '/common/services/package_info_plus_service.dart';
 
 import '../../app/url.dart';
 import '../imports/imports.dart';

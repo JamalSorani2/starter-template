@@ -160,7 +160,10 @@ abstract final class AppTheme {
       inputDecorationTheme: AppStyles.inputDecorationThemeLight(isEnglish),
       dialogTheme: AppStyles.dialogTheme,
       cardTheme: AppStyles.cardTheme,
-      iconTheme: AppStyles.iconTheme,
+      iconTheme: IconThemeData(
+        size: AppDesign.icon,
+        color: AppColors.textPrimary,
+      ),
       checkboxTheme: AppStyles.checkBoxTheme,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.surface,

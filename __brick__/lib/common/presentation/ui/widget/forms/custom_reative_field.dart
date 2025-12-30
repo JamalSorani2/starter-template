@@ -64,8 +64,6 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
         _focusNode.requestFocus();
       });
     }
-
-    _scrollToFieldOnTap();
   }
 
   @override
@@ -88,7 +86,13 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
           formControlName: widget.controller,
           readOnly: widget.readOnly,
           focusNode: _focusNode,
-          onTap: widget.onTap,
+          onTap: (control) {
+            widget.onTap?.call(control);
+            _scrollToFieldOnTap();
+          },
+          onTapUpOutside: (control) {
+            _focusNode.unfocus();
+          },
           onSubmitted: widget.onSubmitted,
           keyboardType: widget.keyboardType,
           textDirection: widget.textDirection ?? widget.hintText?.textDirection,

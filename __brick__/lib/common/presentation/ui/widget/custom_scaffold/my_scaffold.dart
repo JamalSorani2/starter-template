@@ -33,7 +33,7 @@ class _MyScaffoldState<B extends BlocBase<S>, S, M>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
+      endDrawer: const Drawer(),
       body: Column(
         children: [
           MyAppBar(title: widget.title),

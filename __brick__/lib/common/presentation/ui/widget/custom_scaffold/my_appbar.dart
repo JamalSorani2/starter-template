@@ -13,9 +13,8 @@ class MyAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRoot = context.route.endsWith(RoutesNames.root);
-    // ||
-    //     context.route.contains(RoutesNames.dashboard);
+    final isRoot = context.route.endsWith(RoutesNames.root) ||
+        context.route.contains(RoutesNames.dashboard);
     return Container(
       width: context.screenWidth,
       padding: EdgeInsets.only(top: context.paddingTop),

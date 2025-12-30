@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:dio_refresh_bot/dio_refresh_bot.dart';
-
 import '../imports/imports.dart';
 import '../presentation/state/bloc/app_manager_bloc.dart';
 
@@ -44,29 +42,29 @@ class BRouterConfig {
           return null;
         }
 
-        final bool onBoaringSeen =
-            getIt<SharedPreferences>().getBool(KOnboardingCompleted) ?? false;
         final String currentRoute = state.uri.toString();
 
         if (!currentRoute.contains(RoutesNames.dashboard)) {
           return "/${RoutesNames.dashboard}";
         }
+        // final bool onBoaringSeen =
+        //     getIt<SharedPreferences>().getBool(KOnboardingCompleted) ?? false;
 
-        if (isUpdateAvailable) {
-          return '/update-available';
-        } else if (appManagerBloc.state.status == Status.unauthenticated) {
-          printG(Status.unauthenticated);
-          if (!onBoaringSeen) {
-            if (!currentRoute.contains('/onbording')) {
-              return '/onbording';
-            }
-          } else if (!currentRoute.contains('/login')) {
-            return '/login';
-          }
-        } else if (appManagerBloc.state.status == Status.authenticated &&
-            !currentRoute.contains('/root')) {
-          return '/root';
-        }
+        // if (isUpdateAvailable) {
+        //   return '/update-available';
+        // } else if (appManagerBloc.state.status == Status.unauthenticated) {
+        //   printG(Status.unauthenticated);
+        //   if (!onBoaringSeen) {
+        //     if (!currentRoute.contains('/onbording')) {
+        //       return '/onbording';
+        //     }
+        //   } else if (!currentRoute.contains('/login')) {
+        //     return '/login';
+        //   }
+        // } else if (appManagerBloc.state.status == Status.authenticated &&
+        //     !currentRoute.contains('/root')) {
+        //   return '/root';
+        // }
 
         return null;
       },

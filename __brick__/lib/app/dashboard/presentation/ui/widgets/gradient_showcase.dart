@@ -1,7 +1,5 @@
 import '/common/imports/imports.dart';
 
-import '../../../../../common/presentation/ui/theme/app_gradient.dart';
-
 class GradientThemeShowcase extends StatelessWidget {
   const GradientThemeShowcase({super.key});
 

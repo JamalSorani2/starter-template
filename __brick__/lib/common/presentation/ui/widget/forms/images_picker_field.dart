@@ -3,11 +3,21 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../imports/imports.dart';
 
+class FileModel {
+  final File? file;
+  final String? url;
+  bool isNetwork;
+
+  FileModel({
+    this.file,
+    this.url,
+  }) : isNetwork = url != null;
+}
+
 class ImagesPickerField extends StatelessWidget {
   const ImagesPickerField({
     super.key,
     required this.images,
-    required this.networkImages,
     required this.onPickImage,
     required this.onEditImage,
     required this.onDeleteImage,
@@ -16,11 +26,15 @@ class ImagesPickerField extends StatelessWidget {
     this.title,
   });
 
-  final List<File?> images;
-  final List<String> networkImages;
-  final void Function(File image) onPickImage;
-  final void Function(int index, File image, bool isNetwork) onEditImage;
-  final void Function(int index, bool isNetwork) onDeleteImage;
+  final List<FileModel> images;
+  final void Function(FileModel image) onPickImage;
+  final void Function(
+    int index,
+    FileModel image,
+  ) onEditImage;
+  final void Function(
+    int index,
+  ) onDeleteImage;
   final bool readOnly;
   final bool enableMultiImagesPicker;
   final String? title;
@@ -31,44 +45,29 @@ class ImagesPickerField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (title != null) ...[
-          Text(title!, style: context.s12w500),
-          6.verticalSpace,
+          TitleWidget(
+            title: title!,
+          ),
         ],
-        if ((enableMultiImagesPicker ||
-            (images.isEmpty && networkImages.isEmpty)))
-          if (readOnly && networkImages.isEmpty || !readOnly) ...[
+        if (enableMultiImagesPicker || images.isEmpty)
+          if (readOnly && images.isEmpty || !readOnly) ...[
             _ImagePickerWidget(
               image: null,
-              onEditImage: (image) => onEditImage(0, image, false),
+              onEditImage: (image) => onEditImage(0, image),
               onPickImage: onPickImage,
-              onDeleteImage: () => onDeleteImage(0, false),
+              onDeleteImage: () => onDeleteImage(0),
               readOnly: readOnly,
-              isNetwork: false,
               enableMultiImagesPicker: enableMultiImagesPicker,
             ),
             12.verticalSpace,
           ],
-        for (int i = 0; i < images.length; i++)
-          if (images[i] != null) ...[
-            _ImagePickerWidget(
-              image: images[i],
-              onEditImage: (image) => onEditImage(i, image, false),
-              onPickImage: onPickImage,
-              onDeleteImage: () => onDeleteImage(i, false),
-              readOnly: readOnly,
-              isNetwork: false,
-              enableMultiImagesPicker: enableMultiImagesPicker,
-            ),
-            12.verticalSpace,
-          ],
-        for (int i = 0; i < networkImages.length; i++) ...[
+        for (int i = images.length - 1; i >= 0; i--) ...[
           _ImagePickerWidget(
-            image: networkImages[i],
-            onEditImage: (image) => onEditImage(i, image, true),
+            image: images[i],
+            onEditImage: (image) => onEditImage(i, image),
             onPickImage: onPickImage,
-            onDeleteImage: () => onDeleteImage(i, true),
+            onDeleteImage: () => onDeleteImage(i),
             readOnly: readOnly,
-            isNetwork: true,
             enableMultiImagesPicker: enableMultiImagesPicker,
           ),
           12.verticalSpace,
@@ -84,17 +83,15 @@ class _ImagePickerWidget extends StatelessWidget {
     required this.onEditImage,
     required this.onPickImage,
     required this.onDeleteImage,
-    required this.isNetwork,
     required this.enableMultiImagesPicker,
     this.readOnly = false,
   });
 
-  final dynamic image;
-  final void Function(File image) onEditImage;
-  final void Function(File image) onPickImage;
+  final FileModel? image;
+  final void Function(FileModel image) onEditImage;
+  final void Function(FileModel image) onPickImage;
   final VoidCallback onDeleteImage;
   final bool readOnly;
-  final bool isNetwork;
   final bool enableMultiImagesPicker;
 
   @override
@@ -107,12 +104,12 @@ class _ImagePickerWidget extends StatelessWidget {
                 if (image != null || !enableMultiImagesPicker) {
                   final file = await pickSingleFile(context);
                   if (file != null) {
-                    onEditImage(file);
+                    onEditImage(FileModel(file: file));
                   }
                 } else {
                   final files = await _pickMultiFiles(context);
                   for (final f in files) {
-                    onPickImage(f);
+                    onPickImage(FileModel(file: f));
                   }
                 }
               },
@@ -122,11 +119,11 @@ class _ImagePickerWidget extends StatelessWidget {
             if (image != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.r),
-                child: isNetwork
+                child: image!.isNetwork
                     ? CustomNetworkImage(
-                        imageUrl: image.toString(),
+                        imageUrl: image!.url.toString(),
                       )
-                    : Image.file(image, fit: BoxFit.cover),
+                    : Image.file(image!.file!, fit: BoxFit.cover),
               )
             else if (readOnly)
               Center(child: Text(AppString.noImage, style: context.s12w500))
@@ -138,7 +135,7 @@ class _ImagePickerWidget extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: AppColors.primary.withValues(alpha: 0.2),
                     child: Icon(
-                      Icons.upload,
+                      Icons.download,
                       color: AppColors.primary,
                     ),
                   ),
@@ -182,10 +179,7 @@ Future<List<File>> _pickMultiFiles(BuildContext context) async {
   for (final f in result.files) {
     final file = File(f.path!);
     if (validateFile(file)) {
-      final confirm = await confirmPickedFile(context, file);
-      if (confirm) {
-        files.add(file);
-      }
+      files.add(file);
     }
   }
   return files;
@@ -194,39 +188,37 @@ Future<List<File>> _pickMultiFiles(BuildContext context) async {
 Future<ImageSource?> _showImageSourcePicker(
   BuildContext context, {
   bool gallery = false,
-}) {
-  return showModalBottomSheet<ImageSource>(
-    useSafeArea: true,
+}) async {
+  final source = await showCustomBottomSheet<ImageSource>(
     context: context,
-    backgroundColor: AppColors.surface,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+    // backgroundColor: AppColors.surface,
+    // shape: RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+    // ),
+    child: Padding(
+      padding: REdgeInsets.all(20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(AppString.selectSource, style: context.s16w500),
+          16.verticalSpace,
+          _SourceTile(
+            icon: Icons.camera,
+            title: AppString.camera,
+            onTap: () => Navigator.pop(context, ImageSource.camera),
+          ),
+          12.verticalSpace,
+          _SourceTile(
+            icon: gallery ? Icons.browse_gallery : Icons.folder,
+            title: gallery ? AppString.gallery : AppString.files,
+            onTap: () => Navigator.pop(context, ImageSource.gallery),
+          ),
+        ],
+      ),
     ),
-    builder: (context) {
-      return Padding(
-        padding: REdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(AppString.selectSource, style: context.s16w500),
-            16.verticalSpace,
-            _SourceTile(
-              icon: Icons.camera,
-              title: AppString.camera,
-              onTap: () => Navigator.pop(context, ImageSource.camera),
-            ),
-            12.verticalSpace,
-            _SourceTile(
-              icon: gallery ? Icons.browse_gallery : Icons.folder,
-              title: gallery ? AppString.gallery : AppString.files,
-              onTap: () => Navigator.pop(context, ImageSource.gallery),
-            ),
-          ],
-        ),
-      );
-    },
   );
+  return source;
 }
 
 class _SourceTile extends StatelessWidget {
@@ -245,7 +237,6 @@ class _SourceTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(12.r),
       onTap: onTap,
       child: Container(
-        padding: REdgeInsets.all(14),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
         ),
@@ -282,45 +273,6 @@ bool validateFile(File file) {
   return true;
 }
 
-Future<bool> confirmPickedFile(BuildContext context, File file) async {
-  return await showDialog<bool>(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              AppString.confirmUpload,
-              style: context.s16w500,
-            ),
-            content: Text(
-              "${AppString.areYouSureYouWantToUploadThisFile}\n\n${file.path.split('/').last}",
-              style: context.s14w400, // 17.sp
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: Text(
-                  AppString.cancel,
-                  style: context.s14w500.copyWith(
-                    color: AppColors.primary,
-                  ), // 13.sp w700
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: Text(
-                  AppString.confirm,
-                  style: context.s14w500.copyWith(
-                    color: AppColors.primary,
-                  ), // 13.sp w700
-                ),
-              ),
-            ],
-          );
-        },
-      ) ??
-      false;
-}
-
 Future<File?> pickSingleFile(
   BuildContext context, {
   bool gallery = false,
@@ -340,10 +292,7 @@ Future<File?> pickSingleFile(
       return file;
     }
     if (validateFile(file)) {
-      final confirm = await confirmPickedFile(context, file);
-      if (confirm) {
-        return file;
-      }
+      return file;
     }
   } else {
     final result = await FilePicker.platform.pickFiles(
@@ -355,10 +304,7 @@ Future<File?> pickSingleFile(
     }
     final file = File(result.files.single.path!);
     if (validateFile(file)) {
-      final confirm = await confirmPickedFile(context, file);
-      if (confirm) {
-        return file;
-      }
+      return file;
     }
   }
   return null;

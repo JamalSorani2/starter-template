@@ -1,4 +1,4 @@
-import 'package:app_name/common/services/check_version_service.dart';
+import '/common/services/check_version_service.dart';
 import '../../services/device_info_service.dart';
 import '../../services/notification_service.dart';
 import '../../services/package_info_plus_service.dart';
@@ -22,7 +22,6 @@ Future<void> servicesInjection() async {
   final notificationService = NotificationService();
   await notificationService.initialize();
   getIt.registerSingleton<NotificationService>(notificationService);
-  getIt.registerSingleton<PackageInfoService>(packageInfoService);
 
   final urlLauncherService = UrlLauncherService();
   getIt.registerSingleton<UrlLauncherService>(urlLauncherService);

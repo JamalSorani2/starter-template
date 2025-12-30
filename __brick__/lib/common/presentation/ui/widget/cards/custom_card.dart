@@ -30,7 +30,7 @@ class CustomCard extends StatelessWidget {
     );
 
     final card = Container(
-      margin: margin ?? REdgeInsets.all(8),
+      margin: margin ?? EdgeInsets.zero,
       padding: padding ?? REdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.card,

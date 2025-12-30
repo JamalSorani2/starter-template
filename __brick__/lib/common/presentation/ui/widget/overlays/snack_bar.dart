@@ -6,7 +6,7 @@ void showGlobalSnackbar({
   bool isError = false,
   bool isWarning = false,
   bool isSuccess = false,
-  Duration duration = const Duration(seconds: 3),
+  Duration duration = const Duration(seconds: 2),
   Color? backgroundColor,
   Color? textColor,
 }) {

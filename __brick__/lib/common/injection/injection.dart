@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+
 import 'src/auth_injection.dart';
 import 'src/general_injection.dart';
 

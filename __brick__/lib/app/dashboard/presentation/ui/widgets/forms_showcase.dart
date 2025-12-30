@@ -15,9 +15,7 @@ class FormsShowcase extends StatefulWidget {
 class _FormsShowcaseState extends State<FormsShowcase> {
   late final FormGroup _form;
 
-  // Local state for images picker demo
-  final List<File?> _pickedImages = [];
-  final List<String> _networkImages = [];
+  final List<FileModel> _pickedImages = [];
 
   final phoneController = PhoneController();
 
@@ -105,6 +103,7 @@ class _FormsShowcaseState extends State<FormsShowcase> {
                 controller: 'number',
                 title: 'Amount',
                 hintText: 'Enter a number',
+                prefixIcon: Icons.attach_money,
               ),
 
               20.verticalSpace,
@@ -113,13 +112,12 @@ class _FormsShowcaseState extends State<FormsShowcase> {
               ImagesPickerField(
                 images: _pickedImages,
                 title: "Images Picker",
-                networkImages: _networkImages,
                 onPickImage: (file) {
                   setState(() => _pickedImages.add(file));
                 },
-                onEditImage: (index, file, isNetwork) {
+                onEditImage: (index, file) {
                   setState(() {
-                    if (isNetwork) {
+                    if (file.isNetwork) {
                       return;
                     } // demo keeps network list intact
                     if (index >= 0 && index < _pickedImages.length) {
@@ -127,16 +125,12 @@ class _FormsShowcaseState extends State<FormsShowcase> {
                     }
                   });
                 },
-                onDeleteImage: (index, isNetwork) {
+                onDeleteImage: (
+                  index,
+                ) {
                   setState(() {
-                    if (isNetwork) {
-                      if (index >= 0 && index < _networkImages.length) {
-                        _networkImages.removeAt(index);
-                      }
-                    } else {
-                      if (index >= 0 && index < _pickedImages.length) {
-                        _pickedImages.removeAt(index);
-                      }
+                    if (index >= 0 && index < _pickedImages.length) {
+                      _pickedImages.removeAt(index);
                     }
                   });
                 },
