@@ -4,48 +4,48 @@ import '../../../../../imports/imports.dart';
 class ResultBuilder<T> extends StatelessWidget {
   ResultBuilder({
     super.key,
+    required this.result,
     required this.success,
     this.loading,
-    required this.onError,
     this.init,
-    required this.result,
+    this.onError,
   });
 
   final Result<T> result;
-  Widget Function()? loading;
+
   final Widget Function(T data) success;
+  final Widget Function()? loading;
+  final Widget Function()? init;
   final Future<void> Function()? onError;
-  Widget Function()? init;
 
   @override
   Widget build(BuildContext context) {
-    Widget? next;
-
-    loading ??= () => const LoadingProgress();
-    init ??= () => const SizedBox();
-    result.when(
-      init: () => next = RefreshIndicator(
-        onRefresh: onError ?? () async {},
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              Container(height: MediaQuery.of(context).size.height),
-            ],
-          ),
-        ),
-      ),
-      loading: () => next = loading!(),
-      loaded: (data) => next = success(data),
-      error: (message) => onError != null
-          ? {
-              next = FailureWidget(
-                onRetry: onError!,
-                message: message.message,
+    switch (result.status) {
+      case ResultStatus.init:
+        return init?.call() ??
+            RefreshIndicator(
+              onRefresh: onError ?? () async {},
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                ),
               ),
-            }
-          : const SizedBox.shrink(),
-    );
-    return next ?? const SizedBox();
+            );
+
+      case ResultStatus.loading:
+        return loading?.call() ?? const LoadingProgress();
+
+      case ResultStatus.loaded:
+        return success(result.data as T);
+
+      case ResultStatus.error:
+        return onError != null
+            ? FailureWidget(
+                onRetry: onError!,
+                message: result.errorMessage,
+              )
+            : const SizedBox.shrink();
+    }
   }
 }

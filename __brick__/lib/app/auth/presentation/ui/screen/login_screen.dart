@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
           formGroup: LoginForm.formGroup,
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state.loginAuthState.isLoaded()) {
+              if (state.loginAuthState.isLoaded) {
                 context.goNamed(RoutesNames.root);
               }
             },
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 20.h,
                     ),
                     CustomButton.primary(
-                      isLoading: state.loginAuthState.isLoading(),
+                      isLoading: state.loginAuthState.isLoading,
                       onPressed: () {
                         context.read<AuthBloc>().add(
                               LoginAuthEvent(
