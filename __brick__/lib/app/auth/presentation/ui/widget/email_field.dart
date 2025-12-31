@@ -8,11 +8,8 @@ class EmailField extends StatelessWidget {
     return CustomReactiveField(
       controller: InputKeys.email,
       keyboardType: TextInputType.emailAddress,
-      prefixIcon: Icon(
-        Icons.email_outlined,
-        color: AppColors.grey.withValues(alpha: 0.5),
-        size: 24.sp,
-      ),
+      title: AppString.email,
+      prefixIcon: Icons.email_outlined,
       hintText: AppString.email,
     );
   }

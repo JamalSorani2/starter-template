@@ -25,9 +25,9 @@ class CustomReactiveNumberField extends StatelessWidget {
   final bool autoFocus;
   final String? minLengthValidator;
   final TextInputAction textInputAction;
-  final Widget? prefixIcon;
-  final Widget? asset;
-  final Widget? suffixIcon;
+  final IconData? prefixIcon;
+  final IconData? asset;
+  final IconData? suffixIcon;
   final void Function(FormControl)? onTap;
   final void Function(FormControl<dynamic>)? onChanged;
   final void Function(FormControl<dynamic>)? onSubmitted;

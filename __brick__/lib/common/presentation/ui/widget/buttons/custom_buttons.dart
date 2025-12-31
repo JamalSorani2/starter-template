@@ -118,34 +118,12 @@ class CustomButton extends StatelessWidget {
       isDisabled: isDisabled,
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.primary,
-        side: BorderSide(color: AppColors.primary),
+        backgroundColor: Colors.transparent,
+        side: BorderSide(
+          color: isDisabled ? AppColors.border : AppColors.primary,
+        ),
         minimumSize: Size.fromHeight(AppDesign.buttonHeight),
         shape: RoundedRectangleBorder(borderRadius: AppDesign.radius),
-      ),
-      key: key,
-    );
-  }
-
-  // ─────────────────────────────
-  // Primary Text (text button)
-  // ─────────────────────────────
-  factory CustomButton.primaryText({
-    required String text,
-    required VoidCallback? onPressed,
-    bool isLoading = false,
-    Widget? icon,
-    bool isDisabled = false,
-    Key? key,
-  }) {
-    return CustomButton._(
-      text: text,
-      onPressed: onPressed,
-      isLoading: isLoading,
-      icon: icon,
-      isDisabled: isDisabled,
-      style: TextButton.styleFrom(
-        foregroundColor: AppColors.primary,
-        minimumSize: Size.fromHeight(AppDesign.buttonHeight),
       ),
       key: key,
     );
@@ -154,13 +132,9 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final childContent = isLoading
-        ? const SizedBox(
-            height: 20,
-            width: 20,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              color: Colors.white,
-            ),
+        ? LoadingProgress(
+            color: AppColors.textPrimary,
+            size: AppDesign.buttonHeight * 0.6,
           )
         : Row(
             mainAxisSize: MainAxisSize.min,
@@ -168,7 +142,7 @@ class CustomButton extends StatelessWidget {
             children: [
               if (icon != null) ...[
                 icon!,
-                const SizedBox(width: 8),
+                8.horizontalSpace,
               ],
               Flexible(child: Text(text)),
             ],
@@ -176,7 +150,11 @@ class CustomButton extends StatelessWidget {
 
     return ElevatedButton(
       style: style,
-      onPressed: isDisabled || isLoading ? null : onPressed,
+      onPressed: isDisabled
+          ? null
+          : isLoading
+              ? () {}
+              : onPressed,
       child: childContent,
     );
   }

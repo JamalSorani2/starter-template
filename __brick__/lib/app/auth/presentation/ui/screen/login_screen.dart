@@ -1,6 +1,6 @@
-import '/app/auth/domain/entities/login_auth_param.dart';
 import 'package:flutter/cupertino.dart';
 
+import '/app/auth/domain/entities/login_auth_param.dart';
 import '../../../../../common/imports/imports.dart';
 import '../../input_forms/login_form.dart';
 import '../../state/bloc/auth_bloc.dart';
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
           formGroup: LoginForm.formGroup,
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state.loginAuthState.isLoaded()) {
+              if (state.loginAuthState.isLoaded) {
                 context.goNamed(RoutesNames.root);
               }
             },
@@ -49,15 +49,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomReactiveField(
                       title: 'كلمة المرور',
                       isPassword: true,
-                      asset: const Icon(CupertinoIcons.eye_slash),
-                      suffixPassIcon: const Icon(CupertinoIcons.eye),
+                      asset: CupertinoIcons.eye_slash,
+                      suffixPassIcon: CupertinoIcons.eye,
                       controller: InputKeys.password,
                     ),
                     SizedBox(
                       height: 20.h,
                     ),
                     CustomButton.primary(
-                      isLoading: state.loginAuthState.isLoading(),
+                      isLoading: state.loginAuthState.isLoading,
                       onPressed: () {
                         context.read<AuthBloc>().add(
                               LoginAuthEvent(

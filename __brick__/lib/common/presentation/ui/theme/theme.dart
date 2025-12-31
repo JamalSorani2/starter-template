@@ -160,7 +160,10 @@ abstract final class AppTheme {
       inputDecorationTheme: AppStyles.inputDecorationThemeLight(isEnglish),
       dialogTheme: AppStyles.dialogTheme,
       cardTheme: AppStyles.cardTheme,
-      iconTheme: AppStyles.iconTheme,
+      iconTheme: IconThemeData(
+        size: AppDesign.icon,
+        color: AppColors.textPrimary,
+      ),
       checkboxTheme: AppStyles.checkBoxTheme,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.surface,
@@ -172,6 +175,16 @@ abstract final class AppTheme {
           color: AppColors.textPrimary,
         ),
         iconTheme: IconThemeData(color: AppColors.textPrimary),
+      ),
+      drawerTheme: DrawerThemeData(
+        backgroundColor: AppColors.surface,
+        elevation: 1,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(16.r),
+          ),
+        ),
       ),
     );
   }

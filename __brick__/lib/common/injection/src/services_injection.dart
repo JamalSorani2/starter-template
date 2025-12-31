@@ -22,7 +22,6 @@ Future<void> servicesInjection() async {
   final notificationService = NotificationService();
   await notificationService.initialize();
   getIt.registerSingleton<NotificationService>(notificationService);
-  getIt.registerSingleton<PackageInfoService>(packageInfoService);
 
   final urlLauncherService = UrlLauncherService();
   getIt.registerSingleton<UrlLauncherService>(urlLauncherService);

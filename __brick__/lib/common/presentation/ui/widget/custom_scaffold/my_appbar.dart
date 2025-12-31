@@ -13,7 +13,8 @@ class MyAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRoot = context.route.endsWith(RoutesNames.root);
+    final isRoot = context.route.endsWith(RoutesNames.root) ||
+        context.route.contains(RoutesNames.dashboard);
     return Container(
       width: context.screenWidth,
       padding: EdgeInsets.only(top: context.paddingTop),
@@ -30,7 +31,9 @@ class MyAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              isRoot ? const DrawerButton() : const BackButton(),
+              AppDesign.horizontalPadding.horizontalSpace,
+              isRoot ? const CustomDrawerButton() : const CustomBackButton(),
+              12.horizontalSpace,
               Expanded(
                 child: titleWidget ??
                     Text(
@@ -39,6 +42,7 @@ class MyAppBar extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
               ),
+              12.horizontalSpace,
               if (actions != null)
                 Row(
                   children: [
@@ -48,6 +52,7 @@ class MyAppBar extends StatelessWidget {
                     ],
                   ],
                 ),
+              AppDesign.horizontalPadding.horizontalSpace,
             ],
           ),
         ],

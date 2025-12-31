@@ -1,10 +1,10 @@
 import '../../../../imports/imports.dart';
 
-Future showCustomBottomSheet({
+Future<T?> showCustomBottomSheet<T>({
   required BuildContext context,
   required Widget child,
 }) {
-  return showModalBottomSheet(
+  return showModalBottomSheet<T>(
     context: context,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(

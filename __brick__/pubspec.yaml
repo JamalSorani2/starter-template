@@ -109,6 +109,10 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.4
   xml: ^6.6.1
 
+dependency_overrides:
+  circle_flags:
+    git: https://github.com/JamalSorani/flutter_circle_flags.git # to change sy flag to free sy flag
+
 
 flutter:
   uses-material-design: true

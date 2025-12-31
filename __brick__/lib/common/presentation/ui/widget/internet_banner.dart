@@ -1,5 +1,4 @@
 import '../../../imports/imports.dart';
-import '../../../services/storage_service/internet_status_service.dart';
 
 class InternetBanner extends StatelessWidget {
   const InternetBanner({super.key, required this.child});
@@ -8,6 +7,7 @@ class InternetBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<bool>(
+      key: const Key('internetBanner'),
       stream: InternetStatusService.connectionStatusController.stream,
       initialData: true,
       builder: (context, snapshot) {
@@ -23,14 +23,24 @@ class InternetBanner extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    AppString.noInternetConnection,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(color: Colors.white),
+                  padding: EdgeInsets.only(
+                    top: context.paddingTop + 8.h,
+                    bottom: 8.h,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppString.noInternetConnection,
+                        textAlign: TextAlign.center,
+                        style: context.s16w400.copyWith(color: Colors.white),
+                      ),
+                      8.horizontalSpace,
+                      LoadingProgress(
+                        size: 24.r,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -1,45 +1,44 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../../network/exception/failure.dart';
 
-part 'result.freezed.dart';
-
-@freezed
-class Result<T> with _$Result<T> {
-  const factory Result.init() = _init<T>;
-
-  const factory Result.loading() = _Lodaing<T>;
-
-  const factory Result.loaded({required T data}) = _Loaded<T>;
-
-  const factory Result.error({required Failure error}) = _Error<T>;
+enum ResultStatus {
+  init,
+  loading,
+  loaded,
+  error,
 }
 
-extension ResultExtension<T> on Result<T> {
-  bool isLoading() => maybeWhen(orElse: () => false, loading: () => true);
+class Result<T> {
+  final ResultStatus status;
+  final T? data;
+  final Failure? failure;
 
-  bool isLoaded() => maybeWhen(orElse: () => false, loaded: (data) => true);
+  const Result._({
+    required this.status,
+    this.data,
+    this.failure,
+  });
 
-  bool isInit() => maybeWhen(orElse: () => false, init: () => true);
+  /// States
+  const Result.init() : this._(status: ResultStatus.init);
 
-  bool isError() => maybeWhen(orElse: () => false, error: (error) => true);
+  const Result.loading() : this._(status: ResultStatus.loading);
 
-  T? getDataWhenSuccess() =>
-      maybeWhen(orElse: () => null, loaded: (data) => data);
+  const Result.loaded({required T data})
+      : this._(status: ResultStatus.loaded, data: data);
 
-  String? get error => maybeWhen(
-        orElse: () {
-          return null;
-        },
-        error: (error) {
-          return error.message;
-        },
-      );
-  String? get errorStatusCode => maybeWhen(
-        orElse: () {
-          return null;
-        },
-        error: (error) {
-          return error.statusCode;
-        },
-      );
+  const Result.error({required Failure error})
+      : this._(
+          status: ResultStatus.error,
+          failure: error,
+        );
+
+  /// Helpers
+  bool get isInit => status == ResultStatus.init;
+  bool get isLoading => status == ResultStatus.loading;
+  bool get isLoaded => status == ResultStatus.loaded;
+  bool get isError => status == ResultStatus.error;
+
+  T? get dataOrNull => data;
+  String? get errorMessage => failure?.message;
+  String? get errorStatusCode => failure?.statusCode;
 }

@@ -12,15 +12,12 @@ class UsernameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomReactiveField(
-      controller: InputKeys.fullName,
+      controller: InputKeys.username,
       title: withTitle ? AppString.userName : null,
       readOnly: readOnly,
       hintText: AppString.userName,
       minLengthValidator: AppString.userNameMinLength,
-      suffixPassIcon: Icon(
-        FontAwesomeIcons.user,
-        size: 24.sp,
-      ),
+      prefixIcon: FontAwesomeIcons.user,
     );
   }
 }

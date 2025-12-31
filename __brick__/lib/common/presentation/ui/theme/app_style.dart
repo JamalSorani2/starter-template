@@ -30,7 +30,7 @@ abstract final class AppStyles {
 
   static final TextButtonThemeData textButtonStyle = TextButtonThemeData(
     style: TextButton.styleFrom(
-      padding: EdgeInsets.zero,
+      padding: REdgeInsets.all(4),
       shape: RoundedRectangleBorder(
         borderRadius: AppDesign.radius,
       ),
@@ -41,6 +41,9 @@ abstract final class AppStyles {
   static final IconButtonThemeData iconButtonStyle = IconButtonThemeData(
     style: IconButton.styleFrom(
       padding: EdgeInsets.zero,
+      maximumSize: Size(AppDesign.icon, AppDesign.icon),
+      minimumSize: Size(AppDesign.icon, AppDesign.icon),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       foregroundColor: AppColors.primary,
       iconSize: AppDesign.icon,
     ),
@@ -80,28 +83,33 @@ abstract final class AppStyles {
       errorStyle: textTheme.labelSmall?.copyWith(
         color: AppColors.danger,
       ),
-      hintStyle: textTheme.bodySmall,
+      hintStyle: textTheme.bodySmall?.copyWith(color: AppColors.textDisabled),
       labelStyle: textTheme.bodySmall,
     );
   }
 
-  static InputDecorationTheme inputDecorationThemeDark = InputDecorationTheme(
-    filled: true,
-    fillColor: AppColors.surface,
-    contentPadding: AppDesign.inputContentPadding,
-    border: OutlineInputBorder(
-      borderRadius: AppDesign.radius,
-      borderSide: BorderSide(color: AppColors.border),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: AppDesign.radius,
-      borderSide: BorderSide(color: AppColors.border),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: AppDesign.radius,
-      borderSide: BorderSide(color: AppColors.primary),
-    ),
-  );
+  static InputDecorationTheme inputDecorationThemeDark(bool isEnglish) {
+    final textTheme = AppTheme.textTheme(isEnglish);
+    return InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.surface,
+      contentPadding: AppDesign.inputContentPadding,
+      border: OutlineInputBorder(
+        borderRadius: AppDesign.radius,
+        borderSide: BorderSide(color: AppColors.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: AppDesign.radius,
+        borderSide: BorderSide(color: AppColors.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: AppDesign.radius,
+        borderSide: BorderSide(color: AppColors.primary),
+      ),
+      hintStyle: textTheme.bodySmall?.copyWith(color: AppColors.textDisabled),
+      labelStyle: textTheme.bodySmall,
+    );
+  }
 
   //! Dialogs & Cards ===============================================================================
   static final DialogThemeData dialogTheme = DialogThemeData(
@@ -120,10 +128,6 @@ abstract final class AppStyles {
   );
 
   //! Icons & Checkbox ===============================================================================
-  static final IconThemeData iconTheme = IconThemeData(
-    size: AppDesign.icon,
-    color: AppColors.textPrimary,
-  );
   static final CheckboxThemeData checkBoxTheme = CheckboxThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(4.r),

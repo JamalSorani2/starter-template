@@ -1,13 +1,13 @@
 import '../../../../imports/imports.dart';
 
-class DrawerButton extends StatelessWidget {
-  const DrawerButton({super.key});
+class CustomDrawerButton extends StatelessWidget {
+  const CustomDrawerButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        Scaffold.of(context).openEndDrawer();
+        Scaffold.of(context).openDrawer();
       },
       icon: const Icon(
         FontAwesomeIcons.list,

@@ -3,7 +3,8 @@ import '../imports/imports.dart';
 extension Context on BuildContext {
   bool get isEnglish => locale == const Locale("en");
 
-  String get route => GoRouter.of(this).state.uri.toString();
+  String get route =>
+      GoRouter.of(this).routerDelegate.currentConfiguration.uri.toString();
 
   double get screenWidth => MediaQuery.of(this).size.width;
 

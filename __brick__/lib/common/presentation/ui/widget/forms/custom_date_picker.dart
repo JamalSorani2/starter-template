@@ -1,4 +1,5 @@
 import 'package:reactive_date_time_picker/reactive_date_time_picker.dart';
+
 import '../../../../imports/imports.dart';
 
 class CustomDatePicker extends StatelessWidget {
@@ -18,8 +19,12 @@ class CustomDatePicker extends StatelessWidget {
         if (title != null) TitleWidget(title: title!),
         ReactiveDateTimePicker(
           formControlName: controller,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.date_range_outlined),
+          locale: const Locale("en"),
+          type: ReactiveDatePickerFieldType.dateTime,
+          style: context.s12w400,
+          decoration: InputDecoration(
+            prefixIcon: FieldIcon(Icons.date_range_outlined),
+            hintText: "14-12-2002",
           ),
         ),
       ],

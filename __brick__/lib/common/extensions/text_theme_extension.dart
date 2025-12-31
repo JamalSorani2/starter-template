@@ -45,4 +45,7 @@ extension TextThemeExtension on BuildContext {
 
   /// 11.sp — FontWeight.w500
   TextStyle get s11w500 => Theme.of(this).textTheme.labelSmall!;
+
+  /// 12.sp — FontWeight.w400
+  TextStyle get hintText => s12w400.copyWith(color: AppColors.textDisabled);
 }

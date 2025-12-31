@@ -17,23 +17,12 @@ class PasswordField extends StatelessWidget {
     return CustomReactiveField(
       controller:
           isConfirmPassword ? InputKeys.confirmPassword : InputKeys.password,
-      prefixIcon: Icon(
-        Icons.lock_outline,
-        color: AppColors.grey.withValues(alpha: 0.5),
-        size: 24.sp,
-      ),
+      prefixIcon: Icons.lock_outline,
       isPassword: true,
-      asset: Icon(
-        CupertinoIcons.eye_slash,
-        color: AppColors.grey.withValues(alpha: 0.5),
-        size: 24.sp,
-      ),
-      suffixPassIcon: Icon(
-        CupertinoIcons.eye,
-        color: AppColors.grey.withValues(alpha: 0.5),
-        size: 24.sp,
-      ),
+      asset: CupertinoIcons.eye_slash,
+      suffixPassIcon: CupertinoIcons.eye,
       hintText: hintText,
+      title: AppString.password,
     );
   }
 }

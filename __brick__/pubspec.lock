@@ -186,12 +186,13 @@ packages:
     source: hosted
     version: "2.0.4"
   circle_flags:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: circle_flags
-      sha256: "22268452bb0c0146251c01969e9b85dd36c76e13bd13f543bd0af8b7b334c181"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: a29214809d8ca159b18c360b7f6e9b14401c6db6
+      url: "https://github.com/JamalSorani/flutter_circle_flags.git"
+    source: git
     version: "5.0.1"
   cli_util:
     dependency: transitive

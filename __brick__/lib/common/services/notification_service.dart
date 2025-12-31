@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../imports/imports.dart';
@@ -13,8 +12,8 @@ class NotificationService {
 
   Future<void> initialize() async {
     await _initAwesomeNotifications();
-    await Firebase.initializeApp();
-    await _initFirebaseMessaging();
+    // await Firebase.initializeApp();
+    // await _initFirebaseMessaging();
     _initAwesomeListeners();
   }
 
@@ -40,6 +39,7 @@ class NotificationService {
     await AwesomeNotifications().requestPermissionToSendNotifications();
   }
 
+  // ignore: unused_element
   Future<void> _initFirebaseMessaging() async {
     final fcm = FirebaseMessaging.instance;
 

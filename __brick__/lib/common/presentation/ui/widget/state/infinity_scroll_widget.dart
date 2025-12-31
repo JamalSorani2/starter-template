@@ -1,5 +1,4 @@
 import '../../../../imports/imports.dart';
-import '../../../state/provider/infinity_scroll_provider.dart';
 
 class InfinityScrollWidget<T> extends StatefulWidget {
   const InfinityScrollWidget({
