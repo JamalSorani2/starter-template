@@ -8,21 +8,21 @@ class TextThemeShowcase extends StatelessWidget {
     final tt = Theme.of(context).textTheme;
 
     final entries = <_Item>[
-      _Item('displayLarge', tt.displayLarge),
-      _Item('displayMedium', tt.displayMedium),
-      _Item('displaySmall', tt.displaySmall),
-      _Item('headlineLarge', tt.headlineLarge),
-      _Item('headlineMedium', tt.headlineMedium),
-      _Item('headlineSmall', tt.headlineSmall),
-      _Item('titleLarge', tt.titleLarge),
-      _Item('titleMedium', tt.titleMedium),
-      _Item('titleSmall', tt.titleSmall),
-      _Item('bodyLarge', tt.bodyLarge),
-      _Item('bodyMedium', tt.bodyMedium),
-      _Item('bodySmall', tt.bodySmall),
-      _Item('labelLarge', tt.labelLarge),
-      _Item('labelMedium', tt.labelMedium),
-      _Item('labelSmall', tt.labelSmall),
+      _Item('displayLarge', tt.displayLarge!),
+      _Item('displayMedium', tt.displayMedium!),
+      _Item('displaySmall', tt.displaySmall!),
+      _Item('headlineLarge', tt.headlineLarge!),
+      _Item('headlineMedium', tt.headlineMedium!),
+      _Item('headlineSmall', tt.headlineSmall!),
+      _Item('titleLarge', tt.titleLarge!),
+      _Item('titleMedium', tt.titleMedium!),
+      _Item('titleSmall', tt.titleSmall!),
+      _Item('bodyLarge', tt.bodyLarge!),
+      _Item('bodyMedium', tt.bodyMedium!),
+      _Item('bodySmall', tt.bodySmall!),
+      _Item('labelLarge', tt.labelLarge!),
+      _Item('labelMedium', tt.labelMedium!),
+      _Item('labelSmall', tt.labelSmall!),
     ];
 
     return Column(
@@ -50,6 +50,10 @@ class TextThemeShowcase extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(e.name, style: e.style),
+                Text(
+                  "Font Size: ${e.style.fontSize}, Weight: ${e.style.fontWeight?.toString() ?? 'normal'}",
+                  style: e.style,
+                ),
               ],
             );
           },
@@ -61,6 +65,6 @@ class TextThemeShowcase extends StatelessWidget {
 
 class _Item {
   final String name;
-  final TextStyle? style;
+  final TextStyle style;
   _Item(this.name, this.style);
 }
