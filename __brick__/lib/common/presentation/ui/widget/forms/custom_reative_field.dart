@@ -49,15 +49,19 @@ class CustomReactiveField extends StatefulWidget {
   State<CustomReactiveField> createState() => _CustomReactiveFieldState();
 }
 
-class _CustomReactiveFieldState extends State<CustomReactiveField> {
+class _CustomReactiveFieldState extends State<CustomReactiveField>
+    with WidgetsBindingObserver {
   final _focusNode = FocusNode();
   final _fieldKey = GlobalKey();
   late bool _hidden;
+  bool _keyboardOpen = false;
 
   @override
   void initState() {
     super.initState();
     _hidden = widget.isPassword;
+
+    WidgetsBinding.instance.addObserver(this);
 
     if (widget.autoFocus) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -68,8 +72,26 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _focusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final view = View.of(context);
+    final bottomInset = view.viewInsets.bottom;
+    final keyboardVisible = bottomInset > 0;
+
+    // Keyboard just closed
+    if (_keyboardOpen && !keyboardVisible) {
+      if (_focusNode.hasFocus) {
+        _focusNode.unfocus();
+      }
+    }
+
+    _keyboardOpen = keyboardVisible;
+    super.didChangeMetrics();
   }
 
   @override
@@ -93,6 +115,9 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
           onTapUpOutside: (control) {
             _focusNode.unfocus();
           },
+          onTapOutside: (event) {
+            _focusNode.unfocus();
+          },
           onSubmitted: widget.onSubmitted,
           keyboardType: widget.keyboardType,
           textDirection: widget.textDirection ?? widget.hintText?.textDirection,
@@ -102,7 +127,7 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
           onChanged: widget.onChanged,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintTextDirection: widget.hintText.textDirection,
+            hintTextDirection: widget.hintText?.textDirection,
             prefixIcon: FieldIcon(widget.prefixIcon),
             suffixIcon: widget.isPassword
                 ? GestureDetector(

@@ -66,7 +66,17 @@ abstract final class AppStyles {
 
     return InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.surface,
+      fillColor: WidgetStateColor.resolveWith(
+        (states) {
+          if (states.contains(WidgetState.error)) {
+            return AppColors.danger.withValues(alpha: 0.1);
+          }
+          if (states.contains(WidgetState.focused)) {
+            return AppColors.primary.withValues(alpha: 0.1);
+          }
+          return AppColors.surface;
+        },
+      ),
       contentPadding: AppDesign.inputContentPadding,
       border: OutlineInputBorder(
         borderRadius: AppDesign.radius,
@@ -82,29 +92,6 @@ abstract final class AppStyles {
       ),
       errorStyle: textTheme.labelSmall?.copyWith(
         color: AppColors.danger,
-      ),
-      hintStyle: textTheme.bodySmall?.copyWith(color: AppColors.textDisabled),
-      labelStyle: textTheme.bodySmall,
-    );
-  }
-
-  static InputDecorationTheme inputDecorationThemeDark(bool isEnglish) {
-    final textTheme = AppTheme.textTheme(isEnglish);
-    return InputDecorationTheme(
-      filled: true,
-      fillColor: AppColors.surface,
-      contentPadding: AppDesign.inputContentPadding,
-      border: OutlineInputBorder(
-        borderRadius: AppDesign.radius,
-        borderSide: BorderSide(color: AppColors.border),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: AppDesign.radius,
-        borderSide: BorderSide(color: AppColors.border),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: AppDesign.radius,
-        borderSide: BorderSide(color: AppColors.primary),
       ),
       hintStyle: textTheme.bodySmall?.copyWith(color: AppColors.textDisabled),
       labelStyle: textTheme.bodySmall,

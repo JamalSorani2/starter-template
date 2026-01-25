@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+// import 'package:{{app_name}}/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../imports/imports.dart';
@@ -12,8 +14,10 @@ class NotificationService {
 
   Future<void> initialize() async {
     await _initAwesomeNotifications();
-    // await Firebase.initializeApp();
-    // await _initFirebaseMessaging();
+    await Firebase.initializeApp(
+      // options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await _initFirebaseMessaging();
     _initAwesomeListeners();
   }
 
@@ -111,32 +115,11 @@ class NotificationService {
 
   void _initAwesomeListeners() {
     AwesomeNotifications().setListeners(
-      onActionReceivedMethod: _onActionReceived,
-      onNotificationCreatedMethod: _onNotificationCreated,
-      onNotificationDisplayedMethod: _onNotificationDisplayed,
-      onDismissActionReceivedMethod: _onDismissed,
+      onActionReceivedMethod: onActionReceivedMethod,
+      onNotificationCreatedMethod: onNotificationCreatedMethod,
+      onNotificationDisplayedMethod: onNotificationDisplayedMethod,
+      onDismissActionReceivedMethod: onDismissActionReceivedMethod,
     );
-  }
-
-  Future<void> _onActionReceived(ReceivedAction action) async {
-    log('Notification action: ${action.buttonKeyPressed}');
-    _handleDeepLink(action.payload);
-  }
-
-  Future<void> _onNotificationCreated(
-    ReceivedNotification notification,
-  ) async {
-    log('Notification created');
-  }
-
-  Future<void> _onNotificationDisplayed(
-    ReceivedNotification notification,
-  ) async {
-    log('Notification displayed');
-  }
-
-  Future<void> _onDismissed(ReceivedAction action) async {
-    log('Notification dismissed');
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -231,4 +214,31 @@ class NotificationService {
   Future<bool> hasPermission() async {
     return AwesomeNotifications().isNotificationAllowed();
   }
+}
+
+@pragma('vm:entry-point')
+Future<void> onActionReceivedMethod(ReceivedAction action) async {
+  log('🔔 Action received: ${action.buttonKeyPressed}');
+  log('Payload: ${action.payload}');
+}
+
+@pragma('vm:entry-point')
+Future<void> onNotificationCreatedMethod(
+  ReceivedNotification notification,
+) async {
+  log('🔔 Notification created');
+}
+
+@pragma('vm:entry-point')
+Future<void> onNotificationDisplayedMethod(
+  ReceivedNotification notification,
+) async {
+  log('🔔 Notification displayed');
+}
+
+@pragma('vm:entry-point')
+Future<void> onDismissActionReceivedMethod(
+  ReceivedAction action,
+) async {
+  log('🔔 Notification dismissed');
 }

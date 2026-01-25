@@ -35,6 +35,6 @@ Widget? FieldIcon(IconData? iconData) {
   }
   return Icon(
     iconData,
-    color: AppColors.grey.withValues(alpha: 0.5),
+    color: AppColors.textDisabled,
   );
 }

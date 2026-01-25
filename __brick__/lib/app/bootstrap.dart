@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -10,6 +12,7 @@ Future<void> bootstrap(Widget mainApp) async {
   try {
     await initInjection();
     await getIt<ReactiveTokenStorage>().loadToken();
+    unawaited(_initUnUregentServices());
     initializeDateFormatting();
   } catch (e, s) {
     printR(e);
@@ -29,7 +32,6 @@ Future<void> bootstrap(Widget mainApp) async {
         builder: (context) => mainApp,
       ),
     );
-    await _initUnUregentServices();
   }
 }
 
