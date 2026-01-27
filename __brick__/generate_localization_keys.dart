@@ -3,28 +3,26 @@
 import 'dart:convert';
 import 'dart:io';
 
-// dart run generate_localization_keys.dart
+import 'figma_to_arb.dart';
 
 void main() {
   const arFilePath = 'assets/l10n/ar.json';
   const enFilePath = 'assets/l10n/en.json';
   const keysFilePath = 'lib/common/translate/app_string.dart';
 
-  // ---------- Load en.json ----------
-  final enFile = File(enFilePath);
-  if (!enFile.existsSync()) {
-    print('❌ Error: en.json not found.');
+  // ---------- Load ar.json (DOMINANT) ----------
+  final arFile = File(arFilePath);
+  if (!arFile.existsSync()) {
+    print('❌ Error: ar.json not found.');
     return;
   }
-  final Map<String, dynamic> enMapOriginal = jsonDecode(
-    enFile.readAsStringSync(),
+  final Map<String, dynamic> arMapOriginal = jsonDecode(
+    arFile.readAsStringSync(),
   );
 
+  // ---------- Fix empty keys in ar.json ----------
   String cleanTextToKey(String text) {
-    // Remove all characters except letters, numbers and spaces
     final cleaned = text.replaceAll(RegExp(r'[^A-Za-z0-9 ]'), '');
-
-    // Split words
     final words =
         cleaned.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
 
@@ -32,7 +30,6 @@ void main() {
       return 'emptyKey';
     }
 
-    // camelCase
     final first = words.first.toLowerCase();
     final rest = words
         .skip(1)
@@ -42,7 +39,6 @@ void main() {
     return first + rest;
   }
 
-  // ---------- Preprocess empty keys "" ----------
   void fixEmptyKeys(Map<String, dynamic> map) {
     final keysToAdd = <String, dynamic>{};
     final keysToRemove = <String>[];
@@ -62,10 +58,10 @@ void main() {
     map.addAll(keysToAdd);
   }
 
-  fixEmptyKeys(enMapOriginal);
+  fixEmptyKeys(arMapOriginal);
 
-  // ---------- Remove duplicate values in en.json ----------
-  final Map<String, dynamic> enMap = {};
+  // ---------- Remove duplicate values in ar.json ----------
+  final Map<String, dynamic> arMap = {};
   final Set<String> seenValues = {};
 
   void removeDuplicates(
@@ -81,121 +77,86 @@ void main() {
           target[key] = value;
           seenValues.add(value.toString());
         } else {
-          print(
-            "❌ Duplicate value removed from en.json: key=$key, value=$value",
-          );
+          print("❌ Duplicate value removed from ar.json: key=$key");
         }
       }
     });
   }
 
-  removeDuplicates(enMapOriginal, enMap);
+  removeDuplicates(arMapOriginal, arMap);
 
-  // Save cleaned en.json
-  enFile.writeAsStringSync(const JsonEncoder.withIndent('    ').convert(enMap));
-  print("✅ en.json cleaned, empty keys fixed, duplicates removed.");
+  arFile.writeAsStringSync(const JsonEncoder.withIndent('    ').convert(arMap));
+  print("✅ ar.json cleaned (dominant file).");
 
-  // ---------- Load ar.json ----------
-  final arFile = File(arFilePath);
-  if (!arFile.existsSync()) {
-    print('❌ Error: ar.json not found.');
+  // ---------- Load en.json ----------
+  final enFile = File(enFilePath);
+  if (!enFile.existsSync()) {
+    print('❌ Error: en.json not found.');
     return;
   }
-  final Map<String, dynamic> arMap = jsonDecode(arFile.readAsStringSync());
+  final Map<String, dynamic> enMap = jsonDecode(enFile.readAsStringSync());
 
-  // ---------- Remove keys from ar.json that do NOT exist in en.json ----------
+  // ---------- Remove keys from en.json that do NOT exist in ar.json ----------
   bool removed = false;
 
-  void removeExtraKeys(Map<String, dynamic> ar, Map<String, dynamic> en) {
+  void removeExtraKeys(Map<String, dynamic> en, Map<String, dynamic> ar) {
     final keysToRemove = <String>[];
-    ar.forEach((key, value) {
-      if (!en.containsKey(key)) {
+    en.forEach((key, value) {
+      if (!ar.containsKey(key)) {
         keysToRemove.add(key);
       } else if (value is Map<String, dynamic> &&
-          en[key] is Map<String, dynamic>) {
-        removeExtraKeys(value, en[key]);
+          ar[key] is Map<String, dynamic>) {
+        removeExtraKeys(value, ar[key]);
       }
     });
     for (final key in keysToRemove) {
-      ar.remove(key);
+      en.remove(key);
       removed = true;
-      print("🗑 Removed extra key from ar.json: $key");
+      print("🗑 Removed extra key from en.json: $key");
     }
   }
 
-  removeExtraKeys(arMap, enMap);
+  removeExtraKeys(enMap, arMap);
 
-  // ---------- Sync missing keys from en → ar ----------
+  // ---------- Sync missing keys from ar → en ----------
   bool updated = false;
 
-  void syncMissing(Map<String, dynamic> en, Map<String, dynamic> ar) {
-    en.forEach((key, value) {
-      if (!ar.containsKey(key)) {
-        ar[key] = ""; // Or ar[key] = value; to copy English
-        print("➕ Added missing key to ar.json: $key");
+  void syncMissing(Map<String, dynamic> ar, Map<String, dynamic> en) {
+    ar.forEach((key, value) {
+      if (!en.containsKey(key)) {
+        en[key] = ""; // English translator fills later
+        print("➕ Added missing key to en.json: $key");
         updated = true;
       } else if (value is Map<String, dynamic>) {
-        if (ar[key] is! Map) {
-          ar[key] = {};
+        if (en[key] is! Map) {
+          en[key] = {};
         }
-        syncMissing(value, ar[key]);
+        syncMissing(value, en[key]);
       }
     });
   }
 
-  syncMissing(enMap, arMap);
+  syncMissing(arMap, enMap);
 
-  // Save ar.json if changed
   if (updated || removed) {
-    arFile
-        .writeAsStringSync(const JsonEncoder.withIndent('    ').convert(arMap));
-    print("✅ ar.json updated (synced missing keys, removed extra keys).");
-  } else {
-    print("✔ ar.json already matches en.json keys.");
+    enFile
+        .writeAsStringSync(const JsonEncoder.withIndent('    ').convert(enMap));
+    print("✅ en.json synced with ar.json.");
   }
 
-  // ---------- Generate Dart localization keys ----------
-  Directory(
-    keysFilePath.substring(0, keysFilePath.lastIndexOf('/')),
-  ).createSync(recursive: true);
-
+  // ---------- Generate Dart keys from ARABIC ----------
   final keysBuffer = StringBuffer();
 
   keysBuffer.writeln('''
 import 'package:easy_localization/easy_localization.dart';
-import 'package:easy_localization/src/easy_localization_controller.dart';
-import 'package:easy_localization/src/localization.dart';
-import '../imports/imports.dart';
-import 'app_local.dart';
 
-// dart run generate_localization_keys.dart
-class AppString {
-  static final Localization _localization = Localization.instance;
-  Future<void> loadTranslations() async {
-    await EasyLocalizationController.initEasyLocation();
-    final controller = EasyLocalizationController(
-      saveLocale: true,
-      fallbackLocale: AppLocale.fallbackLocale,
-      supportedLocales: AppLocale.supportedLocales,
-      assetLoader: const RootBundleAssetLoader(),
-      useOnlyLangCode: false,
-      useFallbackTranslations: true,
-      path: AppLocale.path,
-      onLoadError: (FlutterError e) {},
-    );
-    await controller.loadTranslations();
-    Localization.load(
-      controller.locale,
-      translations: controller.translations,
-      fallbackTranslations: controller.fallbackTranslations,
-    );
-  }''');
+class AppString {''');
 
   void generateKeys(Map<String, dynamic> map, [String prefix = '']) {
     for (final entry in map.entries) {
       final key = entry.key;
       final value = entry.value.toString().replaceAll('\n', '');
-      final newKey = key.contains('_') ? _toCamelCase(key) : key;
+      final newKey = key.contains('_') ? toCamelCase(key) : key;
       final fullKey = prefix.isNotEmpty ? '$prefix.$key' : key;
 
       if (entry.value is Map) {
@@ -204,29 +165,20 @@ class AppString {
         keysBuffer.writeln();
         keysBuffer.writeln("  /// $value");
         keysBuffer.writeln(
-          "  static String get $newKey => _localization.tr('$fullKey');",
+          "  static String get $newKey => '$fullKey'.tr();",
         );
       }
     }
   }
 
-  generateKeys(enMap);
-
+  generateKeys(arMap);
   keysBuffer.writeln('}');
-
   File(keysFilePath).writeAsStringSync(keysBuffer.toString());
-  print('🎯 Localization keys generated & ar.json synced successfully.');
+
+  print('🎯 Keys generated. Arabic is now dominant.');
 }
 
-// snake_case → camelCase
-String _toCamelCase(String text) {
-  return text.split(RegExp(r'\s+|_|-')).mapIndexed((index, word) {
-    if (index == 0) {
-      return word.toLowerCase();
-    }
-    return word[0].toUpperCase() + word.substring(1).toLowerCase();
-  }).join();
-}
+
 
 // helper for Iterable.mapIndexed
 extension IterableExtensions<E> on Iterable<E> {
