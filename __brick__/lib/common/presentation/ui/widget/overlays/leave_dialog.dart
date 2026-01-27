@@ -14,7 +14,7 @@ Future<bool> showLeaveDialog(BuildContext context) async {
       headerTitle: AppString.leavePage,
       body: Text(
         AppString.areYouSureYouWantToLeave,
-        style: context.s12w400,
+        style: context.bodySmall,
       ),
       primaryText: AppString.yesLeave,
       onPrimaryTap: () {

@@ -35,7 +35,7 @@ class CustomToggle extends StatelessWidget {
           8.horizontalSpace,
           Text(
             label,
-            style: context.s12w500.copyWith(
+            style: context.labelMedium.copyWith(
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w500,
             ),

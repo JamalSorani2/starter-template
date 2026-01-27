@@ -1,5 +1,4 @@
 import "../../../../../common/imports/imports.dart";
-import "../../state/page_index_provider.dart";
 import "../widgets/indicator.dart";
 import "../widgets/next_button.dart";
 import "../widgets/onboarding_bg.dart";

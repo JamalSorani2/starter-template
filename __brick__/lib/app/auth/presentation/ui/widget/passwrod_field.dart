@@ -6,23 +6,32 @@ import '../../../../../common/imports/imports.dart';
 class PasswordField extends StatelessWidget {
   const PasswordField({
     super.key,
-    required this.isConfirmPassword,
+    this.isConfirmPassword = false,
+    this.withTitle = false,
     required this.hintText,
+    this.onSubmit,
+    this.textInputAction = TextInputAction.next,
   });
   final bool isConfirmPassword;
   final String hintText;
+  final bool withTitle;
+  final VoidCallback? onSubmit;
+  final TextInputAction textInputAction;
 
   @override
   Widget build(BuildContext context) {
     return CustomReactiveField(
       controller:
           isConfirmPassword ? InputKeys.confirmPassword : InputKeys.password,
-      prefixIcon: Icons.lock_outline,
+      prefixIcon: TablerIcons.lock_filled,
       isPassword: true,
-      asset: CupertinoIcons.eye_slash,
-      suffixPassIcon: CupertinoIcons.eye,
+      asset: CupertinoIcons.eye_slash_fill,
+      suffixPassIcon: CupertinoIcons.eye_fill,
       hintText: hintText,
-      title: AppString.password,
+      title: withTitle ? AppString.password : null,
+      onSubmitted: (value) => onSubmit?.call(),
+      keyboardType: TextInputType.visiblePassword,
+      textInputAction: textInputAction,
     );
   }
 }

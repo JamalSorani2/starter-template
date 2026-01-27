@@ -19,7 +19,7 @@ class TitleWidget extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: context.s12w500,
+                style: context.labelMedium,
               ),
             ],
           ),

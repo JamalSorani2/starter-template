@@ -7,11 +7,9 @@ import 'package:device_preview_plus/device_preview_plus.dart';
 import '../common/imports/imports.dart';
 import '../common/presentation/state/bloc/app_manager_bloc.dart';
 import '../common/router/router_config.dart';
-import '../common/services/language_service.dart';
 import '../common/services/system_ui_service.dart';
 import 'auth/domain/repository/auth_repository.dart';
 import 'auth/presentation/state/provider/counter_provider.dart';
-import 'onboarding/presentation/state/page_index_provider.dart';
 import 'root/presentation/state/provider/nav_bar_provider.dart';
 
 late GlobalKey<NavigatorState> navigatorKey;
@@ -92,9 +90,11 @@ class _MyAppState extends State<MyApp> {
                   theme: AppTheme.theme(context.isEnglish, true),
                   darkTheme: AppTheme.theme(context.isEnglish, false),
                   themeMode: themeProvider.themeMode,
+                  locale: context.locale,
+                  supportedLocales: context.supportedLocales,
+                  localizationsDelegates: context.localizationDelegates,
                   builder: (context, child) {
                     SystemUiService.setForTheme(Theme.of(context));
-                    LanguageService.init(context);
                     child = BotToastInit()(context, child);
                     // flutter build apk --release --dart-define=ENABLE_REQUEST_INSPECT=true
                     child = RequestInspect(

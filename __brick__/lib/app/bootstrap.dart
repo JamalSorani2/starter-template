@@ -2,8 +2,6 @@ import '/common/injection/src/services_injection.dart';
 import 'package:device_preview_plus/device_preview_plus.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
-import '/common/injection/src/services_injection.dart';
 import '../common/imports/imports.dart';
 import '../common/presentation/state/observer/app_bloc_observer.dart';
 

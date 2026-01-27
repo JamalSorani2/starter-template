@@ -7,9 +7,22 @@ class CustomDatePicker extends StatelessWidget {
     super.key,
     required this.controller,
     this.title,
+    this.hintText,
+    this.fillColor,
+    this.type = ReactiveDatePickerFieldType.date,
+    this.format,
+    this.minTime,
+    this.maxTime,
   });
+
   final String controller;
   final String? title;
+  final String? hintText;
+  final Color? fillColor;
+  final ReactiveDatePickerFieldType type;
+  final DateFormat? format;
+  final DateTime? minTime;
+  final DateTime? maxTime;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +33,15 @@ class CustomDatePicker extends StatelessWidget {
         ReactiveDateTimePicker(
           formControlName: controller,
           locale: const Locale("en"),
-          type: ReactiveDatePickerFieldType.dateTime,
-          style: context.s12w400,
+          type: type,
+          dateFormat: format ?? kDateFormat,
+          style: context.bodySmall,
+          firstDate: minTime,
+          lastDate: maxTime,
           decoration: InputDecoration(
-            prefixIcon: FieldIcon(Icons.date_range_outlined),
-            hintText: "14-12-2002",
+            prefixIcon: FieldIcon(TablerIcons.clock),
+            hintText: hintText,
+            fillColor: fillColor,
           ),
         ),
       ],

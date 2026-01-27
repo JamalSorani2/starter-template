@@ -51,7 +51,7 @@ class CustomDialog extends StatelessWidget {
                     children: [
                       Text(
                         headerTitle,
-                        style: context.s22w400,
+                        style: context.titleLarge,
                       ),
                       if (subTitleWidget != null) subTitleWidget!,
                     ],

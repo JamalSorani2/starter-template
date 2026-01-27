@@ -1,5 +1,4 @@
 import '/common/services/notification_service.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -271,7 +270,7 @@ class AuthRepoImp implements AuthRepository {
   Stream<AuthStatus> get authStatusStream =>
       reactiveTokenStorage.authenticationStatus;
 
-  @override
+ @override
   void logout() async {
     final String? language =
         await getIt<SharedPreferences>().getString(KUserLanguage);
@@ -282,8 +281,9 @@ class AuthRepoImp implements AuthRepository {
     await getIt<ReactiveTokenStorage>().delete();
     await getIt<FlutterSecureStorage>().deleteAll();
     await getIt<ReactiveTokenStorage>().loadToken();
-    await getIt<StorageService>().clear();
-    await getIt<StorageService>().setString(KUserLanguage, language ?? "ar");
+    await getIt<StorageService<SharedPreferences>>().clear();
+    await getIt<StorageService<SharedPreferences>>()
+        .setString(KUserLanguage, language ?? "ar");
     await getIt<SharedPreferences>().setBool(KOnboardingCompleted, false);
   }
 }

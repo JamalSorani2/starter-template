@@ -10,7 +10,7 @@ class ResendCodeButton extends StatelessWidget {
       children: [
         Text(
           AppString.codeNotSent,
-          style: context.s12w400,
+          style: context.bodySmall,
         ),
         4.horizontalSpace,
         Consumer<CountdownProvider>(
@@ -25,7 +25,7 @@ class ResendCodeButton extends StatelessWidget {
                 countdownProvider.isTimerRunning
                     ? '${countdownProvider.remainingSeconds}'
                     : AppString.resendCode,
-                style: context.s12w400.copyWith(
+                style: context.bodySmall.copyWith(
                   color: AppColors.grey,
                   decoration: TextDecoration.underline,
                   decorationColor: AppColors.grey,

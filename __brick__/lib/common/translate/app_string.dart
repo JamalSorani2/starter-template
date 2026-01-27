@@ -189,6 +189,27 @@ class AppString {
   /// Update
   static String get update => _localization.tr('update');
 
+  /// Add to Favorites
+  static String get addToFavorites => _localization.tr('addToFavorites');
+
+  /// Remove from Favorites
+  static String get removeFromFavorites => _localization.tr('removeFromFavorites');
+
   /// Password
   static String get password => _localization.tr('password');
+
+  /// Dark Mode
+  static String get darkMode => _localization.tr('darkMode');
+
+  /// See All
+  static String get seeAll => _localization.tr('seeAll');
+
+  /// Read More
+  static String get readMore => _localization.tr('readMore');
+
+  /// Read Less
+  static String get readLess => _localization.tr('readLess');
+
+  /// Edit Image
+  static String get editImage => _localization.tr('editImage');
 }

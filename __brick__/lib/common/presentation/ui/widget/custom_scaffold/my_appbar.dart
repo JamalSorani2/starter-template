@@ -1,4 +1,5 @@
 import '/common/imports/imports.dart';
+import '../logo_widget.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({
@@ -6,39 +7,34 @@ class MyAppBar extends StatelessWidget {
     required this.title,
     this.actions,
     this.titleWidget,
+    this.isRoot,
   });
   final String title;
   final List<Widget>? actions;
   final Widget? titleWidget;
+  final bool? isRoot;
 
   @override
   Widget build(BuildContext context) {
-    final isRoot = context.route.endsWith(RoutesNames.root) ||
-        context.route.contains(RoutesNames.dashboard);
+    final isRoot = this.isRoot ??
+        (context.route.endsWith(RoutesNames.root) ||
+            context.route.contains(RoutesNames.dashboard));
     return Container(
       width: context.screenWidth,
-      padding: EdgeInsets.only(top: context.paddingTop),
-      height: AppDesign.appBarHeight + context.paddingTop,
-      decoration: BoxDecoration(
-        color: AppColors.card,
-        borderRadius: BorderRadius.only(
-          bottomLeft: AppDesign.radius.bottomLeft,
-          bottomRight: AppDesign.radius.bottomRight,
-        ),
-        boxShadow: AppShadows.card,
-      ),
+      padding: EdgeInsets.only(top: context.paddingTop + 12.h),
+      height: AppDesign.appBarHeight + context.paddingTop + 12.h,
       child: Column(
         children: [
           Row(
             children: [
               AppDesign.horizontalPadding.horizontalSpace,
-              isRoot ? const CustomDrawerButton() : const CustomBackButton(),
+              isRoot ? const LogoWidget() : const CustomBackButton(),
               12.horizontalSpace,
               Expanded(
                 child: titleWidget ??
                     Text(
                       title,
-                      style: context.s22w400,
+                      style: context.titleLarge,
                       overflow: TextOverflow.ellipsis,
                     ),
               ),

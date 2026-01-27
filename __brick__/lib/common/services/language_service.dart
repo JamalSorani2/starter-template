@@ -3,21 +3,12 @@ import '../imports/imports.dart';
 class LanguageService {
   LanguageService._();
 
-  static late BuildContext _context; // store context from init
-
-  /// Initialize service with context and load saved language
-  static Future<void> init(BuildContext context) async {
-    _context = context;
-    final languageCode = getIt<SharedPreferences>().getString(KUserLanguage);
-    if (languageCode != null) {
-      await _context.setLocale(Locale(languageCode));
-    }
-  }
-
-  /// Change language anywhere without passing context
-  static Future<void> changeLanguage(String languageCode) async {
+  static Future<void> changeLanguage(
+    BuildContext context,
+    String languageCode,
+  ) async {
     final locale = Locale(languageCode);
-    await _context.setLocale(locale);
+    await context.setLocale(locale);
 
     await getIt<SharedPreferences>().setString(KUserLanguage, languageCode);
   }

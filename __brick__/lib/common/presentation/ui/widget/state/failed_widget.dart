@@ -30,7 +30,7 @@ class FailureWidget extends StatelessWidget {
 
             Text(
               AppString.somethingWentWrong,
-              style: context.s22w400,
+              style: context.titleLarge,
               textAlign: TextAlign.center,
             ),
 
@@ -38,7 +38,7 @@ class FailureWidget extends StatelessWidget {
 
             Text(
               message ?? AppString.tryAgainLater,
-              style: context.s14w400.copyWith(
+              style: context.bodyMedium.copyWith(
                 color: AppColors.textSecondary,
               ),
               textAlign: TextAlign.center,

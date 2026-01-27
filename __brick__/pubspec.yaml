@@ -1,4 +1,4 @@
-name: {{app_name}} 
+name: app_name 
 description: {{description}}
 version: 0.0.0+1
 publish_to: none
@@ -80,7 +80,10 @@ dependencies:
   #s
   shared_preferences: ^2.5.4
   share_plus: ^10.0.1
-  phone_form_field: ^10.0.16
+  phone_form_field:
+    git:
+      url: https://github.com/JamalSorani2/phone_form_field.git
+      ref: d1ef423c8b15cf00787f8b8c5181461d42c5b498
   flutter_animate: ^4.5.2
   flutter_spinkit: ^5.2.2
   device_info_plus: ^12.3.0
@@ -91,6 +94,9 @@ dependencies:
   awesome_notifications: ^0.10.1
   firebase_messaging: ^16.1.0
   package_info_plus: ^9.0.0
+  flutter_tabler_icons: ^1.43.0
+  crop_your_image: ^2.0.0
+  translator: ^1.0.4+1
   
 
   #t

@@ -33,7 +33,7 @@ class InternetBanner extends StatelessWidget {
                       Text(
                         AppString.noInternetConnection,
                         textAlign: TextAlign.center,
-                        style: context.s16w400.copyWith(color: Colors.white),
+                        style: context.bodyLarge.copyWith(color: Colors.white),
                       ),
                       8.horizontalSpace,
                       LoadingProgress(

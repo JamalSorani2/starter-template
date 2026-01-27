@@ -1,3 +1,4 @@
+
 import '../../../../imports/imports.dart';
 
 class MyScaffold<B extends BlocBase<S>, S, M> extends StatefulWidget {
@@ -6,55 +7,71 @@ class MyScaffold<B extends BlocBase<S>, S, M> extends StatefulWidget {
     required this.title,
     required this.resultParam,
     this.footerWidget,
-    this.enableScroll = true,
+    this.actions = const [],
+    this.subtitleWidget,
+    this.floatingActionButton,
+    this.isRoot,
   });
 
-  final String title;
+  final String? title;
   final ResultParam<B, S, M> resultParam;
   final Widget? footerWidget;
-  final bool enableScroll;
+  final List<Widget> actions;
+  final Widget? subtitleWidget;
+  final Widget? floatingActionButton;
+  final bool? isRoot;
 
   @override
   State<MyScaffold<B, S, M>> createState() => _MyScaffoldState<B, S, M>();
 }
 
 class _MyScaffoldState<B extends BlocBase<S>, S, M>
-    extends State<MyScaffold<B, S, M>> {
+    extends State<MyScaffold<B, S, M>> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-
-    /// Trigger initial load after first frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.resultParam.onRefresh();
-    });
+    widget.resultParam.onRefresh?.call();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      endDrawer: const Drawer(),
+      resizeToAvoidBottomInset: false,
+      floatingActionButton: widget.floatingActionButton,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyAppBar(title: widget.title),
+          if (widget.title != null)
+            MyAppBar(
+              title: widget.title!,
+              actions: widget.actions,
+              isRoot: widget.isRoot,
+            ),
+          if (widget.subtitleWidget != null)
+            Padding(
+              padding: REdgeInsets.only(
+                left: AppDesign.horizontalPadding,
+                right: AppDesign.horizontalPadding,
+              ),
+              child: widget.subtitleWidget,
+            ),
           Expanded(
-            child: RefreshIndicator(
+            child: _Refresh(
               onRefresh: widget.resultParam.onRefresh,
-              child: SingleChildScrollView(
-                physics: widget.enableScroll
-                    ? const AlwaysScrollableScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
-                child: BlocProvider<B>.value(
-                  value: widget.resultParam.bloc,
-                  child: BlocBuilder<B, S>(
-                    builder: (context, state) {
-                      return ResultBuilder<M>(
-                        result: widget.resultParam.result(state),
-                        onError: widget.resultParam.onRefresh,
-                        success: widget.resultParam.bodyBuilder,
-                      );
-                    },
-                  ),
+              child: BlocProvider<B>.value(
+                value: widget.resultParam.bloc,
+                child: BlocBuilder<B, S>(
+                  builder: (context, state) {
+                    if (widget.resultParam.result == null) {
+                      return widget.resultParam.bodyBuilder(unit as M);
+                    }
+                    return ResultBuilder<M>(
+                      result: widget.resultParam.result!(state),
+                      onError: widget.resultParam.onRefresh,
+                      success: widget.resultParam.bodyBuilder,
+                    );
+                  },
                 ),
               ),
             ),
@@ -64,8 +81,26 @@ class _MyScaffoldState<B extends BlocBase<S>, S, M>
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
+class _Refresh extends StatelessWidget {
+  const _Refresh({required this.child, required this.onRefresh});
+  final Widget child;
+  final Future<void> Function()? onRefresh;
+  @override
+  Widget build(BuildContext context) {
+    if (onRefresh != null) {
+      return RefreshIndicator(
+        onRefresh: onRefresh!,
+        child: child,
+      );
+    }
+    return child;
+  }
+}
 
 //! Example
 /*

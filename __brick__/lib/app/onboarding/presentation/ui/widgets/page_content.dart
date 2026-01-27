@@ -59,7 +59,7 @@ class PageContent extends StatelessWidget {
           24.verticalSpace,
           Text(
             page.description1,
-            style: context.s57w400.copyWith(
+            style: context.displayLarge.copyWith(
               color: AppColors.grey.withValues(alpha: 0.9),
             ),
           ).animate().shimmer(
@@ -76,7 +76,7 @@ class PageContent extends StatelessWidget {
               ),
               Text(
                 page.description2,
-                style: context.s57w400.copyWith(
+                style: context.displayLarge.copyWith(
                   color: AppColors.grey.withValues(alpha: 0.9),
                 ),
               ),

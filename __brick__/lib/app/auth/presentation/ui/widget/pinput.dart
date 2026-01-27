@@ -21,7 +21,7 @@ class PinPutWidget extends StatelessWidget {
               focusedPinTheme: PinTheme(
                 width: 46.h,
                 height: 46.h,
-                textStyle: context.s16w500,
+                textStyle: context.titleMedium,
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primary),
                   borderRadius: BorderRadius.circular(8.r),
@@ -36,7 +36,7 @@ class PinPutWidget extends StatelessWidget {
               defaultPinTheme: PinTheme(
                 width: 46.h,
                 height: 46.h,
-                textStyle: context.s16w500,
+                textStyle: context.titleMedium,
                 decoration: BoxDecoration(
                   border: Border.all(color: '#DBDADE'.toColor()),
                   borderRadius: BorderRadius.circular(8.r),
@@ -51,7 +51,7 @@ class PinPutWidget extends StatelessWidget {
                       padding: REdgeInsets.only(top: 2.0),
                       child: Text(
                         errorText ?? AppString.incorrectPin,
-                        style: context.s11w500.copyWith(
+                        style: context.labelSmall.copyWith(
                           color: AppColors.danger,
                         ),
                       ),
@@ -66,7 +66,7 @@ class PinPutWidget extends StatelessWidget {
               padding: REdgeInsets.only(top: 8),
               child: Text(
                 error!,
-                style: context.s11w500.copyWith(
+                style: context.labelSmall.copyWith(
                   color: AppColors.danger,
                 ),
               ),

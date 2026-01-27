@@ -36,14 +36,14 @@ class CustomReactiveDropdown<T> extends StatelessWidget {
           bottom: false,
           child: ReactiveDropdownField<T>(
             formControlName: controller,
-            dropdownColor: AppColors.border,
+            dropdownColor: AppColors.textDisabled,
             items: items
                 .map(
                   (item) => DropdownMenuItem(
                     value: item.id as T,
                     child: Text(
                       item.name,
-                      style: context.s12w400,
+                      style: context.bodySmall,
                     ),
                   ),
                 )
@@ -52,6 +52,7 @@ class CustomReactiveDropdown<T> extends StatelessWidget {
             onChanged: onChanged,
             decoration: InputDecoration(
               prefixIcon: FieldIcon(prefixIcon),
+              suffixIconColor: AppColors.textDisabled,
             ),
           ),
         ),

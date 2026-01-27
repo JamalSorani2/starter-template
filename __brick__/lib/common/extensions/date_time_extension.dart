@@ -1,31 +1,31 @@
-import 'package:intl/intl.dart';
-
 import '../imports/imports.dart';
+
+DateFormat kDateFormat = DateFormat('dd/MM/yyyy', 'en');
 
 extension DateTimeX on DateTime {
   /// Format: 2025-12-25
-  String get yMd => DateFormat('yyyy-MM-dd').format(this);
+  String get yMd => DateFormat('yyyy-MM-dd', 'en').format(this);
 
   /// Format: 25/12/2025
-  String get dMy => DateFormat('dd/MM/yyyy').format(this);
+  String get dMy => DateFormat('dd/MM/yyyy', 'en').format(this);
 
   /// Format: 25 Dec 2025
-  String get dMMMy => DateFormat('dd MMM yyyy').format(this);
+  String get dMMMy => DateFormat('dd MMM yyyy', 'en').format(this);
 
   /// Format: Dec 25, 2025
-  String get MMMdY => DateFormat('MMM d, yyyy').format(this);
+  String get MMMdY => DateFormat('MMM d, yyyy', 'en').format(this);
 
   /// Format: 14:30
-  String get hm => DateFormat('HH:mm').format(this);
+  String get hm => DateFormat('HH:mm', 'en').format(this);
 
   /// Format: 2:30 PM
-  String get hma => DateFormat('h:mm a').format(this);
+  String get hma => DateFormat('h:mm a', 'en').format(this);
 
   /// Format: 25 Dec 2025, 14:30
-  String get dMMMyHm => DateFormat('dd MMM yyyy, HH:mm').format(this);
+  String get dMMMyHm => DateFormat('dd MMM yyyy, HH:mm', 'en').format(this);
 
   /// Format: 25 Dec 2025, 2:30 PM
-  String get dMMMyHma => DateFormat('dd MMM yyyy, h:mm a').format(this);
+  String get dMMMyHma => DateFormat('dd MMM yyyy, h:mm a', 'en').format(this);
 
   /// Returns true if this DateTime is today
   bool get isToday {
@@ -49,25 +49,6 @@ extension DateTimeX on DateTime {
         day == tomorrow.day;
   }
 
-  /// Returns a human-readable "time ago" string
-  String timeAgo() {
-    final now = DateTime.now();
-    final diff = now.difference(this);
-
-    if (diff.inSeconds < 60) {
-      return 'just now';
-    }
-    if (diff.inMinutes < 60) {
-      return '${diff.inMinutes}m ago';
-    }
-    if (diff.inHours < 24) {
-      return '${diff.inHours}h ago';
-    }
-    if (diff.inDays < 7) {
-      return '${diff.inDays}d ago';
-    }
-    return dMMMyY; // fallback format
-  }
 
   /// Returns format: 25 Dec 2025
   String get dMMMyY => DateFormat('dd MMM yyyy').format(this);
@@ -83,4 +64,13 @@ extension DateTimeRangeFormatter on DateTimeRange {
 
     return "$startDate  -  $endDate";
   }
+}
+
+bool isWeekdayInRange(int weekday, int start, int end) {
+  if (start <= end) {
+    return weekday >= start && weekday <= end;
+  }
+
+  // نطاق متقاطع (مثال: الجمعة → الاثنين)
+  return weekday >= start || weekday <= end;
 }

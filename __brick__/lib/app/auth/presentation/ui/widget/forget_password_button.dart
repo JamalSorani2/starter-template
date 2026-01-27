@@ -21,7 +21,7 @@ class ForgetPasswordButton extends StatelessWidget {
               8.horizontalSpace,
               Text(
                 AppString.forgotPasswordTitle,
-                style: context.s12w400.copyWith(
+                style: context.bodySmall.copyWith(
                   decoration: TextDecoration.underline,
                   decorationColor: AppColors.grey.withValues(alpha: 0.8),
                 ),

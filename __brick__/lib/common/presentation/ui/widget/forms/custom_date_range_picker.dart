@@ -87,7 +87,7 @@ class _CustomReactiveDateRangePickerState
                             children: [
                               Text(
                                 selectedDateRange!.formatDateRange(),
-                                style: context.s12w400.copyWith(
+                                style: context.bodySmall.copyWith(
                                   color: AppColors.textPrimary,
                                 ),
                               ),

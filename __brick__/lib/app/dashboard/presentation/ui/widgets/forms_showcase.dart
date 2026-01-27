@@ -3,7 +3,6 @@ import '/app/auth/presentation/ui/widget/passwrod_field.dart';
 import '/app/auth/presentation/ui/widget/phone_number_field.dart';
 import '/app/auth/presentation/ui/widget/user_name_field.dart';
 import '/common/imports/imports.dart';
-import 'package:phone_form_field/phone_form_field.dart';
 
 class FormsShowcase extends StatefulWidget {
   const FormsShowcase({super.key});
@@ -57,7 +56,6 @@ class _FormsShowcaseState extends State<FormsShowcase> {
               12.verticalSpace,
               const PasswordField(
                 hintText: 'Your secure password',
-                isConfirmPassword: false,
               ),
               12.verticalSpace,
               PhoneNumberField(

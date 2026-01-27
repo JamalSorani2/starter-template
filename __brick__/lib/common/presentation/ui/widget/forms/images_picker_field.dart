@@ -126,7 +126,7 @@ class _ImagePickerWidget extends StatelessWidget {
                     : Image.file(image!.file!, fit: BoxFit.cover),
               )
             else if (readOnly)
-              Center(child: Text(AppString.noImage, style: context.s12w500))
+              Center(child: Text(AppString.noImage, style: context.labelMedium))
             else
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -140,11 +140,11 @@ class _ImagePickerWidget extends StatelessWidget {
                     ),
                   ),
                   16.verticalSpace,
-                  Text(AppString.uploadImageHere, style: context.s12w500),
+                  Text(AppString.uploadImageHere, style: context.labelMedium),
                   8.verticalSpace,
                   Text(
                     'JPEG, PNG, PDF · Max 5MB',
-                    style: context.s11w500.copyWith(
+                    style: context.labelSmall.copyWith(
                       color: AppColors.textSecondary,
                     ),
                   ),
@@ -201,7 +201,7 @@ Future<ImageSource?> _showImageSourcePicker(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(AppString.selectSource, style: context.s16w500),
+          Text(AppString.selectSource, style: context.titleMedium),
           16.verticalSpace,
           _SourceTile(
             icon: Icons.camera,
@@ -244,7 +244,7 @@ class _SourceTile extends StatelessWidget {
           children: [
             Icon(icon, color: AppColors.primary),
             12.horizontalSpace,
-            Text(title, style: context.s14w400),
+            Text(title, style: context.bodyMedium),
           ],
         ),
       ),

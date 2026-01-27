@@ -95,7 +95,7 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
           },
           onSubmitted: widget.onSubmitted,
           keyboardType: widget.keyboardType,
-          textDirection: widget.textDirection ?? widget.hintText?.textDirection,
+          textDirection: widget.textDirection ,
           textInputAction: widget.textInputAction,
           validationMessages:
               ValidationHelper.validationMessages(widget.minLengthValidator),

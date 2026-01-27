@@ -15,7 +15,7 @@ class NoDataWidget extends StatelessWidget {
         12.verticalSpace,
         Text(
           text ?? (isSearch ? AppString.noResultsFound : AppString.noDataFound),
-          style: context.s28w400.copyWith(fontWeight: FontWeight.w400),
+          style: context.headlineMedium.copyWith(fontWeight: FontWeight.w400),
         ),
       ],
     );

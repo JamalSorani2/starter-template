@@ -52,5 +52,13 @@
     "youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements": "You can update now to enjoy the latest features and improvements.",
     "updateAppRequired": "Update App Required!",
     "later": "Later",
-    "update": "Update"
+    "update": "Update",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
+    "password": "Password",
+    "darkMode": "Dark Mode",
+    "seeAll": "See All",
+    "readMore": "Read More",
+    "readLess": "Read Less",
+    "editImage": "Edit Image"
 }
