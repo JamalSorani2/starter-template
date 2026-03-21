@@ -429,7 +429,7 @@
     },
     {
       "name": "flutter",
-      "rootUri": "file:///D:/flutter/packages/flutter",
+      "rootUri": "file:///C:/Users/gamal/fvm/versions/3.35.7/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.8"
     },
@@ -482,14 +482,8 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/gamal/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-6.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.8"
-    },
-    {
       "name": "flutter_localizations",
-      "rootUri": "file:///D:/flutter/packages/flutter_localizations",
+      "rootUri": "file:///C:/Users/gamal/fvm/versions/3.35.7/packages/flutter_localizations",
       "packageUri": "lib/",
       "languageVersion": "3.8"
     },
@@ -573,7 +567,7 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///D:/flutter/packages/flutter_test",
+      "rootUri": "file:///C:/Users/gamal/fvm/versions/3.35.7/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.8"
     },
@@ -585,7 +579,7 @@
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///D:/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///C:/Users/gamal/fvm/versions/3.35.7/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.8"
     },
@@ -615,13 +609,13 @@
     },
     {
       "name": "go_router",
-      "rootUri": "file:///C:/Users/gamal/AppData/Local/Pub/Cache/hosted/pub.dev/go_router-17.0.1",
+      "rootUri": "file:///C:/Users/gamal/AppData/Local/Pub/Cache/hosted/pub.dev/go_router-17.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.9"
     },
     {
       "name": "google_fonts",
-      "rootUri": "file:///C:/Users/gamal/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.3.3",
+      "rootUri": "file:///C:/Users/gamal/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-8.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.9"
     },
@@ -774,12 +768,6 @@
       "rootUri": "file:///C:/Users/gamal/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.2"
-    },
-    {
-      "name": "lints",
-      "rootUri": "file:///C:/Users/gamal/AppData/Local/Pub/Cache/hosted/pub.dev/lints-6.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.8"
     },
     {
       "name": "logging",
@@ -1089,7 +1077,7 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///D:/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///C:/Users/gamal/fvm/versions/3.35.7/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "3.8"
     },
@@ -1342,7 +1330,7 @@
   ],
   "generator": "pub",
   "generatorVersion": "3.9.2",
-  "flutterRoot": "file:///D:/flutter",
+  "flutterRoot": "file:///C:/Users/gamal/fvm/versions/3.35.7",
   "flutterVersion": "3.35.7",
   "pubCache": "file:///C:/Users/gamal/AppData/Local/Pub/Cache"
 }
