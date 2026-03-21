@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../app/url.dart';
 import '../../network/dio/dio_client.dart';
 import '../../network/models/reactive_token_storage.dart';
-import '../../services/storage_service/storage_service.dart';
+import '../../services/storage_service.dart';
 import '../injection.dart';
 
 Future<void> generalInjection() async {

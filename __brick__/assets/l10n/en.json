@@ -63,12 +63,12 @@
     "editImage": "Edit Image",
     "today": "Today",
     "yesterday": "Yesterday",
-    "valueMustBeSmallerThan": "",
-    "valueMustBeLargerThan": "",
-    "noPermission": "",
-    "serverUpdates": "",
-    "showImage": "",
-    "chooseMorePictures": "",
-    "thereAreNoFilesSelected": "",
-    "chooseFile": ""
+    "valueMustBeSmallerThan": "Value must be smaller than",
+    "valueMustBeLargerThan": "Value must be larger than",
+    "noPermission": "You don't have permission to do this action",
+    "serverUpdates": "Server updates are available",
+    "showImage": "Show Image",
+    "chooseMorePictures": "Choose More Pictures",
+    "thereAreNoFilesSelected": "There are no files selected",
+    "chooseFile": "Choose File"
 }

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 
 import '../../../../../../common/constant/keys.dart';
-import '../../services/storage_service/storage_service.dart';
+import '../../services/storage_service.dart';
 import 'auth_token_dio.dart';
 
 class ReactiveTokenStorage extends BotMemoryTokenStorage<AuthTokenModel>
