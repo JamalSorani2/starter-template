@@ -1,7 +1,7 @@
 import '/common/helper/validation_helper.dart';
 import '../../../../imports/imports.dart';
 
-class CustomReactiveField extends StatefulWidget {
+class CustomReactiveField<T> extends StatefulWidget {
   final String controller;
 
   // Field properties
@@ -21,9 +21,9 @@ class CustomReactiveField extends StatefulWidget {
   final IconData? suffixPassIcon;
 
   // Actions
-  final void Function(FormControl controller)? onTap;
-  final Function(FormControl<dynamic>)? onChanged;
-  final void Function(FormControl<dynamic>)? onSubmitted;
+  final void Function(FormControl<T> controller)? onTap;
+  final void Function(FormControl<T>)? onChanged;
+  final void Function(FormControl<T>)? onSubmitted;
 
   CustomReactiveField({
     super.key,
@@ -46,10 +46,10 @@ class CustomReactiveField extends StatefulWidget {
   });
 
   @override
-  State<CustomReactiveField> createState() => _CustomReactiveFieldState();
+  State<CustomReactiveField<T>> createState() => _CustomReactiveFieldState<T>();
 }
 
-class _CustomReactiveFieldState extends State<CustomReactiveField> {
+class _CustomReactiveFieldState<T> extends State<CustomReactiveField<T>> {
   final _focusNode = FocusNode();
   final _fieldKey = GlobalKey();
   late bool _hidden;
@@ -82,7 +82,7 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
           TitleWidget(
             title: widget.title!,
           ),
-        ReactiveTextField(
+        ReactiveTextField<T>(
           formControlName: widget.controller,
           readOnly: widget.readOnly,
           focusNode: _focusNode,
@@ -95,7 +95,7 @@ class _CustomReactiveFieldState extends State<CustomReactiveField> {
           },
           onSubmitted: widget.onSubmitted,
           keyboardType: widget.keyboardType,
-          textDirection: widget.textDirection ,
+          textDirection: widget.textDirection,
           textInputAction: widget.textInputAction,
           validationMessages:
               ValidationHelper.validationMessages(widget.minLengthValidator),
