@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'dart:io';
 
 void main() {
-  const arFilePath = 'assets/l10n/ar.json';
-  const enFilePath = 'assets/l10n/en.json';
-  const keysFilePath = 'lib/common/translate/app_string.dart';
+  const arFilePath = '__brick__/assets/l10n/ar.json';
+  const enFilePath = '__brick__/assets/l10n/en.json';
+  const keysFilePath = '__brick__/lib/common/translate/app_string.dart';
 
   // ---------- Load ar.json (DOMINANT) ----------
   final arFile = File(arFilePath);
@@ -21,8 +21,10 @@ void main() {
   // ---------- Fix empty keys in ar.json ----------
   String cleanTextToKey(String text) {
     final cleaned = text.replaceAll(RegExp(r'[^A-Za-z0-9 ]'), '');
-    final words =
-        cleaned.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
+    final words = cleaned
+        .split(RegExp(r'\s+'))
+        .where((w) => w.isNotEmpty)
+        .toList();
 
     if (words.isEmpty) {
       return 'emptyKey';
@@ -137,8 +139,9 @@ void main() {
   syncMissing(arMap, enMap);
 
   if (updated || removed) {
-    enFile
-        .writeAsStringSync(const JsonEncoder.withIndent('    ').convert(enMap));
+    enFile.writeAsStringSync(
+      const JsonEncoder.withIndent('    ').convert(enMap),
+    );
     print("✅ en.json synced with ar.json.");
   }
 
@@ -162,9 +165,7 @@ class AppString {''');
       } else {
         keysBuffer.writeln();
         keysBuffer.writeln("  /// $value");
-        keysBuffer.writeln(
-          "  static String get $newKey => '$fullKey'.tr();",
-        );
+        keysBuffer.writeln("  static String get $newKey => '$fullKey'.tr();");
       }
     }
   }

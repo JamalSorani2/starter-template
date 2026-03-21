@@ -1,9 +1,10 @@
-import '../../../../app/home/presentation/state/home/home_bloc.dart';
+import 'package:app_name/app/home/presentation/state/home/home_bloc.dart';
+
 import '../../../imports/imports.dart';
 
 void showImageDialog(
   BuildContext context, {
-  required List<String> images,
+  required List<FileModel> images,
   required int initialIndex,
 }) {
   showDialog(
@@ -23,7 +24,7 @@ class FullImageScreen extends StatefulWidget {
     required this.initialIndex,
   });
 
-  final List<String> images;
+  final List<FileModel> images;
   final int initialIndex;
 
   @override
@@ -63,7 +64,9 @@ class _FullImageScreenState extends State<FullImageScreen> {
   Widget build(BuildContext context) {
     return MyScaffold<HomeBloc, HomeState, void>(
       isRoot: false,
-      title: '${_currentIndex + 1} / ${widget.images.length}',
+      title: widget.images.length < 2
+          ? AppString.showImage
+          : '${_currentIndex + 1} / ${widget.images.length}',
       actions: [
         IconButton(
           icon: const Icon(TablerIcons.x),
@@ -71,7 +74,7 @@ class _FullImageScreenState extends State<FullImageScreen> {
         ),
       ],
       resultParam: ResultParam(
-        onRefresh: () async {},
+        onRefresh: null,
         bloc: getIt<HomeBloc>(),
         result: null,
         bodyBuilder: (_) {
@@ -86,17 +89,25 @@ class _FullImageScreenState extends State<FullImageScreen> {
                   setState(() => _currentIndex = index);
                 },
                 itemBuilder: (context, index) {
-                  final imageUrl = widget.images[index];
+                  final image = widget.images[index];
                   return Center(
                     child: Hero(
                       tag: 'gallery_$index',
-                      child: InteractiveViewer(
-                        minScale: 1.0,
-                        maxScale: 4.0,
-                        clipBehavior: Clip.none,
-                        child: CustomNetworkImage(
-                          imageUrl: imageUrl,
-                          fit: BoxFit.contain,
+                      child: Padding(
+                        padding: AppDesign.allEdgeInsets,
+                        child: InteractiveViewer(
+                          minScale: 1.0,
+                          maxScale: 4.0,
+                          clipBehavior: Clip.none,
+                          child: image.isNetwork
+                              ? CustomNetworkImage(
+                                  imageUrl: image.url!,
+                                  fit: BoxFit.contain,
+                                )
+                              : Image.file(
+                                  image.file!,
+                                  fit: BoxFit.contain,
+                                ),
                         ),
                       ),
                     ),

@@ -60,5 +60,15 @@
     "seeAll": "See All",
     "readMore": "Read More",
     "readLess": "Read Less",
-    "editImage": "Edit Image"
+    "editImage": "Edit Image",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "valueMustBeSmallerThan": "",
+    "valueMustBeLargerThan": "",
+    "noPermission": "",
+    "serverUpdates": "",
+    "showImage": "",
+    "chooseMorePictures": "",
+    "thereAreNoFilesSelected": "",
+    "chooseFile": ""
 }

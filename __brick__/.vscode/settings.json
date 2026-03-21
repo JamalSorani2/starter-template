@@ -2,7 +2,7 @@
     "achilleshr.runonsave": {
         "commands": [
             {
-                "match": ".*en\\.json$",
+                "match": ".*ar\\.json$",
                 "isAsync": true,
                 "cmd": "dart run generate_localization_keys.dart"
             },
@@ -16,7 +16,7 @@
     "emeraldwalk.runonsave": {
         "commands": [
             {
-                "match": ".*en\\.json$",
+                "match": ".*ar\\.json$",
                 "isAsync": true,
                 "cmd": "dart run generate_localization_keys.dart"
             },

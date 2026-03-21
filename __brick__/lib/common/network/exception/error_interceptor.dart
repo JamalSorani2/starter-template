@@ -1,5 +1,4 @@
 import '../../imports/imports.dart';
-import 'app_exception.dart';
 
 class ErrorInterceptor extends Interceptor {
   @override
@@ -20,6 +19,20 @@ class ErrorInterceptor extends Interceptor {
       err = err.copyWith(
         error: AppException.known(AppString.internalServerError, "500"),
         message: AppString.internalServerError,
+      );
+      handler.reject(err);
+      return;
+    } else if (err.response?.statusCode == 502) {
+      err = err.copyWith(
+        error: AppException.known(AppString.serverUpdates, "502"),
+        message: AppString.serverUpdates,
+      );
+      handler.reject(err);
+      return;
+    } else if (err.response?.statusCode == 403) {
+      err = err.copyWith(
+        error: AppException.known(AppString.noPermission, "403"),
+        message: AppString.noPermission,
       );
       handler.reject(err);
       return;

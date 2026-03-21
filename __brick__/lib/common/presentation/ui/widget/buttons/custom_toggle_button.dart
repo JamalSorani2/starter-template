@@ -29,7 +29,7 @@ class CustomToggle extends StatelessWidget {
               borderRadius: BorderRadius.circular(6.r),
             ),
             child: value
-                ? Icon(FontAwesomeIcons.check, size: 16.sp, color: Colors.white)
+                ? Icon(TablerIcons.check, size: 16.sp, color: Colors.white)
                 : null,
           ),
           8.horizontalSpace,

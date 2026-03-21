@@ -1,7 +1,4 @@
-import 'package:dartz/dartz.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../common/presentation/ui/widget/state/result_builder/result.dart';
+import '../../../../../common/imports/imports.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

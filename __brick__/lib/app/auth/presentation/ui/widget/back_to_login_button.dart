@@ -1,4 +1,4 @@
-import '../../../../../common/imports/imports.dart';
+import '../../../../../../common/imports/imports.dart';
 
 class BackToLoginButton extends StatelessWidget {
   const BackToLoginButton({super.key, this.title, this.onPressed});
@@ -6,16 +6,23 @@ class BackToLoginButton extends StatelessWidget {
   final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
-    return CustomButton.outlined(
-      text: title ?? AppString.backToLoginButton,
+    return TextButton.icon(
+      label: Text(
+        title ?? AppString.backToLoginButton,
+        style: context.labelMedium.copyWith(
+          fontSize: 13.sp,
+          color: AppColors.secondary,
+        ),
+      ),
       icon: Icon(
         context.isEnglish
-            ? FontAwesomeIcons.chevronLeft
-            : FontAwesomeIcons.chevronRight,
+            ? TablerIcons.chevron_left
+            : TablerIcons.chevron_right,
+        color: AppColors.secondary,
       ),
       onPressed: onPressed ??
           () {
-            context.replace(RoutesNames.login);
+            context.replaceNamed(RoutesNames.login);
           },
     );
   }

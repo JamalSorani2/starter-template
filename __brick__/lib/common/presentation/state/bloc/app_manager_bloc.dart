@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:dio_refresh_bot/dio_refresh_bot.dart';
-
 import '../../../../app/auth/domain/repository/auth_repository.dart';
 import '../../../imports/imports.dart';
 

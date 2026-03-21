@@ -1,4 +1,4 @@
-import '../../../../../imports/imports.dart';
+import '../../common/imports/imports.dart';
 
 // ignore: must_be_immutable
 class ResultBuilder<T> extends StatelessWidget {

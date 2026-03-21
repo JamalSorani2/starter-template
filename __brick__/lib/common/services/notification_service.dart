@@ -1,36 +1,49 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:http/http.dart' as http;
 
 import '../imports/imports.dart';
 
+@pragma('vm:entry-point')
+Future<void> onActionReceivedMethod(ReceivedAction action) async {
+  log('🔔 Background action received');
+  log('Button: ${action.buttonKeyPressed}');
+  log('Payload: ${action.payload}');
+  _handleDeepLink(action.payload ?? {});
+}
+
 class NotificationService {
-  // ─────────────────────────────────────────────────────────────
-  // INITIALIZATION
-  // ─────────────────────────────────────────────────────────────
+  static const String channelKey = "basic_channel";
+
+  // ─────────────────────────────────────────
+  // INITIALIZE
+  // ─────────────────────────────────────────
 
   Future<void> initialize() async {
-    await _initAwesomeNotifications();
-    // await Firebase.initializeApp();
-    // await _initFirebaseMessaging();
-    _initAwesomeListeners();
+    await _initAwesome();
+    await _initFirebase();
+    await subscribeToTopic("Employee");
+    _initListeners();
   }
 
-  Future<void> _initAwesomeNotifications() async {
+  // ─────────────────────────────────────────
+  // AWESOME NOTIFICATIONS
+  // ─────────────────────────────────────────
+
+  Future<void> _initAwesome() async {
     await AwesomeNotifications().initialize(
       null,
       [
         NotificationChannel(
-          channelKey: KNotificationChannelKey,
+          channelKey: channelKey,
           channelName: 'General Notifications',
           channelDescription: 'App notifications',
           importance: NotificationImportance.High,
           playSound: true,
           enableVibration: true,
-          channelShowBadge: true,
-          defaultColor: AppColors.primary,
-          ledColor: AppColors.onSecondary,
         ),
       ],
       debug: true,
@@ -39,99 +52,32 @@ class NotificationService {
     await AwesomeNotifications().requestPermissionToSendNotifications();
   }
 
-  // ignore: unused_element
-  Future<void> _initFirebaseMessaging() async {
-    final fcm = FirebaseMessaging.instance;
-
-    await fcm.requestPermission();
-
-    // ───── Token (cache once) ─────
-    final token = await fcm.getToken();
-    if (token != null) {
-      await _cacheToken(token);
-      log('FCM Token cached: $token');
-    }
-
-    FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
-      await _cacheToken(newToken);
-      log('FCM Token refreshed & cached: $newToken');
-    });
-
-    // ───── App terminated ─────
-    final initialMessage = await fcm.getInitialMessage();
-    if (initialMessage != null) {
-      _handleFirebaseMessage(initialMessage);
-    }
-
-    // ───── Background → Opened ─────
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleFirebaseMessage);
-
-    // ───── Foreground ─────
-    FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
+  Future<void> subscribeToTopic(String topic) async {
+    await FirebaseMessaging.instance.subscribeToTopic(topic);
+    log("Subscribed to topic: $topic");
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // TOPICS
-  // ─────────────────────────────────────────────────────────────
-
-  Future<void> subscribeInitialTopics(String? userId) async {
-    await FirebaseMessaging.instance.subscribeToTopic('general');
-    log('Subscribed to topic: general');
-
-    if (userId != null && userId.isNotEmpty) {
-      await FirebaseMessaging.instance.subscribeToTopic('user_$userId');
-      log('Subscribed to topic: user_$userId');
-    }
-  }
-
-  Future<void> _unsubscribeFromTopic(String topic) async {
+  Future<void> unsubscribeFromTopic(String topic) async {
     await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
-    log('Unsubscribed from topic: $topic');
+    log("Unsubscribed from topic: $topic");
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // LOGOUT (PUBLIC API)
-  // ─────────────────────────────────────────────────────────────
-
-  Future<void> logout({String? userId}) async {
-    // Topics
-    await _unsubscribeFromTopic('general');
-
-    if (userId != null && userId.isNotEmpty) {
-      await _unsubscribeFromTopic('user_$userId');
-    }
-
-    // Token
-    await _clearToken();
-  }
-
-  // ─────────────────────────────────────────────────────────────
-  // AWESOME LISTENERS
-  // ─────────────────────────────────────────────────────────────
-
-  void _initAwesomeListeners() {
+  void _initListeners() {
     AwesomeNotifications().setListeners(
-      onActionReceivedMethod: _onActionReceived,
-      onNotificationCreatedMethod: _onNotificationCreated,
-      onNotificationDisplayedMethod: _onNotificationDisplayed,
+      onActionReceivedMethod: onActionReceivedMethod,
+      onNotificationCreatedMethod: _onCreated,
+      onNotificationDisplayedMethod: _onDisplayed,
       onDismissActionReceivedMethod: _onDismissed,
     );
   }
 
-  Future<void> _onActionReceived(ReceivedAction action) async {
-    log('Notification action: ${action.buttonKeyPressed}');
-    _handleDeepLink(action.payload);
-  }
-
-  Future<void> _onNotificationCreated(
-    ReceivedNotification notification,
-  ) async {
+  Future<void> _onCreated(ReceivedNotification notification) async {
     log('Notification created');
+    log(notification.toString());
+    log(notification.icon ?? "");
   }
 
-  Future<void> _onNotificationDisplayed(
-    ReceivedNotification notification,
-  ) async {
+  Future<void> _onDisplayed(ReceivedNotification notification) async {
     log('Notification displayed');
   }
 
@@ -139,90 +85,147 @@ class NotificationService {
     log('Notification dismissed');
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // FIREBASE HANDLING
-  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
+  // FIREBASE MESSAGING
+  // ─────────────────────────────────────────
 
-  void _handleForegroundMessage(RemoteMessage message) {
+  Future<void> _initFirebase() async {
+    final FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    try {
+      await messaging.requestPermission();
+    } on FirebaseException catch (e, s) {
+      log(
+        'FCM requestPermission failed: ${e.code} - ${e.message}',
+        stackTrace: s,
+      );
+    } catch (e, s) {
+      log('FCM requestPermission failed: $e', stackTrace: s);
+    }
+
+    // Token
+    try {
+      final String? token = await messaging.getToken();
+      if (token != null) {
+        await _cacheToken(token);
+        log('FCM Token: $token');
+      }
+    } on FirebaseException catch (e, s) {
+      // Common transient issue on some devices/services:
+      // [firebase_messaging/unknown] ... SERVICE_NOT_AVAILABLE
+      log(
+        'FCM getToken failed: ${e.code} - ${e.message}',
+        stackTrace: s,
+      );
+    } catch (e, s) {
+      log('FCM getToken failed: $e', stackTrace: s);
+    }
+
+    FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
+      await _cacheToken(newToken);
+      log('Token refreshed: $newToken');
+    });
+
+    // Foreground
+    FirebaseMessaging.onMessage.listen(_handleForeground);
+
+    // Opened from background
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+
+    // Terminated state
+    final RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+  }
+
+  void _handleForeground(RemoteMessage message) async {
+    final data = message.data;
+    printC(data);
+    String? file;
+    final imageUrl = data["imageUrl"];
+    if (imageUrl != null) {
+      file = await downloadAndCacheImage(imageUrl);
+    }
     showLocal(
       title: message.notification?.title ?? '',
       body: message.notification?.body ?? '',
-      payload: message.data.map(
-        (key, value) => MapEntry(key, value.toString()),
-      ),
+      imageUrl: file != null ? "file://$file" : imageUrl,
+      payload:
+          message.data.map((key, value) => MapEntry(key, value.toString())),
     );
   }
 
-  void _handleFirebaseMessage(RemoteMessage message) {
+  void _handleMessage(RemoteMessage message) {
     _handleDeepLink(message.data);
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // LOCAL NOTIFICATIONS
-  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
+  // LOCAL NOTIFICATION
+  // ─────────────────────────────────────────
 
   Future<void> showLocal({
     required String title,
     required String body,
+    required String? imageUrl,
     Map<String, String>? payload,
-    String? icon,
-    String? largeIcon,
   }) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: DateTime.now().millisecondsSinceEpoch.remainder(100000),
-        channelKey: KNotificationChannelKey,
+        channelKey: channelKey,
         title: title,
         body: body,
+        largeIcon: imageUrl,
         payload: payload,
-        icon: icon,
-        largeIcon: largeIcon,
       ),
     );
   }
 
-  // ─────────────────────────────────────────────────────────────
-  // DEEP LINK
-  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
+  // DEEP LINK HANDLER
+  // ─────────────────────────────────────────
 
-  void _handleDeepLink(Map<String, dynamic>? payload) {
-    if (payload == null || payload.isEmpty) {
-      return;
-    }
-
-    final route = payload['route'];
-    final id = payload['id'];
-
-    if (route == null) {
-      return;
-    }
-
-    log('Navigate → $route | id: $id');
-
-    // AppNavigator.pushNamed(route, arguments: id);
-  }
-
-  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
   // TOKEN CACHE
-  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
 
   Future<void> _cacheToken(String token) async {
-    await getIt<SharedPreferences>().setString(KFcmTokenKey, token);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("fcm_token", token);
   }
 
-  Future<String?> getCachedToken() async {
-    return getIt<SharedPreferences>().getString(KFcmTokenKey);
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("fcm_token");
+    token = await prefs.getString("fcm_token");
+    return token;
   }
 
-  Future<void> _clearToken() async {
-    await getIt<SharedPreferences>().remove(KFcmTokenKey);
-    await FirebaseMessaging.instance.deleteToken();
-    log('FCM Token cleared');
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("fcm_token");
+    try {
+      await FirebaseMessaging.instance.deleteToken();
+    } on FirebaseException catch (e, s) {
+      // Can happen on some devices/network states (e.g. SERVICE_NOT_AVAILABLE).
+      // Logout must continue even if FCM token deletion fails remotely.
+      log(
+        'FCM deleteToken failed during logout: ${e.code} - ${e.message}',
+        stackTrace: s,
+      );
+    } catch (e, s) {
+      log(
+        'FCM deleteToken failed during logout: $e',
+        stackTrace: s,
+      );
+    }
   }
 
-  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
   // UTILITIES
-  // ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────
 
   Future<void> cancelAll() async {
     await AwesomeNotifications().cancelAll();
@@ -231,4 +234,45 @@ class NotificationService {
   Future<bool> hasPermission() async {
     return AwesomeNotifications().isNotificationAllowed();
   }
+}
+
+Future<String?> downloadAndCacheImage(String url) async {
+  final dir = await getApplicationDocumentsDirectory();
+  final fileName = getFilename(url);
+  final file = File('${dir.path}/avatar_$fileName.png');
+
+  if (await file.exists()) {
+    return file.path;
+  }
+
+  final response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    await file.writeAsBytes(response.bodyBytes);
+    return file.path;
+  } else {
+    printR("Failed to download image");
+    return null;
+  }
+}
+
+void _handleDeepLink(Map<String, dynamic>? data) {
+  if (data == null) {
+    return;
+  }
+
+  // final chatId = data['chatId'];
+
+  // final bool isChat = chatId != null && chatId.isNotEmpty;
+  // if (isChat) {
+  //   navigatorKey.currentContext?.goNamed(
+  //     RoutesNames.messages,
+  //     extra: MessageScreenParam(
+  //       chatId: data['chatId'],
+  //       receiverUserId: data['receiverId'],
+  //       receiverFullName: data['receiverFullName'],
+  //       jobTitle: data['jobTitle'],
+  //       imageUrl: data['imageUrl'],
+  //     ),
+  //   );
+  // }
 }

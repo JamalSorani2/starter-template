@@ -1,72 +1,68 @@
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
-
 import '../../../../imports/imports.dart';
-import '../../screen/crop_image_page.dart';
 
 class UserImage extends StatefulWidget {
   const UserImage({
     super.key,
-    this.radius,
     this.initialImage,
+    this.height,
+    this.width,
     required this.onFileChanged,
     this.readOnly = false,
+    this.borderRadius,
+    this.borderGradeint,
+    this.borderWidth,
+    this.wihtShadow = true,
+    required this.file,
+    this.allowDelete = false,
   });
 
-  final double? radius;
+  final double? height;
+  final double? width;
   final String? initialImage;
   final void Function(File? file) onFileChanged;
   final bool readOnly;
-
+  final double? borderRadius;
+  final Gradient? borderGradeint;
+  final double? borderWidth;
+  final bool wihtShadow;
+  final File? file;
+  final bool allowDelete;
   @override
   State<UserImage> createState() => _UserImageState();
 }
 
 class _UserImageState extends State<UserImage> {
-  File? _image;
-
   Future<void> _pickImage() async {
-    final file = await pickSingleFile(context, gallery: true);
+    final file = await pickSingleImage();
     if (file == null) {
       return;
     }
-
-    await _cropImage(file);
-  }
-
-  Future<void> _cropImage(File file) async {
-    final cropped = await Navigator.push<File?>(
-      context,
-      MaterialPageRoute(
-        builder: (_) => CropImagePage(file: file),
-      ),
-    );
-
-    if (cropped != null) {
-      setState(() => _image = cropped);
-      widget.onFileChanged(cropped);
-    }
-  }
-
-  Future<File> _downloadNetworkImage(String url) async {
-    final response = await NetworkAssetBundle(Uri.parse(url)).load(url);
-    final bytes = response.buffer.asUint8List();
-
-    final dir = await getTemporaryDirectory();
-    final file = File('${dir.path}/avatar_network.png');
-    await file.writeAsBytes(bytes);
-    return file;
+    widget.onFileChanged(file);
   }
 
   @override
   Widget build(BuildContext context) {
-    final ImageProvider? networkImage =
-        widget.initialImage != null ? NetworkImage(widget.initialImage!) : null;
+    final Widget? networkImage = widget.initialImage != null
+        ? CustomNetworkImage(
+            imageUrl: widget.initialImage!,
+            doubleRadius: widget.borderRadius ?? 12.r,
+          )
+        : null;
 
-    final ImageProvider? fileImage = _image != null ? FileImage(_image!) : null;
+    final Widget? fileImage = widget.file != null
+        ? Image.file(
+            widget.file!,
+            fit: BoxFit.cover,
+          )
+        : null;
 
-    final ImageProvider? image = fileImage ?? networkImage;
-
+    Widget? image = fileImage ?? networkImage;
+    if (image != null) {
+      image = ClipRRect(
+        borderRadius: BorderRadius.circular(widget.borderRadius ?? 12.r),
+        child: image,
+      );
+    }
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
@@ -74,53 +70,59 @@ class _UserImageState extends State<UserImage> {
           onTap: widget.readOnly
               ? null
               : () async {
-                  // If local image exists → crop it
-                  if (_image != null) {
-                    await _cropImage(_image!);
-                  }
-                  // If only network image exists → download then crop
-                  else if (widget.initialImage != null) {
-                    final file =
-                        await _downloadNetworkImage(widget.initialImage!);
-                    await _cropImage(file);
-                    //TODO send to back end new image
-                  }
-                  // No image yet → open gallery
-                  else {
-                    await _pickImage();
-                  }
+                  await _pickImage();
                 },
-          child: CircleAvatar(
-            radius: widget.radius,
-            backgroundColor:
-                image == null ? AppColors.textPrimary : AppColors.surface,
-            backgroundImage: image,
-            child: image == null
-                ? Icon(
-                    Icons.person,
-                    size: widget.radius != null ? widget.radius! * 1.5 : null,
-                  )
-                : null,
+          child: CustomCard(
+            // height: widget.height,
+            // width: widget.width,
+            // borderRadius: widget.borderRadius ?? 12.r,
+            // withShadow: widget.wihtShadow,
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
+            // borderGradeint: widget.borderGradeint,
+            // borderWidth: widget.borderWidth,
+            child: image ??
+                Icon(
+                  TablerIcons.user,
+                  color: context.isLight ? AppColors.primary : Colors.white,
+                  size: widget.height != null ? widget.height! * 0.6 : null,
+                ),
           ),
         ),
-
-        /// Pen button (Pick new image)
-        if (!widget.readOnly)
+        if (!widget.readOnly && widget.allowDelete)
           Positioned(
-            bottom: 0,
+            bottom: 6.h,
+            right: 0,
+            child: GestureDetector(
+              onTap: () {
+                widget.onFileChanged(null);
+              },
+              child: CustomCard(
+                margin: EdgeInsets.zero,
+                padding: REdgeInsets.all(8),
+                // borderRadius: 40.r,
+                child: Icon(
+                  TablerIcons.trash,
+                  size: 16.sp,
+                  color: AppColors.danger,
+                ),
+              ),
+            ),
+          )
+        else if (!widget.readOnly)
+          Positioned(
+            bottom: 6.h,
             right: 0,
             child: GestureDetector(
               onTap: _pickImage,
-              child: Container(
-                padding: REdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
+              child: CustomCard(
+                margin: EdgeInsets.zero,
+                padding: REdgeInsets.all(8),
+                // borderRadius: 40.r,
                 child: Icon(
-                  TablerIcons.pencil,
+                  TablerIcons.edit,
                   size: 16.sp,
-                  color: Colors.white,
+                  color: context.isLight ? AppColors.primary : Colors.white,
                 ),
               ),
             ),

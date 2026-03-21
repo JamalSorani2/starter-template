@@ -1,4 +1,4 @@
-import '../../../../../common/imports/imports.dart';
+import '../../../../../../common/imports/imports.dart';
 
 class UsernameField extends StatelessWidget {
   const UsernameField({
@@ -17,7 +17,7 @@ class UsernameField extends StatelessWidget {
       readOnly: readOnly,
       hintText: AppString.userName,
       minLengthValidator: AppString.userNameMinLength,
-      prefixIcon: FontAwesomeIcons.user,
+      prefixIcon: TablerIcons.user,
     );
   }
 }

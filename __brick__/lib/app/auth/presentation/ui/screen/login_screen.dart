@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 import '/app/auth/domain/entities/login_auth_param.dart';
 import '../../../../../common/imports/imports.dart';
-import '../../input_forms/login_form.dart';
 import '../../state/bloc/auth_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,13 +18,33 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
 
+  FormGroup formGroup = FormGroup({
+    InputKeys.email: FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.email,
+      ],
+    ),
+    InputKeys.password: FormControl<String>(
+      validators: [Validators.required, Validators.minLength(4)],
+    ),
+  });
+
+  String getEmail() {
+    return formGroup.getString(InputKeys.email);
+  }
+
+  String getPassword() {
+    return formGroup.getString(InputKeys.password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider.value(
         value: getIt<AuthBloc>(),
         child: ReactiveForm(
-          formGroup: LoginForm.formGroup,
+          formGroup: formGroup,
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state.loginAuthState.isLoaded) {

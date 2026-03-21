@@ -6,10 +6,10 @@ extension TextDirectionExtension on String? {
       return TextDirection.rtl;
     }
     final char = this![0];
-    if (RegExp(r'[\u0600-\u06FF]').hasMatch(char)) {
-      return TextDirection.rtl; // RTL
+    if (!RegExp(r'[\u0600-\u06FF]').hasMatch(char)) {
+      return TextDirection.ltr;
     } else {
-      return TextDirection.ltr; // LTR
+      return TextDirection.rtl;
     }
   }
 }

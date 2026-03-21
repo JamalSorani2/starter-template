@@ -1,37 +1,31 @@
-// 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 import '../../../../../common/imports/imports.dart';
 
 class PasswordField extends StatelessWidget {
   const PasswordField({
     super.key,
-    this.isConfirmPassword = false,
-    this.withTitle = false,
-    required this.hintText,
-    this.onSubmit,
-    this.textInputAction = TextInputAction.next,
+    required this.isConfirmPassword,
+    this.title,
+    this.withPrefix = true,
+    this.hintText,
+    this.overrideControl,
   });
   final bool isConfirmPassword;
-  final String hintText;
-  final bool withTitle;
-  final VoidCallback? onSubmit;
-  final TextInputAction textInputAction;
+  final bool withPrefix;
+  final String? title;
+  final String? overrideControl;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
     return CustomReactiveField(
-      controller:
-          isConfirmPassword ? InputKeys.confirmPassword : InputKeys.password,
-      prefixIcon: TablerIcons.lock_filled,
+      controller: overrideControl ??
+          (isConfirmPassword ? InputKeys.confirmPassword : InputKeys.password),
+      prefixIcon: withPrefix ? TablerIcons.lock : null,
       isPassword: true,
-      asset: CupertinoIcons.eye_slash_fill,
-      suffixPassIcon: CupertinoIcons.eye_fill,
-      hintText: hintText,
-      title: withTitle ? AppString.password : null,
-      onSubmitted: (value) => onSubmit?.call(),
-      keyboardType: TextInputType.visiblePassword,
-      textInputAction: textInputAction,
+      asset: TablerIcons.eye_off,
+      suffixPassIcon: TablerIcons.eye,
+      hintText: hintText ?? "********",
+      title: title ?? AppString.password,
     );
   }
 }

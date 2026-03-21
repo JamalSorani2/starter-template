@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../app/url.dart';
 import '../../network/dio/dio_client.dart';
 import '../../network/models/reactive_token_storage.dart';
@@ -13,14 +14,6 @@ Future<void> generalInjection() async {
     await SharedPreferences.getInstance(),
   );
 
-  // Register a shared storage service wrapper for SharedPreferences
-  getIt.registerSingleton<StorageService<SharedStorage>>(
-    StorageService.shared(
-      getIt<
-          SharedPreferences>(), // Inject SharedPreferences into the storage service
-    ),
-  );
-
   // Register FlutterSecureStorage for storing sensitive data securely
   getIt.registerSingleton<FlutterSecureStorage>(
     const FlutterSecureStorage(
@@ -29,17 +22,16 @@ Future<void> generalInjection() async {
   );
 
   // Register a secure storage service wrapper for FlutterSecureStorage
-  getIt.registerSingleton<StorageService<SecureStorage>>(
-    StorageService.secure(
-      getIt<
-          FlutterSecureStorage>(), // Inject FlutterSecureStorage into the storage service
+  getIt.registerSingleton<SecureStorage>(
+    SecureStorage(
+      getIt<FlutterSecureStorage>(),
     ),
   );
 
   // Register a ReactiveTokenStorage for managing authentication tokens
   getIt.registerSingleton<ReactiveTokenStorage>(
     ReactiveTokenStorage(
-      getIt<StorageService<SecureStorage>>(),
+      getIt<SecureStorage>(),
     ), // Inject secure storage service
   );
 

@@ -21,6 +21,7 @@ class OverlaysShowcase extends StatelessWidget {
             runSpacing: 12.h,
             children: [
               CustomButton.primary(
+                isLoading: false,
                 text: 'Show Dialog',
                 onPressed: () {
                   showDialog(
@@ -48,6 +49,7 @@ class OverlaysShowcase extends StatelessWidget {
                 },
               ),
               CustomButton.outlined(
+                isLoading: false,
                 text: 'Leave Dialog',
                 onPressed: () {
                   showLeaveDialog(context);
@@ -66,6 +68,7 @@ class OverlaysShowcase extends StatelessWidget {
             runSpacing: 12.h,
             children: [
               CustomButton.primary(
+                isLoading: false,
                 text: 'Show Bottom Sheet',
                 onPressed: () async {
                   await showCustomBottomSheet(
@@ -83,6 +86,7 @@ class OverlaysShowcase extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: CustomButton.primary(
+                            isLoading: false,
                             text: 'Close',
                             onPressed: () => Navigator.of(context).pop(),
                           ),
@@ -144,18 +148,22 @@ class OverlaysShowcase extends StatelessWidget {
             runSpacing: 12.h,
             children: [
               CustomButton.secondary(
+                isLoading: false,
                 text: 'Toast',
                 onPressed: () => showToast('Hello Toast'),
               ),
               CustomButton.secondary(
+                isLoading: false,
                 text: 'Success',
                 onPressed: () => showSuccessToast('Success'),
               ),
               CustomButton.secondary(
+                isLoading: false,
                 text: 'Warning',
                 onPressed: () => showWarningToast('Warning'),
               ),
               CustomButton.secondary(
+                isLoading: false,
                 text: 'Error',
                 onPressed: () => showDangerToast('Error'),
               ),

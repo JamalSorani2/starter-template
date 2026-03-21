@@ -10,7 +10,7 @@ class CustomDrawerButton extends StatelessWidget {
         Scaffold.of(context).openDrawer();
       },
       icon: const Icon(
-        FontAwesomeIcons.list,
+        TablerIcons.list,
       ),
     );
   }

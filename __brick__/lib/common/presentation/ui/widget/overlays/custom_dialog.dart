@@ -68,6 +68,7 @@ class CustomDialog extends StatelessWidget {
                 if (withCloseButton) ...[
                   Expanded(
                     child: CustomButton.outlined(
+                      isLoading: false,
                       onPressed: () => Navigator.of(context).pop(),
                       text: cancelText ?? AppString.close,
                     ),

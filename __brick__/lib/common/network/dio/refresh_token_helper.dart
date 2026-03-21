@@ -1,6 +1,6 @@
-import '/common/imports/imports.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '/common/imports/imports.dart';
 import '../../../app/auth/data/models/login_auth_model.dart';
 
 bool isTokenAboutToExpire(String token, {int bufferTimeInMinutes = 5}) {
@@ -33,7 +33,7 @@ bool isTokenAboutToExpire(String token, {int bufferTimeInMinutes = 5}) {
 }
 
 Future<void> updateStorageToken(String token, String? refreshToken) async {
-  final storage = getIt<StorageService<SecureStorage>>();
+  final storage = getIt<SecureStorage>();
   final LoginAuthModel? user = await storage.getUser();
   if (user != null) {
     await storage.saveUser(

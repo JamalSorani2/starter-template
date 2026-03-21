@@ -26,7 +26,7 @@ Future<void> authInjection() async {
   getIt.registerSingleton<AuthBloc>(
     AuthBloc(repository: getIt<AuthRepository>()),
   );
-  getIt.registerFactory<CountdownProvider>(() => CountdownProvider());
+  getIt.registerSingleton<CountdownProvider>(CountdownProvider());
   getIt.registerFactory<PageIndexProvider>(() => PageIndexProvider());
   getIt.registerFactory<InfinityScrollProvider>(() => InfinityScrollProvider());
   getIt.registerSingleton<NavBarProvider>(

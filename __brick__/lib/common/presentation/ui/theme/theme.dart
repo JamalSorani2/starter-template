@@ -12,109 +12,116 @@ abstract final class AppTheme {
 
     return font(
       TextTheme(
+        /// ========== DISPLAY ==========
         displayLarge: TextStyle(
-          fontSize: 57.sp,
-          height: 64 / 57,
+          // Display 1
+          fontSize: 64.sp,
+          height: 1.1,
           fontWeight: FontWeight.w400,
-          letterSpacing: -0.25,
           color: color,
         ),
         displayMedium: TextStyle(
-          fontSize: 45.sp,
-          height: 52 / 45,
+          // Display 2
+          fontSize: 56.sp,
+          height: 1.1,
           fontWeight: FontWeight.w400,
-          letterSpacing: 0,
           color: color,
         ),
         displaySmall: TextStyle(
-          fontSize: 36.sp,
-          height: 44 / 36,
+          // Display 3
+          fontSize: 48.sp,
+          height: 1.15,
           fontWeight: FontWeight.w400,
-          letterSpacing: 0,
           color: color,
         ),
         headlineLarge: TextStyle(
-          fontSize: 32.sp,
-          height: 40 / 32,
+          // Display 4
+          fontSize: 40.sp,
+          height: 1.2,
           fontWeight: FontWeight.w400,
-          letterSpacing: 0,
           color: color,
         ),
+
+        /// ========== HEADINGS ==========
         headlineMedium: TextStyle(
-          fontSize: 28.sp,
-          height: 36 / 28,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0,
+          // H1
+          fontSize: 32.sp,
+          height: 1.25,
+          fontWeight: FontWeight.w600,
           color: color,
         ),
         headlineSmall: TextStyle(
-          fontSize: 24.sp,
-          height: 32 / 24,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0,
+          // H2
+          fontSize: 28.sp,
+          height: 1.3,
+          fontWeight: FontWeight.w600,
           color: color,
         ),
         titleLarge: TextStyle(
-          fontSize: 22.sp,
-          height: 28 / 22,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0,
+          // H3
+          fontSize: 24.sp,
+          height: 1.3,
+          fontWeight: FontWeight.w600,
           color: color,
         ),
         titleMedium: TextStyle(
-          fontSize: 16.sp,
-          height: 24 / 16,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.15,
+          // H4
+          fontSize: 20.sp,
+          height: 1.35,
+          fontWeight: FontWeight.w600,
           color: color,
         ),
         titleSmall: TextStyle(
-          fontSize: 14.sp,
-          height: 20 / 14,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.1,
-          color: color,
-        ),
-        bodyLarge: TextStyle(
-          fontSize: 16.sp,
-          height: 24 / 16,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.5,
-          color: color,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 14.sp,
-          height: 20 / 14,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.25,
-          color: color,
-        ),
-        bodySmall: TextStyle(
-          fontSize: 12.sp,
-          height: 16 / 12,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.4,
+          // H5
+          fontSize: 18.sp,
+          height: 1.35,
+          fontWeight: FontWeight.w600,
           color: color,
         ),
         labelLarge: TextStyle(
-          fontSize: 14.sp,
-          height: 20 / 14,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.1,
+          // H6
+          fontSize: 16.sp,
+          height: 1.4,
+          fontWeight: FontWeight.w600,
           color: color,
         ),
+
+        /// ========== PARAGRAPHS ==========
+        bodyLarge: TextStyle(
+          // Paragraph Lead
+          fontSize: 18.sp,
+          height: 1.6,
+          fontWeight: FontWeight.w400,
+          color: color,
+        ),
+        bodyMedium: TextStyle(
+          // Paragraph
+          fontSize: 16.sp,
+          height: 1.6,
+          fontWeight: FontWeight.w400,
+          color: color,
+        ),
+        bodySmall: TextStyle(
+          // Paragraph Small
+          fontSize: 14.sp,
+          height: 1.6,
+          fontWeight: FontWeight.w400,
+          color: color,
+        ),
+
+        /// ========== LABELS / CAPTION ==========
         labelMedium: TextStyle(
+          // Small UI text
           fontSize: 12.sp,
-          height: 16 / 12,
+          height: 1.4,
           fontWeight: FontWeight.w500,
-          letterSpacing: 0.5,
           color: color,
         ),
         labelSmall: TextStyle(
+          // Caption
           fontSize: 11.sp,
-          height: 16 / 11,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.5,
+          height: 1.3,
+          fontWeight: FontWeight.w400,
           color: color,
         ),
       ),
@@ -151,13 +158,15 @@ abstract final class AppTheme {
         inversePrimary: AppColors.primary,
       ),
       textTheme: textTheme(isEnglish),
-      switchTheme: const SwitchThemeData(padding: EdgeInsets.zero),
+      switchTheme: const SwitchThemeData(
+        padding: EdgeInsets.zero,
+      ),
       elevatedButtonTheme: AppStyles.elevatedButtonStyle,
       outlinedButtonTheme: AppStyles.outlineButtonStyle,
       textButtonTheme: AppStyles.textButtonStyle,
       iconButtonTheme: AppStyles.iconButtonStyle,
       chipTheme: AppStyles.chipTheme,
-      inputDecorationTheme: AppStyles.inputDecorationThemeLight(isEnglish),
+      inputDecorationTheme: AppStyles.inputDecorationTheme(isEnglish, isLight),
       dialogTheme: AppStyles.dialogTheme,
       cardTheme: AppStyles.cardTheme,
       iconTheme: IconThemeData(
@@ -174,7 +183,7 @@ abstract final class AppTheme {
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimary,
         ),
-        iconTheme: IconThemeData(color: AppColors.textPrimary),
+        iconTheme: IconThemeData(color: AppColors.primary),
       ),
       drawerTheme: DrawerThemeData(
         backgroundColor: AppColors.surface,

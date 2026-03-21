@@ -1,46 +1,46 @@
-import '/common/services/notification_service.dart';
-import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+import '/common/services/notification_service.dart';
 import '../../../../common/imports/imports.dart';
-import '../../../../common/network/exception/failure.dart';
-import '../../domain/repository/auth_repository.dart';
-import '../datasource/auth_remote.dart';
 import '../../../../common/network/exception/error_handler.dart';
-import '../models/login_auth_model.dart';
-import '../models/sign_up_auth_model.dart';
-import '../models/change_password_auth_model.dart';
-import '../models/forgot_password_auth_model.dart';
-import '../models/verify_forgot_password_code_auth_model.dart';
-import '../models/set_new_password_auth_model.dart';
-import '../models/request_confirm_phone_number_auth_model.dart';
-import '../models/confirm_phone_number_auth_model.dart';
-import '../models/update_phone_number_auth_model.dart';
-import '../models/auth_confirm_phone_number_model.dart';
-import '../models/request_confirm_email_auth_model.dart';
-import '../models/confirm_email_auth_model.dart';
-import '../models/setup_google_authenticator_model.dart';
-import '../models/resend_email_token_auth_model.dart';
-import '../models/resend_phone_number_code_auth_model.dart';
-import '../models/logout_auth_model.dart';
-import '../models/refresh_token_auth_model.dart';
-import '../../domain/entities/login_auth_param.dart';
-import '../../domain/entities/sign_up_auth_param.dart';
-import '../../domain/entities/change_password_auth_param.dart';
-import '../../domain/entities/forgot_password_auth_param.dart';
-import '../../domain/entities/verify_forgot_password_code_auth_param.dart';
-import '../../domain/entities/set_new_password_auth_param.dart';
-import '../../domain/entities/request_confirm_phone_number_auth_param.dart';
-import '../../domain/entities/confirm_phone_number_auth_param.dart';
-import '../../domain/entities/update_phone_number_auth_param.dart';
+import '../../../../common/network/exception/failure.dart';
 import '../../domain/entities/auth_confirm_phone_number_param.dart';
-import '../../domain/entities/request_confirm_email_auth_param.dart';
+import '../../domain/entities/change_password_auth_param.dart';
 import '../../domain/entities/confirm_email_auth_param.dart';
-import '../../domain/entities/setup_google_authenticator_param.dart';
-import '../../domain/entities/resend_email_token_auth_param.dart';
-import '../../domain/entities/resend_phone_number_code_auth_param.dart';
+import '../../domain/entities/confirm_phone_number_auth_param.dart';
+import '../../domain/entities/forgot_password_auth_param.dart';
+import '../../domain/entities/login_auth_param.dart';
 import '../../domain/entities/logout_auth_param.dart';
 import '../../domain/entities/refresh_token_auth_param.dart';
+import '../../domain/entities/request_confirm_email_auth_param.dart';
+import '../../domain/entities/request_confirm_phone_number_auth_param.dart';
+import '../../domain/entities/resend_email_token_auth_param.dart';
+import '../../domain/entities/resend_phone_number_code_auth_param.dart';
+import '../../domain/entities/set_new_password_auth_param.dart';
+import '../../domain/entities/setup_google_authenticator_param.dart';
+import '../../domain/entities/sign_up_auth_param.dart';
+import '../../domain/entities/update_phone_number_auth_param.dart';
+import '../../domain/entities/verify_forgot_password_code_auth_param.dart';
+import '../../domain/repository/auth_repository.dart';
+import '../datasource/auth_remote.dart';
+import '../models/auth_confirm_phone_number_model.dart';
+import '../models/change_password_auth_model.dart';
+import '../models/confirm_email_auth_model.dart';
+import '../models/confirm_phone_number_auth_model.dart';
+import '../models/forgot_password_auth_model.dart';
+import '../models/login_auth_model.dart';
+import '../models/logout_auth_model.dart';
+import '../models/refresh_token_auth_model.dart';
+import '../models/request_confirm_email_auth_model.dart';
+import '../models/request_confirm_phone_number_auth_model.dart';
+import '../models/resend_email_token_auth_model.dart';
+import '../models/resend_phone_number_code_auth_model.dart';
+import '../models/set_new_password_auth_model.dart';
+import '../models/setup_google_authenticator_model.dart';
+import '../models/sign_up_auth_model.dart';
+import '../models/update_phone_number_auth_model.dart';
+import '../models/verify_forgot_password_code_auth_model.dart';
 
 class AuthRepoImp implements AuthRepository {
   final AuthRemote _remote;
@@ -58,7 +58,7 @@ class AuthRepoImp implements AuthRepository {
   }) {
     return throwAppException(() async {
       if (!(await internetConnectionChecker.hasConnection)) {
-        return Left(Failure(message: "No Internet Connection", statusCode: ""));
+        throw AppException.known(AppString.noInternetConnection, "");
       }
       final response = await _remote.loginAuth(
         loginAuthParam: loginAuthParam,
@@ -270,20 +270,17 @@ class AuthRepoImp implements AuthRepository {
   Stream<AuthStatus> get authStatusStream =>
       reactiveTokenStorage.authenticationStatus;
 
- @override
+  @override
   void logout() async {
     final String? language =
         await getIt<SharedPreferences>().getString(KUserLanguage);
-    final user = await getIt<StorageService<SecureStorage>>().getUser();
-    final userId = user?.userId;
-    await getIt<NotificationService>().logout(userId: userId);
-    await getIt<StorageService<SecureStorage>>().removeUser();
+    await getIt<NotificationService>().logout();
+    await getIt<SecureStorage>().removeUser();
     await getIt<ReactiveTokenStorage>().delete();
     await getIt<FlutterSecureStorage>().deleteAll();
     await getIt<ReactiveTokenStorage>().loadToken();
-    await getIt<StorageService<SharedPreferences>>().clear();
-    await getIt<StorageService<SharedPreferences>>()
-        .setString(KUserLanguage, language ?? "ar");
+    await getIt<SharedPreferences>().clear();
+    await getIt<SharedPreferences>().setString(KUserLanguage, language ?? "ar");
     await getIt<SharedPreferences>().setBool(KOnboardingCompleted, false);
   }
 }

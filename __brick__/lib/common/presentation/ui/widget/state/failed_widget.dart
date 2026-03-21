@@ -47,6 +47,7 @@ class FailureWidget extends StatelessWidget {
             24.verticalSpace,
 
             CustomButton.primary(
+              isLoading: false,
               onPressed: onRetry,
               text: AppString.tryAgain,
             ),

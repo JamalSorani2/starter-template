@@ -9,7 +9,7 @@ import 'auth_token_dio.dart';
 
 class ReactiveTokenStorage extends BotMemoryTokenStorage<AuthTokenModel>
     with RefreshBotMixin<AuthTokenModel> {
-  final StorageService<SecureStorage> storageService;
+  final SecureStorage storageService;
 
   ReactiveTokenStorage(this.storageService) : super();
 

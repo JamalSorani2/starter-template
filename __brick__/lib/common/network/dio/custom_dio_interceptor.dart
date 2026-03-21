@@ -15,11 +15,75 @@ class CustomDioInterceptor extends Interceptor {
     this.showError = true,
   });
 
-  final String _cyan = '\x1B[36m';
-  final String _green = '\x1B[32m';
-  final String _yellow = '\x1B[33m';
-  final String _red = '\x1B[31m';
-  final String _magenta = '\x1B[35m';
+  /// HTTP method → outbound request color (read / write / destructive).
+  static String _colorForMethod(String method) {
+    switch (method.toUpperCase()) {
+      case 'GET':
+      case 'HEAD':
+        return LogColors.cyan;
+      case 'POST':
+        return LogColors.green;
+      case 'PUT':
+        return LogColors.yellow;
+      case 'PATCH':
+        return LogColors.orange;
+      case 'DELETE':
+        return LogColors.red;
+      case 'OPTIONS':
+        return LogColors.blue;
+      default:
+        return LogColors.gray;
+    }
+  }
+
+  /// Status code → response outcome (success / redirect / client / server).
+  static String _colorForStatusCode(int? statusCode) {
+    if (statusCode == null) {
+      return LogColors.gray;
+    }
+    if (statusCode >= 100 && statusCode < 200) {
+      return LogColors.blue;
+    }
+    if (statusCode >= 200 && statusCode < 300) {
+      return LogColors.brightGreen;
+    }
+    if (statusCode >= 300 && statusCode < 400) {
+      return LogColors.cyan;
+    }
+    if (statusCode >= 400 && statusCode < 500) {
+      return LogColors.orange;
+    }
+    if (statusCode >= 500) {
+      return LogColors.red;
+    }
+    return LogColors.magenta;
+  }
+
+  /// Error path: network/timeout vs client (4xx) vs server (5xx).
+  static String _colorForError(DioException err) {
+    final code = err.response?.statusCode;
+    if (code != null) {
+      if (code >= 400 && code < 500) {
+        return LogColors.orange;
+      }
+      if (code >= 500) {
+        return LogColors.red;
+      }
+    }
+    switch (err.type) {
+      case DioExceptionType.cancel:
+        return LogColors.yellow;
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+        return LogColors.brightRed;
+      case DioExceptionType.badCertificate:
+      case DioExceptionType.connectionError:
+        return LogColors.red;
+      default:
+        return LogColors.red;
+    }
+  }
 
   void _printBox(String title, String message, String color) {
     debugPrint(
@@ -40,19 +104,7 @@ class CustomDioInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final method = options.method;
-    String methodColor;
-
-    if (method == 'GET') {
-      methodColor = _cyan;
-    } else if (method == 'POST') {
-      methodColor = _green;
-    } else if (method == 'PUT') {
-      methodColor = _yellow;
-    } else if (method == 'DELETE') {
-      methodColor = _red;
-    } else {
-      methodColor = '\x1B[37m';
-    }
+    final methodColor = _colorForMethod(method);
     String message = '📤 [REQUEST] $method => ${options.uri}\n';
 
     if (requestHeader) {
@@ -106,7 +158,11 @@ class CustomDioInterceptor extends Interceptor {
       message += 'Response Data: ${response.data}\n';
     }
 
-    _printBox('📥 RESPONSE [${response.statusCode}]', message, _magenta);
+    _printBox(
+      '📥 RESPONSE [${response.statusCode}]',
+      message,
+      _colorForStatusCode(response.statusCode),
+    );
     handler.next(response);
   }
 
@@ -130,7 +186,7 @@ class CustomDioInterceptor extends Interceptor {
       message += 'Message: ${err.message}\n';
     }
 
-    _printBox('❌ ERROR', message, _red);
+    _printBox('❌ ERROR', message, _colorForError(err));
     handler.next(err);
   }
 }

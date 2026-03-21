@@ -8,4 +8,26 @@ class InputKeys {
   static const String birthdate = 'birthdate';
   static const String image = 'image';
   static const String phoneNumber = 'phoneNumber';
+  static const String oldPassword = 'oldPassword';
+  static const String newPassword = 'newPassword';
+  static const String search = 'search';
+  static const String city = 'city';
+  static const String region = 'region';
+  static const String jobTitle = 'jobTitle';
+  static const String area = 'area';
+  static const String status = 'status';
+  static const String firstName = 'firstName';
+  static const String country = 'country';
+  static const String nationality = 'nationality';
+  static const String dateAdded = 'dateAdded';
+  static const String parent = 'parent';
+  static const String employee = 'employee';
+  static const String chat = 'chat';
+  static const String notes = 'notes';
+  static const String points = 'points';
+  static const String date = 'date';
+  static const String discounts = 'discounts';
+  static const String rewards = 'rewards';
+  static const String startDate = 'startDate';
+  static const String endDate = 'endDate';
 }

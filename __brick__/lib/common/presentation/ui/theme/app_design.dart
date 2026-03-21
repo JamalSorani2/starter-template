@@ -10,7 +10,7 @@ abstract final class AppDesign {
       REdgeInsets.symmetric(vertical: 8, horizontal: 20);
   static BorderRadius radius = BorderRadius.all(Radius.circular(12.r));
   static BorderRadius radiusLarge = BorderRadius.all(Radius.circular(20.r));
-    static EdgeInsets horizentalEdgeInsets =
+  static EdgeInsets horizentalEdgeInsets =
       REdgeInsets.symmetric(horizontal: horizontalPadding);
   static EdgeInsets verticalEdgeInsets =
       REdgeInsets.symmetric(vertical: verticalPadding);
@@ -19,12 +19,11 @@ abstract final class AppDesign {
     vertical: verticalPadding,
   );
 
-
   static double inputHeight = 48.h;
-  static double appBarHeight = 56.h;
   static double buttonHeight = 48.h;
   static double avatar = 40.r;
-  static double bottomNavHeight = 64.h;
+  static double bottomNavHeight = 60.h;
 
   static double icon = 24.sp;
+  static double appBarHeight = 44;
 }

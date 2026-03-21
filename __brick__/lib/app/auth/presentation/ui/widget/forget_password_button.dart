@@ -1,5 +1,4 @@
-// 🌎 Project imports:
-import '../../../../../common/imports/imports.dart';
+import '../../../../../../common/imports/imports.dart';
 
 class ForgetPasswordButton extends StatelessWidget {
   const ForgetPasswordButton({super.key, required this.onTap});
@@ -15,7 +14,7 @@ class ForgetPasswordButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
-                FontAwesomeIcons.info,
+                TablerIcons.info_circle,
                 size: 16.sp,
               ),
               8.horizontalSpace,

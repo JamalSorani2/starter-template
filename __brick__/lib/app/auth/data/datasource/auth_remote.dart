@@ -1,40 +1,41 @@
 import 'package:dio/dio.dart';
-import '../../../url.dart';
+
 import '../../../../common/network/exception/error_handler.dart';
-import '../models/login_auth_model.dart';
-import '../models/sign_up_auth_model.dart';
-import '../models/change_password_auth_model.dart';
-import '../models/forgot_password_auth_model.dart';
-import '../models/verify_forgot_password_code_auth_model.dart';
-import '../models/set_new_password_auth_model.dart';
-import '../models/request_confirm_phone_number_auth_model.dart';
-import '../models/confirm_phone_number_auth_model.dart';
-import '../models/update_phone_number_auth_model.dart';
-import '../models/auth_confirm_phone_number_model.dart';
-import '../models/request_confirm_email_auth_model.dart';
-import '../models/confirm_email_auth_model.dart';
-import '../models/setup_google_authenticator_model.dart';
-import '../models/resend_email_token_auth_model.dart';
-import '../models/resend_phone_number_code_auth_model.dart';
-import '../models/logout_auth_model.dart';
-import '../models/refresh_token_auth_model.dart';
-import '../../domain/entities/login_auth_param.dart';
-import '../../domain/entities/sign_up_auth_param.dart';
-import '../../domain/entities/change_password_auth_param.dart';
-import '../../domain/entities/forgot_password_auth_param.dart';
-import '../../domain/entities/verify_forgot_password_code_auth_param.dart';
-import '../../domain/entities/set_new_password_auth_param.dart';
-import '../../domain/entities/request_confirm_phone_number_auth_param.dart';
-import '../../domain/entities/confirm_phone_number_auth_param.dart';
-import '../../domain/entities/update_phone_number_auth_param.dart';
+import '../../../url.dart';
 import '../../domain/entities/auth_confirm_phone_number_param.dart';
-import '../../domain/entities/request_confirm_email_auth_param.dart';
+import '../../domain/entities/change_password_auth_param.dart';
 import '../../domain/entities/confirm_email_auth_param.dart';
-import '../../domain/entities/setup_google_authenticator_param.dart';
-import '../../domain/entities/resend_email_token_auth_param.dart';
-import '../../domain/entities/resend_phone_number_code_auth_param.dart';
+import '../../domain/entities/confirm_phone_number_auth_param.dart';
+import '../../domain/entities/forgot_password_auth_param.dart';
+import '../../domain/entities/login_auth_param.dart';
 import '../../domain/entities/logout_auth_param.dart';
 import '../../domain/entities/refresh_token_auth_param.dart';
+import '../../domain/entities/request_confirm_email_auth_param.dart';
+import '../../domain/entities/request_confirm_phone_number_auth_param.dart';
+import '../../domain/entities/resend_email_token_auth_param.dart';
+import '../../domain/entities/resend_phone_number_code_auth_param.dart';
+import '../../domain/entities/set_new_password_auth_param.dart';
+import '../../domain/entities/setup_google_authenticator_param.dart';
+import '../../domain/entities/sign_up_auth_param.dart';
+import '../../domain/entities/update_phone_number_auth_param.dart';
+import '../../domain/entities/verify_forgot_password_code_auth_param.dart';
+import '../models/auth_confirm_phone_number_model.dart';
+import '../models/change_password_auth_model.dart';
+import '../models/confirm_email_auth_model.dart';
+import '../models/confirm_phone_number_auth_model.dart';
+import '../models/forgot_password_auth_model.dart';
+import '../models/login_auth_model.dart';
+import '../models/logout_auth_model.dart';
+import '../models/refresh_token_auth_model.dart';
+import '../models/request_confirm_email_auth_model.dart';
+import '../models/request_confirm_phone_number_auth_model.dart';
+import '../models/resend_email_token_auth_model.dart';
+import '../models/resend_phone_number_code_auth_model.dart';
+import '../models/set_new_password_auth_model.dart';
+import '../models/setup_google_authenticator_model.dart';
+import '../models/sign_up_auth_model.dart';
+import '../models/update_phone_number_auth_model.dart';
+import '../models/verify_forgot_password_code_auth_model.dart';
 
 class AuthRemote {
   final Dio _dio;
@@ -238,7 +239,7 @@ class AuthRemote {
   }) {
     return throwDioException(() async {
       final response = await _dio.post(
-        AppUrl.refreshTokenAuth,
+        AppUrl.refreshToken,
         data: refreshTokenAuthParam.toJson(),
       );
       return RefreshTokenAuthModel.fromJson(response.data);

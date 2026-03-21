@@ -14,7 +14,7 @@ class CopyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       tooltip: 'Copy',
-      icon: const Icon(FontAwesomeIcons.copy),
+      icon: const Icon(TablerIcons.copy),
       onPressed: () async {
         await Clipboard.setData(ClipboardData(text: text));
 

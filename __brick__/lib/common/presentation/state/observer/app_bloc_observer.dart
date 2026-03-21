@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+
 import '../../../helper/colored_print.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -18,7 +19,7 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    printY('➡️ [TRANSITION] ${bloc.runtimeType}: $transition');
+    printO('➡️ [TRANSITION] ${bloc.runtimeType}: $transition');
   }
 
   @override

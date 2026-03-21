@@ -7,6 +7,7 @@ import 'package:device_preview_plus/device_preview_plus.dart';
 import '../common/imports/imports.dart';
 import '../common/presentation/state/bloc/app_manager_bloc.dart';
 import '../common/router/router_config.dart';
+import '../common/services/notification_service.dart';
 import '../common/services/system_ui_service.dart';
 import 'auth/domain/repository/auth_repository.dart';
 import 'auth/presentation/state/provider/counter_provider.dart';
@@ -40,11 +41,12 @@ class _MyAppState extends State<MyApp> {
       authRepository: getIt<AuthRepository>(),
     )..add(AppManagerStarted());
 
-    if (!getIt.isRegistered<AppManagerBloc>()) {
-      getIt.registerSingleton<AppManagerBloc>(_bloc);
-    }
     router = BRouterConfig(appManagerBloc: _bloc);
     navigatorKey = router.router.routerDelegate.navigatorKey;
+    getIt.registerSingleton<NotificationService>(NotificationService());
+    Future.delayed(Duration.zero).then((_) async {
+      await getIt<NotificationService>().initialize();
+    });
     WidgetsFlutterBinding.ensureInitialized();
     InternetStatusService.initialize();
   }
@@ -91,8 +93,8 @@ class _MyAppState extends State<MyApp> {
                   darkTheme: AppTheme.theme(context.isEnglish, false),
                   themeMode: themeProvider.themeMode,
                   locale: context.locale,
-                  supportedLocales: context.supportedLocales,
                   localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
                   builder: (context, child) {
                     SystemUiService.setForTheme(Theme.of(context));
                     child = BotToastInit()(context, child);
@@ -104,7 +106,8 @@ class _MyAppState extends State<MyApp> {
                     if (kDebugMode) {
                       child = DevicePreview.appBuilder(context, child);
                     }
-                    return InternetBanner(child: child);
+                    return child;
+                    // return InternetBanner(child: child);
                   },
                 );
               },

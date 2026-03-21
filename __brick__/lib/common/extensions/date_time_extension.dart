@@ -49,12 +49,45 @@ extension DateTimeX on DateTime {
         day == tomorrow.day;
   }
 
+  String toGroupedLabel() {
+    if (isToday) {
+      return AppString.today;
+    }
+    if (isYesterday) {
+      return AppString.yesterday;
+    }
+    return kDateFormat.format(this);
+  }
 
   /// Returns format: 25 Dec 2025
   String get dMMMyY => DateFormat('dd MMM yyyy').format(this);
 
   /// Returns ISO 8601 string: 2025-12-25T14:30:00
   String get iso8601 => toIso8601String();
+
+  bool isSameDay(DateTime? dateTime) {
+    return year == dateTime?.year &&
+        month == dateTime?.month &&
+        day == dateTime?.day;
+  }
+
+  bool isSameMonth(DateTime? dateTime) {
+    return year == dateTime?.year && month == dateTime?.month;
+  }
+
+  bool isBeforeToday() {
+    final today = DateTime.now();
+    return year < today.year ||
+        (year == today.year && month < today.month) ||
+        (year == today.year && month == today.month && day < today.day);
+  }
+
+  DateTime nextTwoMonths() {
+    final next = DateTime(year, month + 2, 31);
+    return next;
+  }
+
+  DateTime normalizeDate() => DateTime(year, month, day);
 }
 
 extension DateTimeRangeFormatter on DateTimeRange {

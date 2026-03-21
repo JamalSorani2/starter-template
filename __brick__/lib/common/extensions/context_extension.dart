@@ -20,8 +20,6 @@ extension Context on BuildContext {
     return screenHeight >= 1250;
   }
 
-  void pop() => Navigator.pop(this);
-
   void unFocus() {
     if (FocusScope.of(this).hasFocus) {
       FocusScope.of(this).unfocus();
@@ -31,4 +29,6 @@ extension Context on BuildContext {
   double get paddingTop => MediaQuery.of(this).padding.top;
 
   double get paddingBottom => MediaQuery.of(this).padding.bottom;
+
+  bool get isLight => Theme.of(this).brightness == Brightness.light;
 }

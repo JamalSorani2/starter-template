@@ -1,215 +1,220 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:easy_localization/src/easy_localization_controller.dart';
-import 'package:easy_localization/src/localization.dart';
-import '../imports/imports.dart';
-import 'app_local.dart';
 
-// dart run generate_localization_keys.dart
 class AppString {
-  static final Localization _localization = Localization.instance;
-  Future<void> loadTranslations() async {
-    await EasyLocalizationController.initEasyLocation();
-    final controller = EasyLocalizationController(
-      saveLocale: true,
-      fallbackLocale: AppLocale.fallbackLocale,
-      supportedLocales: AppLocale.supportedLocales,
-      assetLoader: const RootBundleAssetLoader(),
-      useOnlyLangCode: false,
-      useFallbackTranslations: true,
-      path: AppLocale.path,
-      onLoadError: (FlutterError e) {},
-    );
-    await controller.loadTranslations();
-    Localization.load(
-      controller.locale,
-      translations: controller.translations,
-      fallbackTranslations: controller.fallbackTranslations,
-    );
-  }
 
-  /// Add to Cart
-  static String get addToCart => _localization.tr('addToCart');
+  /// أضف إلى السلة
+  static String get addToCart => 'addToCart'.tr();
 
-  /// Email
-  static String get email => _localization.tr('email');
+  /// البريد الإلكتروني
+  static String get email => 'email'.tr();
 
-  /// Incorrect PIN
-  static String get incorrectPin => _localization.tr('incorrectPin');
+  /// رمز PIN غير صحيح
+  static String get incorrectPin => 'incorrectPin'.tr();
 
-  /// Verification code not sent
-  static String get codeNotSent => _localization.tr('codeNotSent');
+  /// لم يُرسل رمز التحقق
+  static String get codeNotSent => 'codeNotSent'.tr();
 
-  /// Resend Code
-  static String get resendCode => _localization.tr('resendCode');
+  /// إعادة إرسال الرمز
+  static String get resendCode => 'resendCode'.tr();
 
-  /// Try Again
-  static String get tryAgain => _localization.tr('tryAgain');
+  /// حاول مرة أخرى
+  static String get tryAgain => 'tryAgain'.tr();
 
-  /// Internal Server Error
-  static String get internalServerError => _localization.tr('internalServerError');
+  /// خطأ داخلي في الخادم
+  static String get internalServerError => 'internalServerError'.tr();
 
-  /// Server Error
-  static String get serverError => _localization.tr('serverError');
+  /// خطأ في الخادم
+  static String get serverError => 'serverError'.tr();
 
-  /// Something went wrong
-  static String get somethingWentWrong => _localization.tr('somethingWentWrong');
+  /// حدث خطأ ما
+  static String get somethingWentWrong => 'somethingWentWrong'.tr();
 
-  /// No internet connection
-  static String get noInternetConnection => _localization.tr('noInternetConnection');
+  /// لا يوجد اتصال بالإنترنت
+  static String get noInternetConnection => 'noInternetConnection'.tr();
 
-  /// Please try again later
-  static String get tryAgainLater => _localization.tr('tryAgainLater');
+  /// يرجى المحاولة لاحقاً
+  static String get tryAgainLater => 'tryAgainLater'.tr();
 
-  /// This field is required
-  static String get thisFieldRequired => _localization.tr('thisFieldRequired');
+  /// هذا الحقل مطلوب
+  static String get thisFieldRequired => 'thisFieldRequired'.tr();
 
-  /// Please enter a valid email
-  static String get validEmail => _localization.tr('validEmail');
+  /// يرجى إدخال بريد إلكتروني صالح
+  static String get validEmail => 'validEmail'.tr();
 
-  /// Password must be at least {min} characters
-  static String get passwordMinLength => _localization.tr('passwordMinLength');
+  /// يجب أن تتكون كلمة المرور من {min} أحرف على الأقل
+  static String get passwordMinLength => 'passwordMinLength'.tr();
 
-  /// Fields do not match
-  static String get mustMatch => _localization.tr('mustMatch');
+  /// الحقول غير متطابقة
+  static String get mustMatch => 'mustMatch'.tr();
 
-  /// Please enter a valid phone number
-  static String get enterValidPhone => _localization.tr('enterValidPhone');
+  /// يرجى إدخال رقم هاتف صالح
+  static String get enterValidPhone => 'enterValidPhone'.tr();
 
-  /// Close
-  static String get close => _localization.tr('close');
+  /// إغلاق
+  static String get close => 'close'.tr();
 
-  /// Save
-  static String get save => _localization.tr('save');
+  /// حفظ
+  static String get save => 'save'.tr();
 
-  /// Search
-  static String get search => _localization.tr('search');
+  /// بحث
+  static String get search => 'search'.tr();
 
-  /// No Image
-  static String get noImage => _localization.tr('noImage');
+  /// لا توجد صورة
+  static String get noImage => 'noImage'.tr();
 
-  /// Upload Image Here
-  static String get uploadImageHere => _localization.tr('uploadImageHere');
+  /// ارفع الصورة هنا
+  static String get uploadImageHere => 'uploadImageHere'.tr();
 
-  /// Select Image Source
-  static String get selectSource => _localization.tr('selectSource');
+  /// اختر مصدر الصورة
+  static String get selectSource => 'selectSource'.tr();
 
-  /// Camera
-  static String get camera => _localization.tr('camera');
+  /// الكاميرا
+  static String get camera => 'camera'.tr();
 
-  /// Gallery
-  static String get gallery => _localization.tr('gallery');
+  /// المعرض
+  static String get gallery => 'gallery'.tr();
 
-  /// Files
-  static String get files => _localization.tr('files');
+  /// الملفات
+  static String get files => 'files'.tr();
 
-  /// File Size Is Too Large
-  static String get fileTooLarge => _localization.tr('fileTooLarge');
+  /// حجم الملف كبير جداً
+  static String get fileTooLarge => 'fileTooLarge'.tr();
 
-  /// Invalid File Type
-  static String get invalidFileType => _localization.tr('invalidFileType');
+  /// نوع الملف غير صالح
+  static String get invalidFileType => 'invalidFileType'.tr();
 
-  /// Confirm Upload
-  static String get confirmUpload => _localization.tr('confirmUpload');
+  /// تأكيد الرفع
+  static String get confirmUpload => 'confirmUpload'.tr();
 
-  /// Are You Sure You Want To Upload This File
-  static String get areYouSureYouWantToUploadThisFile => _localization.tr('areYouSureYouWantToUploadThisFile');
+  /// هل أنت متأكد أنك تريد رفع هذا الملف؟
+  static String get areYouSureYouWantToUploadThisFile => 'areYouSureYouWantToUploadThisFile'.tr();
 
-  /// Cancel
-  static String get cancel => _localization.tr('cancel');
+  /// إلغاء
+  static String get cancel => 'cancel'.tr();
 
-  /// Confirm
-  static String get confirm => _localization.tr('confirm');
+  /// تأكيد
+  static String get confirm => 'confirm'.tr();
 
-  /// No Data Found
-  static String get noDataFound => _localization.tr('noDataFound');
+  /// لا توجد بيانات
+  static String get noDataFound => 'noDataFound'.tr();
 
-  /// No Results Found
-  static String get noResultsFound => _localization.tr('noResultsFound');
+  /// لا توجد نتائج
+  static String get noResultsFound => 'noResultsFound'.tr();
 
-  /// Phone Number Is Invalid
-  static String get phoneNumberIsInvalid => _localization.tr('phoneNumberIsInvalid');
+  /// رقم الهاتف غير صالح
+  static String get phoneNumberIsInvalid => 'phoneNumberIsInvalid'.tr();
 
-  /// Phone Number Is Required
-  static String get phoneNumberIsRequired => _localization.tr('phoneNumberIsRequired');
+  /// رقم الهاتف مطلوب
+  static String get phoneNumberIsRequired => 'phoneNumberIsRequired'.tr();
 
-  /// Phone Number
-  static String get phoneNumber => _localization.tr('phoneNumber');
+  /// رقم الهاتف
+  static String get phoneNumber => 'phoneNumber'.tr();
 
-  /// Skip
-  static String get skip => _localization.tr('skip');
+  /// تخطي
+  static String get skip => 'skip'.tr();
 
-  /// Copied to clipboard
-  static String get copiedToClipboard => _localization.tr('copiedToClipboard');
+  /// تم النسخ إلى الحافظة
+  static String get copiedToClipboard => 'copiedToClipboard'.tr();
 
-  /// Leave Page?
-  static String get leavePage => _localization.tr('leavePage');
+  /// مغادرة الصفحة؟
+  static String get leavePage => 'leavePage'.tr();
 
-  /// Are you sure you want to leave this page? Any unsaved changes will be lost.
-  static String get areYouSureYouWantToLeave => _localization.tr('areYouSureYouWantToLeave');
+  /// هل أنت متأكد أنك تريد مغادرة هذه الصفحة؟ أي تغييرات غير محفوظة ستضيع.
+  static String get areYouSureYouWantToLeave => 'areYouSureYouWantToLeave'.tr();
 
-  /// Yes, Leave
-  static String get yesLeave => _localization.tr('yesLeave');
+  /// نعم، مغادرة
+  static String get yesLeave => 'yesLeave'.tr();
 
-  /// Back to Login
-  static String get backToLoginButton => _localization.tr('backToLoginButton');
+  /// العودة لتسجيل الدخول
+  static String get backToLoginButton => 'backToLoginButton'.tr();
 
-  /// Forgot Password?
-  static String get forgotPasswordTitle => _localization.tr('forgotPasswordTitle');
+  /// نسيت كلمة المرور؟
+  static String get forgotPasswordTitle => 'forgotPasswordTitle'.tr();
 
-  /// User Name
-  static String get userName => _localization.tr('userName');
+  /// اسم المستخدم
+  static String get userName => 'userName'.tr();
 
-  /// User Name must be at least 3 characters
-  static String get userNameMinLength => _localization.tr('userNameMinLength');
+  /// يجب أن يكون اسم المستخدم 3 أحرف على الأقل
+  static String get userNameMinLength => 'userNameMinLength'.tr();
 
-  /// Open
-  static String get open => _localization.tr('open');
+  /// فتح
+  static String get open => 'open'.tr();
 
-  /// Dismiss
-  static String get dismiss => _localization.tr('dismiss');
+  /// تجاهل
+  static String get dismiss => 'dismiss'.tr();
 
-  /// Update Available
-  static String get updateAvailable => _localization.tr('updateAvailable');
+  /// يتوفر تحديث
+  static String get updateAvailable => 'updateAvailable'.tr();
 
-  /// What Is New:
-  static String get whatIsNew => _localization.tr('whatIsNew');
+  /// ما الجديد:
+  static String get whatIsNew => 'whatIsNew'.tr();
 
-  /// A new version of the app is available.
-  static String get aNewVersionOfTheAppIsAvailable => _localization.tr('aNewVersionOfTheAppIsAvailable');
+  /// يتوفر إصدار جديد من التطبيق.
+  static String get aNewVersionOfTheAppIsAvailable => 'aNewVersionOfTheAppIsAvailable'.tr();
 
-  /// You can update now to enjoy the latest features and improvements.
-  static String get youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements => _localization.tr('youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements');
+  /// يمكنك التحديث الآن للاستمتاع بأحدث الميزات والتحسينات.
+  static String get youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements => 'youCanUpdateNowToEnjoyTheLatestFeaturesAndImprovements'.tr();
 
-  /// Update App Required!
-  static String get updateAppRequired => _localization.tr('updateAppRequired');
+  /// التحديث مطلوب!
+  static String get updateAppRequired => 'updateAppRequired'.tr();
 
-  /// Later
-  static String get later => _localization.tr('later');
+  /// لاحقاً
+  static String get later => 'later'.tr();
 
-  /// Update
-  static String get update => _localization.tr('update');
+  /// تحديث
+  static String get update => 'update'.tr();
 
-  /// Add to Favorites
-  static String get addToFavorites => _localization.tr('addToFavorites');
+  /// إضافة إلى المفضلة
+  static String get addToFavorites => 'addToFavorites'.tr();
 
-  /// Remove from Favorites
-  static String get removeFromFavorites => _localization.tr('removeFromFavorites');
+  /// إزالة من المفضلة
+  static String get removeFromFavorites => 'removeFromFavorites'.tr();
 
-  /// Password
-  static String get password => _localization.tr('password');
+  /// كلمة المرور
+  static String get password => 'password'.tr();
 
-  /// Dark Mode
-  static String get darkMode => _localization.tr('darkMode');
+  /// الوضع الداكن
+  static String get darkMode => 'darkMode'.tr();
 
-  /// See All
-  static String get seeAll => _localization.tr('seeAll');
+  /// عرض الكل
+  static String get seeAll => 'seeAll'.tr();
 
-  /// Read More
-  static String get readMore => _localization.tr('readMore');
+  /// اقرأ المزيد
+  static String get readMore => 'readMore'.tr();
 
-  /// Read Less
-  static String get readLess => _localization.tr('readLess');
+  /// اقرأ أقل
+  static String get readLess => 'readLess'.tr();
 
-  /// Edit Image
-  static String get editImage => _localization.tr('editImage');
+  /// تعديل الصورة
+  static String get editImage => 'editImage'.tr();
+
+  /// اليوم
+  static String get today => 'today'.tr();
+
+  /// أمس
+  static String get yesterday => 'yesterday'.tr();
+
+  /// يجب أن يكون القيمة أصغر من
+  static String get valueMustBeSmallerThan => 'valueMustBeSmallerThan'.tr();
+
+  /// يجب أن يكون القيمة أكبر من
+  static String get valueMustBeLargerThan => 'valueMustBeLargerThan'.tr();
+
+  /// ليس لديك صلاحية للقيام بهذا الإجراء
+  static String get noPermission => 'noPermission'.tr();
+
+  /// يتم تحديث الخادم الآن
+  static String get serverUpdates => 'serverUpdates'.tr();
+
+  /// عرض الصورة
+  static String get showImage => 'showImage'.tr();
+
+  /// اختر المزيد من الصور
+  static String get chooseMorePictures => 'chooseMorePictures'.tr();
+
+  /// لا توجد ملفات محددة
+  static String get thereAreNoFilesSelected => 'thereAreNoFilesSelected'.tr();
+
+  /// اختر ملف
+  static String get chooseFile => 'chooseFile'.tr();
 }

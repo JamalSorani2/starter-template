@@ -56,6 +56,7 @@ class _FormsShowcaseState extends State<FormsShowcase> {
               12.verticalSpace,
               const PasswordField(
                 hintText: 'Your secure password',
+                isConfirmPassword: false,
               ),
               12.verticalSpace,
               PhoneNumberField(
@@ -110,22 +111,18 @@ class _FormsShowcaseState extends State<FormsShowcase> {
               ImagesPickerField(
                 images: _pickedImages,
                 title: "Images Picker",
-                onPickImage: (file) {
-                  setState(() => _pickedImages.add(file));
+                onPickImages: (files) {
+                  setState(() => _pickedImages.addAll(files));
                 },
-                onEditImage: (index, file) {
+                onEditImage: (index, image) {
                   setState(() {
-                    if (file.isNetwork) {
+                    if (image.isNetwork) {
                       return;
-                    } // demo keeps network list intact
-                    if (index >= 0 && index < _pickedImages.length) {
-                      _pickedImages[index] = file;
                     }
+                    _pickedImages[index] = image;
                   });
                 },
-                onDeleteImage: (
-                  index,
-                ) {
+                onDeleteImage: (index) {
                   setState(() {
                     if (index >= 0 && index < _pickedImages.length) {
                       _pickedImages.removeAt(index);
@@ -139,6 +136,7 @@ class _FormsShowcaseState extends State<FormsShowcase> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: CustomButton.primary(
+                  isLoading: false,
                   text: 'Print Form Value',
                   onPressed: () {
                     if (_form.valid) {

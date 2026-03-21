@@ -26,6 +26,7 @@ class ThemeProvider extends ChangeNotifier {
     } else {
       _isLightMode = true;
     }
+    getIt<SharedPreferences>().setBool(KIsLight, _isLightMode!);
     AppColors.init(_isLightMode!);
     notifyListeners();
   }
@@ -42,6 +43,7 @@ class ThemeProvider extends ChangeNotifier {
         _isLightMode = null;
         break;
     }
+    getIt<SharedPreferences>().setBool(KIsLight, _isLightMode!);
     AppColors.init(_isLightMode ?? ThemeMode.system == ThemeMode.light);
     notifyListeners();
   }

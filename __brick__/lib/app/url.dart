@@ -22,5 +22,5 @@ class AppUrl {
   static const String resendEmailTokenAuth = 'Auth/ResendEmailToken';
   static const String resendPhoneNumberCodeAuth = 'Auth/ResendPhoneNumberCode';
   static const String logoutAuth = 'Auth/Logout';
-  static const String refreshTokenAuth = 'Auth/RefreshToken';
+  static const String refreshToken = 'Auth/RefreshToken';
 }
