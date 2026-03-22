@@ -1,5 +1,4 @@
-import 'package:app_name/app/home/presentation/state/home/home_bloc.dart';
-
+import '/app/home/presentation/state/home/home_bloc.dart';
 import '../../../imports/imports.dart';
 
 void showImageDialog(

@@ -1,6 +1,5 @@
-import 'package:app_name/app/auth/presentation/state/bloc/auth_bloc.dart';
-
 import '/app/auth/domain/entities/logout_auth_param.dart';
+import '/app/auth/presentation/state/bloc/auth_bloc.dart';
 import '../../../app/url.dart';
 import '../../imports/imports.dart';
 import '../exception/error_interceptor.dart';

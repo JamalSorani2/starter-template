@@ -1,4 +1,4 @@
-name: app_name 
+name: {{app_name}} 
 description: {{description}}
 version: 0.0.0+1
 publish_to: none
@@ -68,8 +68,10 @@ dependencies:
   #j
   jwt_decoder: ^2.0.1
 
-  #p
+  #o
   open_filex: ^4.7.0
+
+  #p
   package_info_plus: ^9.0.0
   permission_handler: ^12.0.1
   phone_form_field:
@@ -85,9 +87,9 @@ dependencies:
 
   #s
   share_plus: ^10.0.1
+  signalr_netcore: ^1.4.4
 
   #t
-  signalr_netcore: ^1.4.4
   translator: ^1.0.4+1
 
   #u
