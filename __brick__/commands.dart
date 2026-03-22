@@ -349,7 +349,7 @@ Future<void> _generateSigningKeystore() async {
   const alias = 'upload';
   const validity = '10000';
 
-  const dname = 'CN=Upload, OU=Elkood, O=Elkood, L=Aleppo, ST=Al, C=Syria';
+  const dname = 'CN=Upload, OU=JA, O=JA, L=Aleppo, ST=Al, C=Syria';
 
   const command = 'keytool';
   final args = [

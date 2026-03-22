@@ -14,7 +14,7 @@ You have two ways to use this repository.
 2) Initialize Mason (if not already)
 - `mason init`
 3) Option A: Use as a Mason brick from GitHub
-- `mason add starter --git-url https://github.com/JamalSorani2/starter-template.git`
+- `mason add starter-template --git-url https://github.com/JamalSorani2/starter-template.git`
    Option B: Use as a Mason brick 
    - At repo root: `mason add flutter_starter --path .`
 4) Get bricks
