@@ -86,7 +86,17 @@ abstract final class AppStyles {
     );
     return InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.card.withValues(alpha: isLight ? 0.2 : 0.04),
+      fillColor: WidgetStateColor.resolveWith(
+        (states) {
+          if (states.contains(WidgetState.error)) {
+            return AppColors.danger.withValues(alpha: 0.1);
+          }
+          if (states.contains(WidgetState.focused)) {
+            return AppColors.primary.withValues(alpha: 0.1);
+          }
+          return AppColors.surface;
+        },
+      ),
       contentPadding: AppDesign.inputContentPadding,
       border: border,
       enabledBorder: border,
@@ -110,13 +120,7 @@ abstract final class AppStyles {
       errorStyle: textTheme.labelSmall?.copyWith(
         color: AppColors.danger,
       ),
-      hintStyle: textTheme.labelSmall?.copyWith(
-        color:
-            //  isLight
-            // ?
-            AppColors.grey.withValues(alpha: 0.6),
-        // : "#F8F7FA".toColor(),
-      ),
+      hintStyle: textTheme.bodySmall?.copyWith(color: AppColors.textDisabled),
       labelStyle: textTheme.bodySmall,
     );
   }

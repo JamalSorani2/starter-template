@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import '../../imports/imports.dart';
-import 'failure.dart';
+import '../failure.dart';
 
 /// ===============================
 /// THROW APP EXCEPTION

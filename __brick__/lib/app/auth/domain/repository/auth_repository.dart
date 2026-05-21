@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio_refresh_bot/dio_refresh_bot.dart';
-import '../../../../common/network/exception/failure.dart';
+import '../../../../common/network/failure.dart';
 import '../../data/models/login_auth_model.dart';
 import '../../data/models/sign_up_auth_model.dart';
 import '../../data/models/change_password_auth_model.dart';

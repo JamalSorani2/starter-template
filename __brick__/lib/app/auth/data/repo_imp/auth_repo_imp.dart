@@ -4,7 +4,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '/common/services/notification_service.dart';
 import '../../../../common/imports/imports.dart';
 import '../../../../common/network/exception/error_handler.dart';
-import '../../../../common/network/exception/failure.dart';
+import '../../../../common/network/failure.dart';
 import '../../domain/entities/auth_confirm_phone_number_param.dart';
 import '../../domain/entities/change_password_auth_param.dart';
 import '../../domain/entities/confirm_email_auth_param.dart';

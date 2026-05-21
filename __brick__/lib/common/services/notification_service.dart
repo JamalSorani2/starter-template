@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+// import 'package:{{app_name}}/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
@@ -23,10 +24,12 @@ class NotificationService {
   // ─────────────────────────────────────────
 
   Future<void> initialize() async {
-    await _initAwesome();
-    await _initFirebase();
-    await subscribeToTopic("Employee");
-    _initListeners();
+    await _initAwesomeNotifications();
+    await Firebase.initializeApp(
+        // options: DefaultFirebaseOptions.currentPlatform,
+        );
+    await _initFirebaseMessaging();
+    _initAwesomeListeners();
   }
 
   // ─────────────────────────────────────────
@@ -65,24 +68,10 @@ class NotificationService {
   void _initListeners() {
     AwesomeNotifications().setListeners(
       onActionReceivedMethod: onActionReceivedMethod,
-      onNotificationCreatedMethod: _onCreated,
-      onNotificationDisplayedMethod: _onDisplayed,
-      onDismissActionReceivedMethod: _onDismissed,
+      onNotificationCreatedMethod: onNotificationCreatedMethod,
+      onNotificationDisplayedMethod: onNotificationDisplayedMethod,
+      onDismissActionReceivedMethod: onDismissActionReceivedMethod,
     );
-  }
-
-  Future<void> _onCreated(ReceivedNotification notification) async {
-    log('Notification created');
-    log(notification.toString());
-    log(notification.icon ?? "");
-  }
-
-  Future<void> _onDisplayed(ReceivedNotification notification) async {
-    log('Notification displayed');
-  }
-
-  Future<void> _onDismissed(ReceivedAction action) async {
-    log('Notification dismissed');
   }
 
   // ─────────────────────────────────────────
@@ -236,43 +225,29 @@ class NotificationService {
   }
 }
 
-Future<String?> downloadAndCacheImage(String url) async {
-  final dir = await getApplicationDocumentsDirectory();
-  final fileName = getFilename(url);
-  final file = File('${dir.path}/avatar_$fileName.png');
-
-  if (await file.exists()) {
-    return file.path;
-  }
-
-  final response = await http.get(Uri.parse(url));
-  if (response.statusCode == 200) {
-    await file.writeAsBytes(response.bodyBytes);
-    return file.path;
-  } else {
-    printR("Failed to download image");
-    return null;
-  }
+@pragma('vm:entry-point')
+Future<void> onActionReceivedMethod(ReceivedAction action) async {
+  log('🔔 Action received: ${action.buttonKeyPressed}');
+  log('Payload: ${action.payload}');
 }
 
-void _handleDeepLink(Map<String, dynamic>? data) {
-  if (data == null) {
-    return;
-  }
+@pragma('vm:entry-point')
+Future<void> onNotificationCreatedMethod(
+  ReceivedNotification notification,
+) async {
+  log('🔔 Notification created');
+}
 
-  // final chatId = data['chatId'];
+@pragma('vm:entry-point')
+Future<void> onNotificationDisplayedMethod(
+  ReceivedNotification notification,
+) async {
+  log('🔔 Notification displayed');
+}
 
-  // final bool isChat = chatId != null && chatId.isNotEmpty;
-  // if (isChat) {
-  //   navigatorKey.currentContext?.goNamed(
-  //     RoutesNames.messages,
-  //     extra: MessageScreenParam(
-  //       chatId: data['chatId'],
-  //       receiverUserId: data['receiverId'],
-  //       receiverFullName: data['receiverFullName'],
-  //       jobTitle: data['jobTitle'],
-  //       imageUrl: data['imageUrl'],
-  //     ),
-  //   );
-  // }
+@pragma('vm:entry-point')
+Future<void> onDismissActionReceivedMethod(
+  ReceivedAction action,
+) async {
+  log('🔔 Notification dismissed');
 }
