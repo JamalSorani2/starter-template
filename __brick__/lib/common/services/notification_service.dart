@@ -4,7 +4,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 // import 'package:{{app_name}}/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:http/http.dart' as http;
 
 import '../imports/imports.dart';
 
@@ -13,7 +12,6 @@ Future<void> onActionReceivedMethod(ReceivedAction action) async {
   log('🔔 Background action received');
   log('Button: ${action.buttonKeyPressed}');
   log('Payload: ${action.payload}');
-  _handleDeepLink(action.payload ?? {});
 }
 
 class NotificationService {
@@ -24,12 +22,12 @@ class NotificationService {
   // ─────────────────────────────────────────
 
   Future<void> initialize() async {
-    await _initAwesomeNotifications();
+    await _initAwesome();
     await Firebase.initializeApp(
         // options: DefaultFirebaseOptions.currentPlatform,
         );
-    await _initFirebaseMessaging();
-    _initAwesomeListeners();
+    await _initFirebase();
+    _initListeners();
   }
 
   // ─────────────────────────────────────────
@@ -132,22 +130,21 @@ class NotificationService {
   void _handleForeground(RemoteMessage message) async {
     final data = message.data;
     printC(data);
-    String? file;
     final imageUrl = data["imageUrl"];
     if (imageUrl != null) {
-      file = await downloadAndCacheImage(imageUrl);
+      // file = await downloadAndCacheImage(imageUrl);
     }
     showLocal(
       title: message.notification?.title ?? '',
       body: message.notification?.body ?? '',
-      imageUrl: file != null ? "file://$file" : imageUrl,
+      imageUrl: imageUrl,
       payload:
           message.data.map((key, value) => MapEntry(key, value.toString())),
     );
   }
 
   void _handleMessage(RemoteMessage message) {
-    _handleDeepLink(message.data);
+    // _handleDeepLink(message.data);
   }
 
   // ─────────────────────────────────────────
@@ -223,12 +220,6 @@ class NotificationService {
   Future<bool> hasPermission() async {
     return AwesomeNotifications().isNotificationAllowed();
   }
-}
-
-@pragma('vm:entry-point')
-Future<void> onActionReceivedMethod(ReceivedAction action) async {
-  log('🔔 Action received: ${action.buttonKeyPressed}');
-  log('Payload: ${action.payload}');
 }
 
 @pragma('vm:entry-point')

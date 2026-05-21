@@ -45,7 +45,7 @@ class CustomReactiveField<T> extends StatefulWidget {
   });
 
   @override
-  State<CustomReactiveField<T>> createState() => _CustomReactiveFieldState<T>();
+  State<CustomReactiveField> createState() => _CustomReactiveFieldState();
 }
 
 class _CustomReactiveFieldState extends State<CustomReactiveField>
@@ -103,7 +103,7 @@ class _CustomReactiveFieldState extends State<CustomReactiveField>
           TitleWidget(
             title: widget.title!,
           ),
-        ReactiveTextField<T>(
+        ReactiveTextField(
           formControlName: widget.controller,
           readOnly: widget.readOnly,
           focusNode: _focusNode,
