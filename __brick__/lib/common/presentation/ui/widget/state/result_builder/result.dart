@@ -1,4 +1,4 @@
-import '../../../../../network/exception/failure.dart';
+import '../../../../../network/failure.dart';
 
 enum ResultStatus {
   init,

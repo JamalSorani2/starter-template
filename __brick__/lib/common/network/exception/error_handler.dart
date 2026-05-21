@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../imports/imports.dart';
 import 'app_exception.dart';
-import 'failure.dart';
+import '../failure.dart';
 
 Future<Either<Failure, U>> throwAppException<U>(
   FutureOr Function() call,

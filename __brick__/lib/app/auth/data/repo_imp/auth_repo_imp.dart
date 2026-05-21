@@ -4,7 +4,7 @@ import 'package:dio_refresh_bot/dio_refresh_bot.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../../common/imports/imports.dart';
-import '../../../../common/network/exception/failure.dart';
+import '../../../../common/network/failure.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../datasource/auth_remote.dart';
 import '../../../../common/network/exception/error_handler.dart';
